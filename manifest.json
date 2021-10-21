@@ -1,0 +1,9 @@
+{
+	"filename": "CheatsMod.dll",
+	"author": "PacificEngine",
+	"name": "Cheats Mod",
+	"uniqueName": "PacificEngine.CheatsMod",
+	"version": "0.1.0",
+	"owmlVersion": "2.0.0",
+	"enabled": true
+}
