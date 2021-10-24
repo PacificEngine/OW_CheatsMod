@@ -29,13 +29,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyName>CheatsMod</AssemblyName>
+    <AssemblyName>OW_CheatsMod</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <!--<OuterWildsRootDirectory>%OuterWilds%\Outer Wilds</OuterWildsRootDirectory>-->
     <!--<OuterWildsModsDirectory>%AppData%\OuterWildsModManager\OWML\Mods</OuterWildsModsDirectory>-->
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="OWML" Version="2.0.0" />
+    <PackageReference Include="OWML" Version="2.1.0" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp">

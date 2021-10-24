@@ -1,6 +1,7 @@
 ﻿using OWML.Common;
 using OWML.ModHelper;
 using OWML.ModHelper.Events;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,9 +11,9 @@ namespace ClassLibrary2
     enum CheatOptions
     {
         Fill_Fuel_and_Health,
-        Learn_Launch_Codes,
-        Learn_All_Frequencies,
-        Reveal_Rumors,
+        Toggle_Launch_Codes,
+        Toggle_All_Frequencies,
+        Toggle_Rumors,
         Teleport_To_Sun,
         Teleport_To_SunStation,
         Teleport_To_EmberTwin, // CaveTwin
@@ -96,7 +97,7 @@ namespace ClassLibrary2
 
     public class MainClass : ModBehaviour
     {
-        private static string verison = "0.1.0";
+        private const string verison = "0.1.1";
         private static Vector3 zeroVector = new Vector3(0f, 0f, 0f);
         private static Quaternion zeroQuaternion = new Quaternion(0f, 0f, 0f, 0f);
 
@@ -111,6 +112,7 @@ namespace ClassLibrary2
 
         void Start()
         {
+            ModHelper.Events.Player.OnPlayerAwake += (player) => onAwake();
             ModHelper.Console.WriteLine("CheatMods ready!");
         }
 
@@ -121,9 +123,9 @@ namespace ClassLibrary2
             inputs.Clear();
 
             inputs.Add(CheatOptions.Fill_Fuel_and_Health, new InputClass(Key.C, Key.J));
-            inputs.Add(CheatOptions.Learn_Launch_Codes, new InputClass(Key.C, Key.L));
-            inputs.Add(CheatOptions.Learn_All_Frequencies, new InputClass(Key.C, Key.F));
-            inputs.Add(CheatOptions.Reveal_Rumors, new InputClass(Key.C, Key.R));
+            inputs.Add(CheatOptions.Toggle_Launch_Codes, new InputClass(Key.C, Key.L));
+            inputs.Add(CheatOptions.Toggle_All_Frequencies, new InputClass(Key.C, Key.F));
+            inputs.Add(CheatOptions.Toggle_Rumors, new InputClass(Key.C, Key.R));
             inputs.Add(CheatOptions.Toggle_Helmet, new InputClass(Key.C, Key.H));
             inputs.Add(CheatOptions.Toggle_Invinciblity, new InputClass(Key.C, Key.I));
             inputs.Add(CheatOptions.Toggle_Spacesuit, new InputClass(Key.C, Key.G));
@@ -159,12 +161,15 @@ namespace ClassLibrary2
             ModHelper.Console.WriteLine("CheatMods Confgiured!");
         }
 
+        void onAwake()
+        {
+            ModHelper.Console.WriteLine("CheatMods: Player Awakes");
+        }
+
         void OnGUI()
         {
             GUI.Label(new Rect(((float)Screen.width) - 300f, ((float)Screen.height) - 20f, 300f, 20f), "CheatsMod v" + verison + " " + (cheatsEnabled ? "Enabled" : "Disabled"));
         }
-
-        
 
         void Update()
         {
@@ -209,6 +214,7 @@ namespace ClassLibrary2
                 if (Locator.GetPlayerTransform())
                 {
                     Locator.GetPlayerTransform().GetComponent<PlayerResources>().SetValue("_invincible", isInvincible);
+                    Locator.GetShipTransform().GetComponent<ShipDamageController>().SetValue("_invincible", isInvincible);
                 }
 
                 if (inputs[CheatOptions.Fill_Fuel_and_Health].isPressedThisFrame() && Locator.GetPlayerTransform())
@@ -224,63 +230,19 @@ namespace ClassLibrary2
                     }
                 }
 
-                if (inputs[CheatOptions.Learn_Launch_Codes].isPressedThisFrame() && PlayerData.IsLoaded())
+                if (inputs[CheatOptions.Toggle_Launch_Codes].isPressedThisFrame() && PlayerData.IsLoaded())
                 {
-                    PlayerData.LearnLaunchCodes();
+                    toggleLaunchCodes();
                 }
 
-                if (inputs[CheatOptions.Learn_All_Frequencies].isPressedThisFrame() && PlayerData.IsLoaded())
+                if (inputs[CheatOptions.Toggle_All_Frequencies].isPressedThisFrame() && PlayerData.IsLoaded())
                 {
-                    PlayerData.LearnFrequency(SignalFrequency.Default);
-
-                    PlayerData.LearnFrequency(SignalFrequency.Traveler);
-                    PlayerData.LearnSignal(SignalName.Traveler_Esker);
-                    PlayerData.LearnSignal(SignalName.Traveler_Chert);
-                    PlayerData.LearnSignal(SignalName.Traveler_Riebeck);
-                    PlayerData.LearnSignal(SignalName.Traveler_Gabbro);
-                    PlayerData.LearnSignal(SignalName.Traveler_Feldspar);
-                    PlayerData.LearnSignal(SignalName.Traveler_Nomai);
-                    PlayerData.LearnSignal(SignalName.Traveler_Prisoner);
-
-                    PlayerData.LearnFrequency(SignalFrequency.Quantum);
-                    PlayerData.LearnSignal(SignalName.Quantum_CT_Shard);
-                    PlayerData.LearnSignal(SignalName.Quantum_TH_MuseumShard);
-                    PlayerData.LearnSignal(SignalName.Quantum_TH_GroveShard);
-                    PlayerData.LearnSignal(SignalName.Quantum_BH_Shard);
-                    PlayerData.LearnSignal(SignalName.Quantum_GD_Shard);
-                    PlayerData.LearnSignal(SignalName.Quantum_QM);
-
-                    PlayerData.LearnFrequency(SignalFrequency.EscapePod);
-                    PlayerData.LearnSignal(SignalName.EscapePod_CT);
-                    PlayerData.LearnSignal(SignalName.EscapePod_BH);
-                    PlayerData.LearnSignal(SignalName.EscapePod_DB);
-
-                    PlayerData.LearnFrequency(SignalFrequency.Statue);
-                    PlayerData.LearnFrequency(SignalFrequency.WarpCore);
-                    PlayerData.LearnSignal(SignalName.WhiteHole_WH);
-                    PlayerData.LearnSignal(SignalName.WhiteHole_SS_Receiver);
-                    PlayerData.LearnSignal(SignalName.WhiteHole_CT_Receiver);
-                    PlayerData.LearnSignal(SignalName.WhiteHole_CT_Experiment);
-                    PlayerData.LearnSignal(SignalName.WhiteHole_TT_Receiver);
-                    PlayerData.LearnSignal(SignalName.WhiteHole_TT_TimeLoopCore);
-                    PlayerData.LearnSignal(SignalName.WhiteHole_TH_Receiver);
-                    PlayerData.LearnSignal(SignalName.WhiteHole_BH_NorthPoleReceiver);
-                    PlayerData.LearnSignal(SignalName.WhiteHole_BH_ForgeReceiver);
-                    PlayerData.LearnSignal(SignalName.WhiteHole_GD_Receiver);
-
-                    PlayerData.LearnFrequency(SignalFrequency.HideAndSeek);
-                    PlayerData.LearnSignal(SignalName.HideAndSeek_Galena);
-                    PlayerData.LearnSignal(SignalName.HideAndSeek_Tephra);
-                    PlayerData.LearnSignal(SignalName.HideAndSeek_Arkose);
-
-                    PlayerData.LearnFrequency(SignalFrequency.Radio);
-                    PlayerData.LearnSignal(SignalName.RadioTower);
-                    PlayerData.LearnSignal(SignalName.MapSatellite);
+                    toggleFrequencies();
                 }
 
-                if (inputs[CheatOptions.Reveal_Rumors].isPressedThisFrame() && Locator.GetShipLogManager())
+                if (inputs[CheatOptions.Toggle_Rumors].isPressedThisFrame() && Locator.GetShipLogManager())
                 {
-                    Locator.GetShipLogManager().RevealAllFacts(false);
+                    toggleFacts();
                 }
 
                 if(inputs[CheatOptions.Teleport_To_Sun].isPressedThisFrame() && Locator.GetPlayerTransform() && Locator.GetAstroObject(AstroObject.Name.Sun))
@@ -499,6 +461,134 @@ namespace ClassLibrary2
             teleportObject.SetVelocity(new Vector3(velocity.x, velocity.y, velocity.z));
             teleportObject.SetAngularVelocity(new Vector3(angularVelocity.x, angularVelocity.y, angularVelocity.z));
             teleportObject.SetRotation(new Quaternion(rotation.x, rotation.y, rotation.z, rotation.w));
+        }
+
+
+        private void toggleLaunchCodes()
+        {
+            if (PlayerData.KnowsLaunchCodes())
+            {
+                DialogueConditionManager.SharedInstance.SetConditionState("TalkedToHornfels", false);
+                DialogueConditionManager.SharedInstance.SetConditionState("SCIENTIST_3", false);
+                DialogueConditionManager.SharedInstance.SetConditionState("LAUNCH_CODES_GIVEN", false);
+                StandaloneProfileManager.SharedInstance.currentProfileGameSave.SetPersistentCondition("LAUNCH_CODES_GIVEN", false);
+
+                ModHelper.Console.WriteLine("Cheat Mods: Forget Launch Codes!");
+            }
+            else
+            {
+                PlayerData.LearnLaunchCodes();
+                DialogueConditionManager.SharedInstance.SetConditionState("TalkedToHornfels", true);
+                DialogueConditionManager.SharedInstance.SetConditionState("SCIENTIST_3", true);
+                DialogueConditionManager.SharedInstance.SetConditionState("LAUNCH_CODES_GIVEN", true);
+                StandaloneProfileManager.SharedInstance.currentProfileGameSave.SetPersistentCondition("LAUNCH_CODES_GIVEN", true);
+                GlobalMessenger.FireEvent(nameof(PlayerData.LearnLaunchCodes));
+
+                ModHelper.Console.WriteLine("Cheat Mods: Learn Launch Codes!");
+            }
+        }
+
+        private void toggleFacts()
+        {
+            bool knowsRumors = true;
+            bool knowsFacts = true;
+            foreach(ShipLogFact fact in Locator.GetShipLogManager().GetValue<List<ShipLogFact>>("_factList"))
+            {
+                if (!fact.IsRevealed())
+                {
+                    if (fact.IsRumor())
+                    {
+                        knowsRumors = false;
+                    }
+                    else
+                    {
+                        knowsFacts = false;
+                    }
+                }
+            }
+
+            if (knowsRumors && knowsFacts)
+            {
+                foreach (ShipLogFactSave fact in StandaloneProfileManager.SharedInstance.currentProfileGameSave.shipLogFactSaves.Values)
+                {
+                    fact.newlyRevealed = false;
+                    fact.read = false;
+                    fact.revealOrder = -1;
+                }
+
+                ModHelper.Console.WriteLine("Cheat Mods: Forget Rumors & Facts!");
+            }
+            else if (knowsRumors)
+            {
+                Locator.GetShipLogManager().RevealAllFacts(false);
+
+                ModHelper.Console.WriteLine("Cheat Mods: Learn Facts!");
+            }
+            else
+            {
+                Locator.GetShipLogManager().RevealAllFacts(true);
+
+                ModHelper.Console.WriteLine("Cheat Mods: Learn Rumors!");
+            }
+
+            PlayerData.SaveCurrentGame();
+        }
+
+        private void toggleFrequencies()
+        {
+            bool knowsFrequency = true;
+            bool knowsSignal = true;
+            foreach (SignalFrequency frequency in (SignalFrequency[])Enum.GetValues(typeof(SignalFrequency)))
+            {
+                if (frequency != SignalFrequency.Default && !PlayerData.KnowsFrequency(frequency))
+                {
+                    knowsFrequency = false;
+                }
+            }
+            foreach (SignalName signal in (SignalName[])Enum.GetValues(typeof(SignalName)))
+            {
+                if (signal != SignalName.Default && !PlayerData.KnowsSignal(signal))
+                {
+                    knowsSignal = false;
+                }
+            }
+
+            if (knowsFrequency && knowsSignal)
+            {
+                foreach (SignalName signal in (SignalName[])Enum.GetValues(typeof(SignalName)))
+                {
+                    StandaloneProfileManager.SharedInstance.currentProfileGameSave.knownSignals.Remove((int)signal);
+                }
+
+                PlayerData.ForgetFrequency(SignalFrequency.Quantum);
+                PlayerData.ForgetFrequency(SignalFrequency.EscapePod);
+                PlayerData.ForgetFrequency(SignalFrequency.Statue);
+                PlayerData.ForgetFrequency(SignalFrequency.WarpCore);
+                PlayerData.ForgetFrequency(SignalFrequency.HideAndSeek);
+                PlayerData.ForgetFrequency(SignalFrequency.Radio);
+
+                ModHelper.Console.WriteLine("Cheat Mods: Forget Frequencies & Signals!");
+            }
+            else if (knowsFrequency)
+            {
+                foreach (SignalName signal in (SignalName[])Enum.GetValues(typeof(SignalName)))
+                {
+                    StandaloneProfileManager.SharedInstance.currentProfileGameSave.knownSignals[(int)signal] = true;
+                }
+
+                ModHelper.Console.WriteLine("Cheat Mods: Learn Signals!");
+            }
+            else
+            {
+                foreach (SignalFrequency frequency in (SignalFrequency[])Enum.GetValues(typeof(SignalFrequency)))
+                {
+                    PlayerData.LearnFrequency(frequency);
+                }
+
+                ModHelper.Console.WriteLine("Cheat Mods: Learn Frequencies!");
+            }
+
+            PlayerData.SaveCurrentGame();
         }
     }
 }
