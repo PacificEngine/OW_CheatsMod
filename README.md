@@ -1,7 +1,7 @@
 # Using Mod
 Notes: As of now, inputs are not configurable. If you'd like them to be configurable, please make a request under `Issues` in GitHub.
 * Fill Fuel and Health: C + J
-* Toggle Launch Codes: C + L (Will break the game on sequential loops)
+* Toggle Launch Codes: C + L
 * Toggle All Frequencies: C + F (Toggles between: no signals nor frequencies, all frequencies, and all signals and frequencies)
 * Toggle Rumors: C + R (Toggles between: no rumors nor facts, all rumors, and rumors and facts)
 * Toggle Helmet: C + H
