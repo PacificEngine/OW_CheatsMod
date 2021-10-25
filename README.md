@@ -1,5 +1,5 @@
 # Using Mod
-Notes: As of now, inputs are not configurable. If you'd like them to be configurable, please make a request under `Issues` in GitHub.
+Default value for commands
 * Fill Fuel and Health: C + J
 * Toggle Launch Codes: C + L
 * Toggle All Frequencies: C + F (Toggles between: no signals nor frequencies, all frequencies, and all signals and frequencies)
@@ -13,6 +13,10 @@ Notes: As of now, inputs are not configurable. If you'd like them to be configur
 * Toggle Unlimited Fuel: C + Y
 * Toggle Unlimited Oxygen: C + O
 * Toggle Unlimited Health: C + U
+* Toggle Anglerfish AI: V + I
+* Toggle Supernova Timer: V + 0
+* Decrease Supernova Timer: V + Minus
+* Increase Supernova Timer: V + Equals
 * Teleport To The Sun: T + 1
 * Teleport To Sun Station: T + 2
 * Teleport To Ember Twin: T + 3
@@ -33,6 +37,130 @@ Notes: As of now, inputs are not configurable. If you'd like them to be configur
 * Teleport To Dream World: T + Numpad 6
 * Teleport To Quantum Moon: T + Numpad 7
 * Teleport To Ship: T + Numpad 9
+
+# Customizing Inputs
+You can add multiple key input combos using `|`.
+You can add multiple keys to the combo inputs using `,`.
+
+The following options are available for customizing inputs
+* Space
+* Enter
+* Tab
+* Backquote
+* Quote
+* Semicolon
+* Comma
+* Period
+* Slash
+* Backslash
+* LeftBracket
+* RightBracket
+* Minus
+* Equals
+* A
+* B
+* C
+* D
+* E
+* F
+* G
+* H
+* I
+* J
+* K
+* L
+* M
+* N
+* O
+* P
+* Q
+* R
+* S
+* T
+* U
+* V
+* W
+* X
+* Y
+* Z
+* Digit1
+* Digit2
+* Digit3
+* Digit4
+* Digit5
+* Digit6
+* Digit7
+* Digit8
+* Digit9
+* Digit0
+* LeftShift
+* RightShift
+* LeftAlt
+* RightAlt
+* AltGr
+* LeftCtrl
+* RightCtrl
+* LeftMeta
+* LeftWindows
+* LeftApple
+* LeftCommand
+* RightMeta
+* RightWindows
+* RightApple
+* RightCommand
+* ContextMenu
+* Escape
+* LeftArrow
+* RightArrow
+* UpArrow
+* DownArrow
+* Backspace
+* PageDown
+* PageUp
+* Home
+* End
+* Insert
+* Delete
+* CapsLock
+* NumLock
+* PrintScreen
+* ScrollLock
+* Pause
+* NumpadEnter
+* NumpadDivide
+* NumpadMultiply
+* NumpadPlus
+* NumpadMinus
+* NumpadPeriod
+* NumpadEquals
+* Numpad0
+* Numpad1
+* Numpad2
+* Numpad3
+* Numpad4
+* Numpad5
+* Numpad6
+* Numpad7
+* Numpad8
+* Numpad9
+* F1
+* F2
+* F3
+* F4
+* F5
+* F6
+* F7
+* F8
+* F9
+* F10
+* F11
+* F12
+* OEM1
+* OEM2
+* OEM3
+* OEM4
+* OEM5
+* IMESelected111
 
 # Creating Code
 Create a new file called `PacificEngine.OW_CheatsMod.csproj.user`

@@ -42,127 +42,135 @@ namespace ClassLibrary2
         Toggle_Unlimited_Boost,
         Toggle_Unlimited_Fuel,
         Toggle_Unlimited_Oxygen,
-        Toggle_Unlimited_Health
-    }
-
-    class InputClass
-    {
-        HashSet<Key> keys;
-        int pressed = 0;
-
-
-        public InputClass(params Key[] keys)
-        {
-            this.keys = new HashSet<Key>(keys);
-        }
-
-        public void Update()
-        {
-            bool areAllPressed = true;
-            foreach (Key key in keys)
-            {
-                if (!Keyboard.current[key].IsActuated())
-                {
-                    areAllPressed = false;
-                    break;
-                }
-            }
-
-            if (areAllPressed)
-            {
-                pressed++;
-            } 
-            else
-            {
-                pressed = 0;
-            }
-            
-        }
-
-        public bool isPressedThisFrame()
-        {
-            return pressed == 1;
-        }
-
-        public bool isPressed()
-        {
-            return pressed > 0;
-        }
-
-        public int frameCountPressed()
-        {
-            return pressed;
-        }
+        Toggle_Unlimited_Health,
+        Toggle_Anglerfish_AI,
+        Toggle_Supernova_Timer,
+        Decrease_Supernova_Timer,
+        Increase_Supernova_Timer,
     }
 
     public class MainClass : ModBehaviour
     {
-        private const string verison = "0.1.1";
+        private const string verison = "0.2.1";
         private static Vector3 zeroVector = new Vector3(0f, 0f, 0f);
         private static Quaternion zeroQuaternion = new Quaternion(0f, 0f, 0f, 0f);
 
         bool cheatsEnabled = true;
-        Dictionary<CheatOptions, InputClass> inputs = new Dictionary<CheatOptions, InputClass>();
-        bool hasUnlimitedFuel = false;
-        bool hasUnlimitedOxygen = false;
-        bool hasUnlimitedHealth = false;
-        bool isInvincible = false;
-        bool hasUnlimitedBoost = false;
+        Dictionary<CheatOptions, MultiInputClass> inputs = new Dictionary<CheatOptions, MultiInputClass>();
         float boostSeconds = 0f;
 
         void Start()
         {
             ModHelper.Events.Player.OnPlayerAwake += (player) => onAwake();
+            Anglerfish.Start();
             ModHelper.Console.WriteLine("CheatMods ready!");
+        }
+
+        void Destory()
+        {
+            Anglerfish.Destory();
+            ModHelper.Console.WriteLine("CheatMods clean up!");
+        }
+
+        private T getConfigOrDefault<T>(IModConfig config, string id, T defaultValue)
+        {
+            try
+            {
+                var sValue = config.GetSettingsValue<T>(id);
+                if (sValue == null)
+                {
+                    throw new NullReferenceException(id);
+                }
+                if (sValue is string && ((string)(object)sValue).Length < 1)
+                {
+                    throw new NullReferenceException(id);
+                }
+                return sValue;
+            }
+            catch (Exception e)
+            {
+                config.SetSettingsValue(id, defaultValue);
+                return defaultValue;
+            };
+        }
+
+
+        private MultiInputClass getInputConfigOrDefault(IModConfig config, string id, string defaultValue)
+        {
+            return MultiInputClass.fromString(getConfigOrDefault<string>(config, id, defaultValue));
+        }
+
+        private void addInput(IModConfig config, CheatOptions option, string defaultValue)
+        {
+            var name = Enum.GetName(option.GetType(), option).Replace("_", " ");
+            inputs.Add(option, getInputConfigOrDefault(config, name, defaultValue));
         }
 
         public override void Configure(IModConfig config)
         {
             cheatsEnabled = config.Enabled;
 
+            Player.isInvincible = getConfigOrDefault<bool>(config, "Invincible", false);
+            Ship.isInvincible = Player.isInvincible;
+
+            Player.hasUnlimitedFuel = getConfigOrDefault<bool>(config, "Unlimited Fuel", false);
+            Ship.hasUnlimitedFuel = Player.hasUnlimitedFuel;
+
+            Player.hasUnlimitedOxygen = getConfigOrDefault<bool>(config, "Unlimited Oxygen", false);
+            Ship.hasUnlimitedOxygen = Player.hasUnlimitedOxygen;
+
+            Player.hasUnlimitedHealth = getConfigOrDefault<bool>(config, "Unlimited Health", false);
+            Player.hasUnlimitedBoost = getConfigOrDefault<bool>(config, "Unlimited Boost", false);
+
             inputs.Clear();
+            addInput(config, CheatOptions.Fill_Fuel_and_Health, "C,J");
+            addInput(config, CheatOptions.Toggle_Launch_Codes, "C,L");
+            addInput(config, CheatOptions.Toggle_All_Frequencies, "C,F");
+            addInput(config, CheatOptions.Toggle_Rumors, "C,R");
+            addInput(config, CheatOptions.Toggle_Helmet, "C,H");
+            addInput(config, CheatOptions.Toggle_Invinciblity, "C,I");
+            addInput(config, CheatOptions.Toggle_Spacesuit, "C,G");
+            addInput(config, CheatOptions.Toggle_Player_Collision, "C,N");
+            addInput(config, CheatOptions.Toggle_Ship_Collision, "C,M");
+            addInput(config, CheatOptions.Toggle_Unlimited_Boost, "C,T");
+            addInput(config, CheatOptions.Toggle_Unlimited_Fuel, "C,Y");
+            addInput(config, CheatOptions.Toggle_Unlimited_Oxygen, "C,O");
+            addInput(config, CheatOptions.Toggle_Unlimited_Health, "C,U");
 
-            inputs.Add(CheatOptions.Fill_Fuel_and_Health, new InputClass(Key.C, Key.J));
-            inputs.Add(CheatOptions.Toggle_Launch_Codes, new InputClass(Key.C, Key.L));
-            inputs.Add(CheatOptions.Toggle_All_Frequencies, new InputClass(Key.C, Key.F));
-            inputs.Add(CheatOptions.Toggle_Rumors, new InputClass(Key.C, Key.R));
-            inputs.Add(CheatOptions.Toggle_Helmet, new InputClass(Key.C, Key.H));
-            inputs.Add(CheatOptions.Toggle_Invinciblity, new InputClass(Key.C, Key.I));
-            inputs.Add(CheatOptions.Toggle_Spacesuit, new InputClass(Key.C, Key.G));
-            inputs.Add(CheatOptions.Toggle_Player_Collision, new InputClass(Key.C, Key.N));
-            inputs.Add(CheatOptions.Toggle_Ship_Collision, new InputClass(Key.C, Key.M));
-            inputs.Add(CheatOptions.Toggle_Unlimited_Boost, new InputClass(Key.C, Key.T));
-            inputs.Add(CheatOptions.Toggle_Unlimited_Fuel, new InputClass(Key.C, Key.Y));
-            inputs.Add(CheatOptions.Toggle_Unlimited_Oxygen, new InputClass(Key.C, Key.O));
-            inputs.Add(CheatOptions.Toggle_Unlimited_Health, new InputClass(Key.C, Key.U));
+            addInput(config, CheatOptions.Teleport_To_Sun, "T,Digit1");
+            addInput(config, CheatOptions.Teleport_To_SunStation, "T,Digit2");
+            addInput(config, CheatOptions.Teleport_To_EmberTwin, "T,Digit3");
+            addInput(config, CheatOptions.Teleport_To_AshTwin, "T,Digit4");
+            addInput(config, CheatOptions.Teleport_To_TimerHearth, "T,Digit5");
+            addInput(config, CheatOptions.Teleport_To_Attlerock, "T,Digit6");
+            addInput(config, CheatOptions.Teleport_To_BrittleHollow, "T,Digit7");
+            addInput(config, CheatOptions.Teleport_To_HollowLattern, "T,Digit8");
+            addInput(config, CheatOptions.Teleport_To_GiantsDeep, "T,Digit9");
+            addInput(config, CheatOptions.Teleport_To_DarkBramble, "T,Digit0");
 
-            inputs.Add(CheatOptions.Teleport_To_Sun, new InputClass(Key.T, Key.Digit1));
-            inputs.Add(CheatOptions.Teleport_To_SunStation, new InputClass(Key.T, Key.Digit2));
-            inputs.Add(CheatOptions.Teleport_To_EmberTwin, new InputClass(Key.T, Key.Digit3));
-            inputs.Add(CheatOptions.Teleport_To_AshTwin, new InputClass(Key.T, Key.Digit4));
-            inputs.Add(CheatOptions.Teleport_To_TimerHearth, new InputClass(Key.T, Key.Digit5));
-            inputs.Add(CheatOptions.Teleport_To_Attlerock, new InputClass(Key.T, Key.Digit6));
-            inputs.Add(CheatOptions.Teleport_To_BrittleHollow, new InputClass(Key.T, Key.Digit7));
-            inputs.Add(CheatOptions.Teleport_To_HollowLattern, new InputClass(Key.T, Key.Digit8));
-            inputs.Add(CheatOptions.Teleport_To_GiantsDeep, new InputClass(Key.T, Key.Digit9));
-            inputs.Add(CheatOptions.Teleport_To_DarkBramble, new InputClass(Key.T, Key.Digit0));
+            addInput(config, CheatOptions.Teleport_To_Interloper, "T,Numpad0");
+            addInput(config, CheatOptions.Teleport_To_TimerHearth_Probe, "T,Numpad1");
+            addInput(config, CheatOptions.Teleport_To_ProbeCannon, "T,Numpad2");
+            addInput(config, CheatOptions.Teleport_To_WhiteHole, "T,Numpad3");
+            addInput(config, CheatOptions.Teleport_To_WhiteHoleStation, "T,Numpad4");
+            addInput(config, CheatOptions.Teleport_To_Stranger, "T,Numpad5");
+            addInput(config, CheatOptions.Teleport_To_DreamWorld, "T,Numpad6");
+            addInput(config, CheatOptions.Teleport_To_QuantumMoon, "T,Numpad7");
+            addInput(config, CheatOptions.Teleport_To_AshTwinProject, "T,Numpad8");
+            addInput(config, CheatOptions.Teleport_To_Ship, "T,Numpad9");
 
-            inputs.Add(CheatOptions.Teleport_To_Interloper, new InputClass(Key.T, Key.Numpad0));
-            inputs.Add(CheatOptions.Teleport_To_TimerHearth_Probe, new InputClass(Key.T, Key.Numpad1));
-            inputs.Add(CheatOptions.Teleport_To_ProbeCannon, new InputClass(Key.T, Key.Numpad2));
-            inputs.Add(CheatOptions.Teleport_To_WhiteHole, new InputClass(Key.T, Key.Numpad3));
-            inputs.Add(CheatOptions.Teleport_To_WhiteHoleStation, new InputClass(Key.T, Key.Numpad4));
-            inputs.Add(CheatOptions.Teleport_To_Stranger, new InputClass(Key.T, Key.Numpad5));
-            inputs.Add(CheatOptions.Teleport_To_DreamWorld, new InputClass(Key.T, Key.Numpad6));
-            inputs.Add(CheatOptions.Teleport_To_QuantumMoon, new InputClass(Key.T, Key.Numpad7));
-            inputs.Add(CheatOptions.Teleport_To_AshTwinProject, new InputClass(Key.T, Key.Numpad8));
-            inputs.Add(CheatOptions.Teleport_To_Ship, new InputClass(Key.T, Key.Numpad9));
+            addInput(config, CheatOptions.Toggle_Anglerfish_AI, "V,I");
+            addInput(config, CheatOptions.Toggle_Supernova_Timer, "V,0");
+            addInput(config, CheatOptions.Decrease_Supernova_Timer, "V,Minus");
+            addInput(config, CheatOptions.Increase_Supernova_Timer, "V,Equals");
 
             ModHelper.Console.WriteLine("CheatMods Confgiured!");
         }
 
         void onAwake()
         {
+            Anglerfish.Awake();
+
             ModHelper.Console.WriteLine("CheatMods: Player Awakes");
         }
 
@@ -173,61 +181,24 @@ namespace ClassLibrary2
 
         void Update()
         {
-            foreach (InputClass input in inputs.Values)
+            foreach (MultiInputClass input in inputs.Values)
             {
                 input.Update();
             }
             if (cheatsEnabled)
             {
-                if (hasUnlimitedBoost && Locator.GetPlayerTransform())
-                {
-                    if (Locator.GetPlayerTransform().GetComponent<PlayerResources>().GetComponent<JetpackThrusterModel>().GetValue<float>("_boostSeconds") != float.MaxValue)
-                    {
-                        boostSeconds = Locator.GetPlayerTransform().GetComponent<PlayerResources>().GetComponent<JetpackThrusterModel>().GetValue<float>("_boostSeconds");
-                        Locator.GetPlayerTransform().GetComponent<PlayerResources>().GetComponent<JetpackThrusterModel>().SetValue("_boostSeconds", float.MaxValue);
-                    }
-                }
-
-                if (hasUnlimitedFuel && Locator.GetPlayerTransform())
-                {
-                    Locator.GetPlayerTransform().GetComponent<PlayerResources>().SetValue("_currentFuel", 100f);
-                    if (Locator.GetShipTransform())
-                    {
-                        Locator.GetShipTransform().GetComponent<ShipResources>().AddFuel(1000f);
-                    }
-                }
-
-                if (hasUnlimitedOxygen && Locator.GetPlayerTransform())
-                {
-                    Locator.GetPlayerTransform().GetComponent<PlayerResources>().SetValue("_currentOxygen", 500f);
-                    if (Locator.GetShipTransform())
-                    {
-                        Locator.GetShipTransform().GetComponent<ShipResources>().AddOxygen(1000f);
-                    }
-                }
-
-                if (hasUnlimitedHealth && Locator.GetPlayerTransform())
-                {
-                    Locator.GetPlayerTransform().GetComponent<PlayerResources>().SetValue("_currentHealth", 100f);
-                }
-
-                if (Locator.GetPlayerTransform())
-                {
-                    Locator.GetPlayerTransform().GetComponent<PlayerResources>().SetValue("_invincible", isInvincible);
-                    Locator.GetShipTransform().GetComponent<ShipDamageController>().SetValue("_invincible", isInvincible);
-                }
+                Player.Update();
+                Ship.Update();
+                Anglerfish.Update();
+                SuperNova.Update();
 
                 if (inputs[CheatOptions.Fill_Fuel_and_Health].isPressedThisFrame() && Locator.GetPlayerTransform())
                 {
-                    Locator.GetPlayerTransform().GetComponent<PlayerResources>().DebugRefillResources();
-                    if (Locator.GetShipTransform())
-                    {
-                        ShipComponent[] componentsInChildren2 = Locator.GetShipTransform().GetComponentsInChildren<ShipComponent>();
-                        for (int l = 0; l < componentsInChildren2.Length; l++)
-                        {
-                            componentsInChildren2[l].SetDamaged(false);
-                        }
-                    }
+                    Player.oxygenSeconds = Player.maxOxygenSeconds;
+                    Player.fuelSeconds = Player.maxFuelSeconds;
+                    Player.health = Player.maxHealth;
+                    Player.boostSeconds = Player.maxBoostSeconds;
+                    Ship.repair();
                 }
 
                 if (inputs[CheatOptions.Toggle_Launch_Codes].isPressedThisFrame() && PlayerData.IsLoaded())
@@ -347,11 +318,6 @@ namespace ClassLibrary2
                     teleportObjectTo(Locator.GetPlayerBody(), Locator.GetAstroObject(AstroObject.Name.QuantumMoon).GetAttachedOWRigidbody(), new Vector3(0f, -110f, 0f), zeroVector, zeroVector, zeroQuaternion);
                 }
 
-                if (inputs[CheatOptions.Toggle_Invinciblity].isPressedThisFrame())
-                {
-                    isInvincible = !isInvincible;
-                }
-
                 if (inputs[CheatOptions.Toggle_Helmet].isPressedThisFrame() && Locator.GetPlayerSuit())
                 {
                     if (Locator.GetPlayerSuit().IsWearingHelmet())
@@ -416,29 +382,61 @@ namespace ClassLibrary2
                     }
                 }
 
+                if (inputs[CheatOptions.Toggle_Invinciblity].isPressedThisFrame())
+                {
+                    Player.isInvincible = !Player.isInvincible;
+                    Ship.isInvincible = Player.isInvincible;
+                    ModHelper.Console.WriteLine("CheatsMod: Invicible " + Player.isInvincible);
+                }
+
                 if (inputs[CheatOptions.Toggle_Unlimited_Fuel].isPressedThisFrame())
                 {
-                    hasUnlimitedFuel = !hasUnlimitedFuel;
+                    Player.hasUnlimitedFuel = !Player.hasUnlimitedFuel;
+                    Ship.hasUnlimitedFuel = Player.hasUnlimitedFuel;
+                    ModHelper.Console.WriteLine("CheatsMod: Unlimited Fuel " + Player.hasUnlimitedFuel);
                 }
 
                 if (inputs[CheatOptions.Toggle_Unlimited_Boost].isPressedThisFrame())
                 {
-                    if (Locator.GetPlayerTransform().GetComponent<PlayerResources>().GetComponent<JetpackThrusterModel>().GetValue<float>("_boostSeconds") == float.MaxValue)
-                    {
-                        Locator.GetPlayerTransform().GetComponent<PlayerResources>().GetComponent<JetpackThrusterModel>().SetValue("_boostSeconds", boostSeconds);
-                    }
-                    hasUnlimitedBoost = !hasUnlimitedBoost;
+                    Player.hasUnlimitedBoost = !Player.hasUnlimitedBoost;
+                    ModHelper.Console.WriteLine("CheatsMod: Unlimited Boost " + Player.hasUnlimitedBoost);
                 }
-                
 
                 if (inputs[CheatOptions.Toggle_Unlimited_Health].isPressedThisFrame())
                 {
-                    hasUnlimitedHealth = !hasUnlimitedHealth;
+                    Player.hasUnlimitedHealth = !Player.hasUnlimitedHealth;
+                    ModHelper.Console.WriteLine("CheatsMod: Unlimited Health " + Player.hasUnlimitedHealth);
                 }
 
                 if (inputs[CheatOptions.Toggle_Unlimited_Oxygen].isPressedThisFrame())
                 {
-                    hasUnlimitedOxygen = !hasUnlimitedOxygen;
+                    Player.hasUnlimitedOxygen = !Player.hasUnlimitedOxygen;
+                    Ship.hasUnlimitedOxygen = Player.hasUnlimitedOxygen;
+                    ModHelper.Console.WriteLine("CheatsMod: Unlimited Oxygen " + Player.hasUnlimitedOxygen);
+                }
+
+                if (inputs[CheatOptions.Toggle_Anglerfish_AI].isPressedThisFrame())
+                {
+                    Anglerfish.enabledAI = !Anglerfish.enabledAI;
+                    ModHelper.Console.WriteLine("CheatsMod: Anglerfish Enabled " + Anglerfish.enabledAI);
+                }
+
+                if (inputs[CheatOptions.Toggle_Supernova_Timer].isPressedThisFrame())
+                {
+                    SuperNova.freeze(!SuperNova.isFrozen());
+                    ModHelper.Console.WriteLine("CheatsMod: SuperNova Frozen " + SuperNova.isFrozen());
+                }
+
+                if (inputs[CheatOptions.Decrease_Supernova_Timer].isPressedThisFrame())
+                {
+                    SuperNova.adjust(-60f);
+                    ModHelper.Console.WriteLine("CheatsMod: Remaining Time " + TimeLoop.GetSecondsRemaining());
+                }
+
+                if (inputs[CheatOptions.Increase_Supernova_Timer].isPressedThisFrame())
+                {
+                    SuperNova.adjust(60f);
+                    ModHelper.Console.WriteLine("CheatsMod: Remaining Time " + TimeLoop.GetSecondsRemaining());
                 }
             }
         }
@@ -462,7 +460,6 @@ namespace ClassLibrary2
             teleportObject.SetAngularVelocity(new Vector3(angularVelocity.x, angularVelocity.y, angularVelocity.z));
             teleportObject.SetRotation(new Quaternion(rotation.x, rotation.y, rotation.z, rotation.w));
         }
-
 
         private void toggleLaunchCodes()
         {

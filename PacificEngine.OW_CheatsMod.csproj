@@ -73,10 +73,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Anglerfish.cs" />
     <Compile Include="Class1.cs" />
+    <Compile Include="Inputs.cs" />
+    <Compile Include="Player.cs" />
+    <Compile Include="Ship.cs" />
+    <Compile Include="SuperNova.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="config.json" />
+    <None Include="default-config.json" />
+    <None Include="manifest.json" />
+    <None Include="README.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
