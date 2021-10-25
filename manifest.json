@@ -2,8 +2,8 @@
 	"filename": "OW_CheatsMod.dll",
 	"author": "PacificEngine",
 	"name": "Cheats Mod",
-	"uniqueName": "PacificEngine.OW_CheatsMod",
-	"version": "0.1.1",
-	"owmlVersion": "2.0.0",
+	"uniqueName": "PacificEngine.CheatsMod",
+	"version": "0.2.0",
+	"owmlVersion": "2.1.0",
 	"enabled": true
 }
