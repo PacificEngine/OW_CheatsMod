@@ -67,7 +67,7 @@ namespace ClassLibrary2
             foreach (AnglerfishController anglerfishController in UnityEngine.Object.FindObjectsOfType<AnglerfishController>())
             {
                 anglerfishController.enabled = enabledAI;
-                anglerfishController.SetValue("_acceleration", acceleration);
+               /* anglerfishController.SetValue("_acceleration", acceleration);
                 anglerfishController.SetValue("_investigateSpeed", investigateSpeed);
                 anglerfishController.SetValue("_chaseSpeed", chaseSpeed);
                 anglerfishController.SetValue("_turnSpeed", turnSpeed);
@@ -75,6 +75,7 @@ namespace ClassLibrary2
                 anglerfishController.SetValue("_arrivalDistance", mouthOpenDistance);
                 anglerfishController.SetValue("_pursueDistance", pursueDistance);
                 anglerfishController.SetValue("_escapeDistance", escapeDistance);
+               */
             }
         }
     }

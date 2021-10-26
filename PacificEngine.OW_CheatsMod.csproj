@@ -79,6 +79,7 @@
     <Compile Include="Player.cs" />
     <Compile Include="Ship.cs" />
     <Compile Include="SuperNova.cs" />
+    <Compile Include="Teleportation.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />

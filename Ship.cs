@@ -74,14 +74,14 @@ namespace ClassLibrary2
         {
             get
             {
-                if (getResources() != null)
+                if (getDamageController() != null)
                     return getDamageController().GetValue<bool>("_invincible");
                 else
                     return false;
             }
             set
             {
-                if (getResources() != null)
+                if (getDamageController() != null)
                 {
                     getDamageController().SetValue("_invincible", value);
                 }
