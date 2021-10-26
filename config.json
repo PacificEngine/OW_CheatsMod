@@ -37,6 +37,27 @@
       "no": "Disabled",
       "title": "Unlimited Boost"
     },
+    "Anglerfish AI": {
+      "type": "toggle",
+      "value": true,
+      "yes": "Enabled",
+      "no": "Disabled",
+      "title": "Anglerfish AI"
+    },
+    "Inhabitants AI": {
+      "type": "toggle",
+      "value": true,
+      "yes": "Enabled",
+      "no": "Disabled",
+      "title": "Inhabitants AI"
+    },
+    "Inhabitants Hostility": {
+      "type": "toggle",
+      "value": true,
+      "yes": "Enabled",
+      "no": "Disabled",
+      "title": "Inhabitants Hostility"
+    },
     "Fill Fuel and Health": "C,J",
     "Toggle Launch Codes": "C,L",
     "Toggle All Frequencies": "C,F",
@@ -51,6 +72,8 @@
     "Toggle Unlimited Oxygen": "C,O",
     "Toggle Unlimited Health": "C,U",
     "Toggle Anglerfish AI": "V,I",
+    "Toggle Inhabitants AI": "V,O",
+    "Toggle Inhabitants Hostility": "V,H",
     "Toggle Supernova Timer": "V,Digit0",
     "Decrease Supernova Timer": "V,Minus",
     "Increase Supernova Timer": "V,Equals",

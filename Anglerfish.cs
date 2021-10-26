@@ -46,7 +46,7 @@ namespace ClassLibrary2
             }
         }
 
-        public static void Destory()
+        public static void Destroy()
         {
         }
 

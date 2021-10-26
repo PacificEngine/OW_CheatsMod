@@ -75,6 +75,7 @@
   <ItemGroup>
     <Compile Include="Anglerfish.cs" />
     <Compile Include="Class1.cs" />
+    <Compile Include="Inhabitants.cs" />
     <Compile Include="Inputs.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Ship.cs" />

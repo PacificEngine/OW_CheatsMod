@@ -14,6 +14,8 @@ Default value for commands
 * Toggle Unlimited Oxygen: C + O
 * Toggle Unlimited Health: C + U
 * Toggle Anglerfish AI: V + I
+* Toggle Inhabitants AI: V + O
+* Toggle Inhabitants Hostility: V + H
 * Toggle Supernova Timer: V + 0
 * Decrease Supernova Timer: V + Minus
 * Increase Supernova Timer: V + Equals

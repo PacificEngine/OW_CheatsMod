@@ -44,6 +44,8 @@ namespace ClassLibrary2
         Toggle_Unlimited_Oxygen,
         Toggle_Unlimited_Health,
         Toggle_Anglerfish_AI,
+        Toggle_Inhabitants_AI,
+        Toggle_Inhabitants_Hostility,
         Toggle_Supernova_Timer,
         Decrease_Supernova_Timer,
         Increase_Supernova_Timer,
@@ -51,7 +53,7 @@ namespace ClassLibrary2
 
     public class MainClass : ModBehaviour
     {
-        private const string verison = "0.2.1";
+        private const string verison = "0.2.3";
 
         bool cheatsEnabled = true;
         Dictionary<CheatOptions, MultiInputClass> inputs = new Dictionary<CheatOptions, MultiInputClass>();
@@ -61,12 +63,14 @@ namespace ClassLibrary2
         {
             ModHelper.Events.Player.OnPlayerAwake += (player) => onAwake();
             Anglerfish.Start();
+            Inhabitants.Start((ModHelper)ModHelper);
             ModHelper.Console.WriteLine("CheatMods ready!");
         }
 
         void Destory()
         {
-            Anglerfish.Destory();
+            Anglerfish.Destroy();
+            Inhabitants.Destroy((ModHelper)ModHelper);
             ModHelper.Console.WriteLine("CheatMods clean up!");
         }
 
@@ -120,6 +124,10 @@ namespace ClassLibrary2
             Player.hasUnlimitedHealth = getConfigOrDefault<bool>(config, "Unlimited Health", false);
             Player.hasUnlimitedBoost = getConfigOrDefault<bool>(config, "Unlimited Boost", false);
 
+            Anglerfish.enabledAI = getConfigOrDefault<bool>(config, "Anglerfish AI", false);
+            Inhabitants.enabledAI = getConfigOrDefault<bool>(config, "Inhabitants AI", false);
+            Inhabitants.enabledHostility = getConfigOrDefault<bool>(config, "Inhabitants Hostility", false);
+
             inputs.Clear();
             addInput(config, CheatOptions.Fill_Fuel_and_Health, "C,J");
             addInput(config, CheatOptions.Toggle_Launch_Codes, "C,L");
@@ -158,6 +166,8 @@ namespace ClassLibrary2
             addInput(config, CheatOptions.Teleport_To_Ship, "T,Numpad9");
 
             addInput(config, CheatOptions.Toggle_Anglerfish_AI, "V,I");
+            addInput(config, CheatOptions.Toggle_Inhabitants_AI, "V,O");
+            addInput(config, CheatOptions.Toggle_Inhabitants_Hostility, "V,H");
             addInput(config, CheatOptions.Toggle_Supernova_Timer, "V,0");
             addInput(config, CheatOptions.Decrease_Supernova_Timer, "V,Minus");
             addInput(config, CheatOptions.Increase_Supernova_Timer, "V,Equals");
@@ -168,6 +178,7 @@ namespace ClassLibrary2
         void onAwake()
         {
             Anglerfish.Awake();
+            Inhabitants.Awake();
 
             ModHelper.Console.WriteLine("CheatMods: Player Awakes");
         }
@@ -427,7 +438,19 @@ namespace ClassLibrary2
                 if (inputs[CheatOptions.Toggle_Anglerfish_AI].isPressedThisFrame())
                 {
                     Anglerfish.enabledAI = !Anglerfish.enabledAI;
-                    ModHelper.Console.WriteLine("CheatsMod: Anglerfish Enabled " + Anglerfish.enabledAI);
+                    ModHelper.Console.WriteLine("CheatsMod: Anglerfish AI " + Anglerfish.enabledAI);
+                }
+
+                if (inputs[CheatOptions.Toggle_Inhabitants_AI].isPressedThisFrame())
+                {
+                    Inhabitants.enabledAI = !Inhabitants.enabledAI;
+                    ModHelper.Console.WriteLine("CheatsMod: Inhabitants AI " + Inhabitants.enabledAI);
+                }
+
+                if (inputs[CheatOptions.Toggle_Inhabitants_Hostility].isPressedThisFrame())
+                {
+                    Inhabitants.enabledHostility = !Inhabitants.enabledHostility;
+                    ModHelper.Console.WriteLine("CheatsMod: Inhabitants Hostility " + Inhabitants.enabledHostility);
                 }
 
                 if (inputs[CheatOptions.Toggle_Supernova_Timer].isPressedThisFrame())
