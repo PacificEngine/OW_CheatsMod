@@ -34,6 +34,8 @@ namespace ClassLibrary2
         Teleport_To_DreamWorld,
         Teleport_To_QuantumMoon,
         Teleport_To_Ship,
+        Teleport_To_Probe,
+        Teleport_Ship_To_Player,
         Toggle_Helmet,
         Toggle_Invinciblity,
         Toggle_Spacesuit,
@@ -53,7 +55,7 @@ namespace ClassLibrary2
 
     public class MainClass : ModBehaviour
     {
-        private const string verison = "0.2.3";
+        private const string verison = "0.2.4";
 
         bool cheatsEnabled = true;
         Dictionary<CheatOptions, MultiInputClass> inputs = new Dictionary<CheatOptions, MultiInputClass>();
@@ -164,6 +166,8 @@ namespace ClassLibrary2
             addInput(config, CheatOptions.Teleport_To_QuantumMoon, "T,Numpad7");
             addInput(config, CheatOptions.Teleport_To_AshTwinProject, "T,Numpad8");
             addInput(config, CheatOptions.Teleport_To_Ship, "T,Numpad9");
+            addInput(config, CheatOptions.Teleport_Ship_To_Player, "T,NumpadDivide");
+            addInput(config, CheatOptions.Teleport_To_Probe, "T,NumpadMultiply");
 
             addInput(config, CheatOptions.Toggle_Anglerfish_AI, "V,I");
             addInput(config, CheatOptions.Toggle_Inhabitants_AI, "V,O");
@@ -211,132 +215,79 @@ namespace ClassLibrary2
                 }
 
                 if (inputs[CheatOptions.Toggle_Launch_Codes].isPressedThisFrame() && PlayerData.IsLoaded())
-                {
                     toggleLaunchCodes();
-                }
 
                 if (inputs[CheatOptions.Toggle_All_Frequencies].isPressedThisFrame() && PlayerData.IsLoaded())
-                {
                     toggleFrequencies();
-                }
 
                 if (inputs[CheatOptions.Toggle_Rumors].isPressedThisFrame() && Locator.GetShipLogManager())
-                {
                     toggleFacts();
-                }
 
-                if(inputs[CheatOptions.Teleport_To_Sun].isPressedThisFrame() && Locator.GetPlayerTransform() && Locator.GetAstroObject(AstroObject.Name.Sun))
-                {
-                    Teleportation.teleportPlayerTo(Locator.GetAstroObject(AstroObject.Name.Sun).GetAttachedOWRigidbody(), new Vector3(0f, 5000f, 0f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
-                }
+                if (inputs[CheatOptions.Teleport_To_Sun].isPressedThisFrame())
+                    Teleportation.teleportPlayerToSun();
 
-                if (inputs[CheatOptions.Teleport_To_SunStation].isPressedThisFrame() && Locator.GetPlayerTransform() && Locator.GetWarpReceiver(NomaiWarpPlatform.Frequency.SunStation))
-                {
-                    Teleportation.teleportPlayerTo(Locator.GetWarpReceiver(NomaiWarpPlatform.Frequency.SunStation).GetAttachedOWRigidbody(), Vector3.zero, Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
-                }
+                if (inputs[CheatOptions.Teleport_To_SunStation].isPressedThisFrame())
+                    Teleportation.teleportPlayerToSunStation();
 
-                if (inputs[CheatOptions.Teleport_To_EmberTwin].isPressedThisFrame() && Locator.GetPlayerTransform() && Locator.GetAstroObject(AstroObject.Name.CaveTwin))
-                {
-                    Teleportation.teleportPlayerTo(Locator.GetAstroObject(AstroObject.Name.CaveTwin).GetAttachedOWRigidbody(), new Vector3(0f, 165f, 0f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
-                }
+                if (inputs[CheatOptions.Teleport_To_EmberTwin].isPressedThisFrame())
+                    Teleportation.teleportPlayerToEmberTwin();
 
-                if (inputs[CheatOptions.Teleport_To_AshTwin].isPressedThisFrame() && Locator.GetPlayerTransform() && Locator.GetAstroObject(AstroObject.Name.TowerTwin))
-                {
-                    Teleportation.teleportPlayerTo(Locator.GetAstroObject(AstroObject.Name.TowerTwin).GetAttachedOWRigidbody(), new Vector3(0f, 180f, 0f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
-                }
+                if (inputs[CheatOptions.Teleport_To_AshTwin].isPressedThisFrame())
+                    Teleportation.teleportPlayerToAshTwin();
 
-                if (inputs[CheatOptions.Teleport_To_AshTwinProject].isPressedThisFrame() && Locator.GetPlayerTransform() && Locator.GetAstroObject(AstroObject.Name.TowerTwin))
-                {
-                    Teleportation.teleportPlayerTo(Locator.GetAstroObject(AstroObject.Name.TowerTwin).GetAttachedOWRigidbody(), new Vector3(-5f, 0f, 0f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
-                }
+                if (inputs[CheatOptions.Teleport_To_AshTwinProject].isPressedThisFrame())
+                    Teleportation.teleportPlayerToAshTwinProject();
 
-                if (inputs[CheatOptions.Teleport_To_TimerHearth].isPressedThisFrame() && Locator.GetPlayerTransform() && Locator.GetAstroObject(AstroObject.Name.TimberHearth))
-                {
-                    Teleportation.teleportPlayerTo(Locator.GetAstroObject(AstroObject.Name.TimberHearth).GetAttachedOWRigidbody(), new Vector3(0f, 280f, 0f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
-                }
+                if (inputs[CheatOptions.Teleport_To_TimerHearth].isPressedThisFrame())
+                    Teleportation.teleportPlayerToTimberHearth();
 
-                if (inputs[CheatOptions.Teleport_To_TimerHearth_Probe].isPressedThisFrame() && Locator.GetPlayerTransform() && Locator.GetAstroObject(AstroObject.Name.TimberHearth))
-                {
-                    Teleportation.teleportPlayerTo(Locator.GetAstroObject(AstroObject.Name.TimberHearth).GetSatellite().GetAttachedOWRigidbody(), -new Vector3(1f, 0f, 0f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
-                }
+                if (inputs[CheatOptions.Teleport_To_TimerHearth_Probe].isPressedThisFrame())
+                    Teleportation.teleportPlayerToTimberHearthProbe();
 
-                if (inputs[CheatOptions.Teleport_To_Attlerock].isPressedThisFrame() && Locator.GetPlayerTransform() && Locator.GetAstroObject(AstroObject.Name.TimberHearth))
-                {
-                    Teleportation.teleportPlayerTo(Locator.GetAstroObject(AstroObject.Name.TimberHearth).GetMoon().GetAttachedOWRigidbody(), new Vector3(0f, 85f, 0f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
-                }
+                if (inputs[CheatOptions.Teleport_To_Attlerock].isPressedThisFrame())
+                    Teleportation.teleportPlayerToAttlerock();
 
-                if (inputs[CheatOptions.Teleport_To_BrittleHollow].isPressedThisFrame() && Locator.GetPlayerTransform() && Locator.GetWarpReceiver(NomaiWarpPlatform.Frequency.BrittleHollowForge))
-                {
-                    var planet = Locator.GetAstroObject(AstroObject.Name.BrittleHollow).GetAttachedOWRigidbody();
-                    var platform = Locator.GetWarpReceiver(NomaiWarpPlatform.Frequency.BrittleHollowForge).GetPlatformCenter();
-                    Teleportation.teleportPlayerTo(new Vector3(platform.position.x, platform.position.y - 2f, platform.position.z), planet.GetVelocity(), planet.GetAngularVelocity(), planet.GetAcceleration(), platform.rotation);
-                }
+                if (inputs[CheatOptions.Teleport_To_BrittleHollow].isPressedThisFrame())
+                    Teleportation.teleportPlayerToBlackHoleForgeTeleporter();
 
-                if (inputs[CheatOptions.Teleport_To_HollowLattern].isPressedThisFrame() && Locator.GetPlayerTransform() && Locator.GetAstroObject(AstroObject.Name.BrittleHollow))
-                {
-                    Teleportation.teleportPlayerTo(Locator.GetAstroObject(AstroObject.Name.BrittleHollow).GetMoon().GetAttachedOWRigidbody(), new Vector3(0f, 150f, 0f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
-                }  
+                if (inputs[CheatOptions.Teleport_To_HollowLattern].isPressedThisFrame())
+                    Teleportation.teleportPlayerToHollowLattern();
 
-                if (inputs[CheatOptions.Teleport_To_GiantsDeep].isPressedThisFrame() && Locator.GetPlayerTransform())
-                {
-                    if (!PlayerState.IsInsideShip())
-                    {
-                        Teleportation.teleportPlayerTo(Locator.GetAstroObject(AstroObject.Name.GiantsDeep).GetAttachedOWRigidbody(), new Vector3(0f, 505f, 0f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
-                    }
-                    else
-                    {
-                        Teleportation.teleportPlayerTo(Locator.GetAstroObject(AstroObject.Name.GiantsDeep).GetAttachedOWRigidbody(), new Vector3(0f, 520f, 0f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
-                    }
-                }
+                if (inputs[CheatOptions.Teleport_To_GiantsDeep].isPressedThisFrame())
+                    Teleportation.teleportPlayerToGiantsDeep();
 
-                if (inputs[CheatOptions.Teleport_To_ProbeCannon].isPressedThisFrame() && Locator.GetPlayerTransform())
-                {
-                    Teleportation.teleportPlayerTo(Locator.GetAstroObject(AstroObject.Name.ProbeCannon).GetAttachedOWRigidbody(), Vector3.zero, Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
-                }
+                if (inputs[CheatOptions.Teleport_To_ProbeCannon].isPressedThisFrame())
+                    Teleportation.teleportPlayerToProbeCannon();
 
-                if (inputs[CheatOptions.Teleport_To_DarkBramble].isPressedThisFrame() && Locator.GetPlayerTransform())
-                {
-                    Teleportation.teleportPlayerTo(Locator.GetAstroObject(AstroObject.Name.DarkBramble).GetAttachedOWRigidbody(), new Vector3(0f, 950f, 0f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
-                }
+                if (inputs[CheatOptions.Teleport_To_DarkBramble].isPressedThisFrame())
+                    Teleportation.teleportPlayerToDarkBramble();
 
-                if (inputs[CheatOptions.Teleport_To_Ship].isPressedThisFrame() && Locator.GetPlayerTransform() && Locator.GetShipBody())
-                {
+                if (inputs[CheatOptions.Teleport_To_Ship].isPressedThisFrame())
+                    Teleportation.teleportPlayerToShip();
 
-                    if (!PlayerState.IsInsideShip())
-                    {
-                        Teleportation.teleportObjectTo(Locator.GetPlayerBody(), Locator.GetShipBody(), Vector3.zero, Vector3.zero, Vector3.zero, Vector3.zero,Quaternion.identity);
-                    }
-                }
+                if (inputs[CheatOptions.Teleport_Ship_To_Player].isPressedThisFrame())
+                    Teleportation.teleportShipToPlayer();
 
-                if (inputs[CheatOptions.Teleport_To_Interloper].isPressedThisFrame() && Locator.GetPlayerTransform())
-                {
-                    Teleportation.teleportPlayerTo(Locator.GetAstroObject(AstroObject.Name.Comet).GetAttachedOWRigidbody(), new Vector3(0f, 85f, 0f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
-                }
+                if (inputs[CheatOptions.Teleport_To_Probe].isPressedThisFrame())
+                    Teleportation.teleportPlayerToProbe();
 
-                if (inputs[CheatOptions.Teleport_To_WhiteHole].isPressedThisFrame() && Locator.GetPlayerTransform())
-                {
-                    Teleportation.teleportPlayerTo(Locator.GetAstroObject(AstroObject.Name.WhiteHole).GetAttachedOWRigidbody(), new Vector3(40f, 0f, 0f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
-                }
+                if (inputs[CheatOptions.Teleport_To_Interloper].isPressedThisFrame())
+                    Teleportation.teleportPlayerToInterloper();
 
-                if (inputs[CheatOptions.Teleport_To_WhiteHoleStation].isPressedThisFrame() && Locator.GetPlayerTransform())
-                {
-                    Teleportation.teleportPlayerTo(Locator.GetAstroObject(AstroObject.Name.WhiteHoleTarget).GetAttachedOWRigidbody(), new Vector3(0f, 0f, 0f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
-                }
+                if (inputs[CheatOptions.Teleport_To_WhiteHole].isPressedThisFrame())
+                    Teleportation.teleportPlayerToWhiteHole();
 
-                if (inputs[CheatOptions.Teleport_To_Stranger].isPressedThisFrame() && Locator.GetPlayerTransform())
-                {
-                    Teleportation.teleportPlayerTo(Locator.GetAstroObject(AstroObject.Name.RingWorld).GetAttachedOWRigidbody(), new Vector3(-320f, -320f, -50f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
-                }
+                if (inputs[CheatOptions.Teleport_To_WhiteHoleStation].isPressedThisFrame())
+                    Teleportation.teleportPlayerToWhiteHoleStation();
 
-                if (inputs[CheatOptions.Teleport_To_DreamWorld].isPressedThisFrame() && Locator.GetPlayerTransform())
-                {
-                    Teleportation.teleportPlayerTo(Locator.GetAstroObject(AstroObject.Name.DreamWorld).GetAttachedOWRigidbody(), new Vector3(0f, 100f, 0f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
-                }
+                if (inputs[CheatOptions.Teleport_To_Stranger].isPressedThisFrame())
+                    Teleportation.teleportPlayerToStranger();
 
-                if (inputs[CheatOptions.Teleport_To_QuantumMoon].isPressedThisFrame() && Locator.GetPlayerTransform())
-                {
-                    Teleportation.teleportPlayerTo(Locator.GetAstroObject(AstroObject.Name.QuantumMoon).GetAttachedOWRigidbody(), new Vector3(0f, -110f, 0f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
-                }
+                if (inputs[CheatOptions.Teleport_To_DreamWorld].isPressedThisFrame())
+                    Teleportation.teleportPlayerToDreamWorld();
+
+                if (inputs[CheatOptions.Teleport_To_QuantumMoon].isPressedThisFrame())
+                    Teleportation.teleportPlayerToQuantumMoon();
 
                 if (inputs[CheatOptions.Toggle_Helmet].isPressedThisFrame() && Locator.GetPlayerSuit())
                 {

@@ -3,7 +3,7 @@
 	"author": "PacificEngine",
 	"name": "Cheats Mod",
 	"uniqueName": "PacificEngine.CheatsMod",
-	"version": "0.2.3",
+	"version": "0.2.4",
 	"owmlVersion": "2.1.0",
 	"enabled": true
 }

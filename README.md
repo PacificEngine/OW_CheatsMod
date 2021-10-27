@@ -39,6 +39,8 @@ Default value for commands
 * Teleport To Dream World: T + Numpad 6
 * Teleport To Quantum Moon: T + Numpad 7
 * Teleport To Ship: T + Numpad 9
+* Teleport To Ship To Player: T + Numpad /
+* Teleport To Probe: T + Numpad *
 
 # Customizing Inputs
 You can add multiple key input combos using `|`.

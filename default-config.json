@@ -96,6 +96,8 @@
     "Teleport To Stranger": "T,Numpad5",
     "Teleport To DreamWorld": "T,Numpad6",
     "Teleport To QuantumMoon": "T,Numpad7",
-    "Teleport To Ship": "T,Numpad9"
+    "Teleport To Ship": "T,Numpad9",
+    "Teleport Ship To Player": "T,NumpadDivide",
+    "Teleport To Probe": "T,NumpadMultiply"
   }
 }
