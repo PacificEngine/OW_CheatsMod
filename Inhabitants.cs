@@ -40,8 +40,25 @@ namespace ClassLibrary2
         }
     }
 
+    class InhabitantsHelper
+    {
+        private static bool Awake(ref GhostController __instance)
+        {
+            Inhabitants.inhabitants.Add(__instance);
+            return true;
+        }
+
+        private static bool OnDestroy(ref GhostController __instance)
+        {
+            Inhabitants.inhabitants.Remove(__instance);
+            return true;
+        }
+    }
+
     public class Inhabitants
-    { 
+    {
+        public static HashSet<GhostController> inhabitants = new HashSet<GhostController>();
+
         private static bool _enabledAI = true;
         private static bool _enabledHostility = true;
 

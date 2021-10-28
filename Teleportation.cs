@@ -66,7 +66,7 @@ namespace ClassLibrary2
                 var position = new Vector3(localPosition.x * ratio + planet.GetPosition().x, localPosition.y * ratio + planet.GetPosition().y, localPosition.z * ratio + planet.GetPosition().z);
 
                 ignoreSand(true);
-                teleportPlayerTo(position, planet.GetPointVelocity(position), planet.GetAngularVelocity(), planet.GetAcceleration(), platform.rotation);
+                teleportPlayerTo(position, planet.GetPointVelocity(position), Vector3.zero, planet.GetAcceleration(), platform.rotation);
             }
         }
 
@@ -278,12 +278,13 @@ namespace ClassLibrary2
         {
             if (teleportTo)
             {
-                teleportObjectTo(teleportObject,
-                    new Vector3(teleportTo.GetPosition().x + position.x, teleportTo.GetPosition().y + position.y, teleportTo.GetPosition().z + position.z),
-                    new Vector3(teleportTo.GetVelocity().x + velocity.x, teleportTo.GetVelocity().y + velocity.y, teleportTo.GetVelocity().z + velocity.z),
-                    new Vector3(teleportTo.GetAngularVelocity().x + angularVelocity.x, teleportTo.GetAngularVelocity().y + angularVelocity.y, teleportTo.GetAngularVelocity().z + angularVelocity.z),
-                    new Vector3(teleportTo.GetAcceleration().x + acceleration.x, teleportTo.GetAcceleration().y + acceleration.y, teleportTo.GetAcceleration().z + acceleration.z),
-                    new Quaternion(teleportTo.GetRotation().x + rotation.x, teleportTo.GetRotation().y + rotation.y, teleportTo.GetRotation().z + rotation.z, teleportTo.GetRotation().w + rotation.w));
+                var newPosition = position + teleportTo.GetPosition();
+                var newVelocity = velocity + teleportTo.GetVelocity();
+                var newAnglarVelocity = angularVelocity + teleportTo.GetAngularVelocity();
+                var newAcceleration = acceleration + teleportTo.GetAcceleration();
+                var parentRotation = teleportTo.GetRotation();
+                var newRotation = new Quaternion(parentRotation.x + rotation.x, parentRotation.y + rotation.y, parentRotation.z + rotation.z, parentRotation.w + rotation.w);
+                teleportObjectTo(teleportObject, newPosition, newVelocity, newAnglarVelocity, newAcceleration, newRotation);
             }
         }
 

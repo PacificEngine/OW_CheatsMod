@@ -64,14 +64,14 @@ namespace ClassLibrary2
         void Start()
         {
             ModHelper.Events.Player.OnPlayerAwake += (player) => onAwake();
-            Anglerfish.Start();
+            Anglerfish.Start((ModHelper)ModHelper);
             Inhabitants.Start((ModHelper)ModHelper);
             ModHelper.Console.WriteLine("CheatMods ready!");
         }
 
         void Destory()
         {
-            Anglerfish.Destroy();
+            Anglerfish.Destroy((ModHelper)ModHelper);
             Inhabitants.Destroy((ModHelper)ModHelper);
             ModHelper.Console.WriteLine("CheatMods clean up!");
         }
