@@ -14,6 +14,7 @@ namespace ClassLibrary2
         private static bool Awake(ref AnglerfishController __instance)
         {
             Anglerfish.anglerfish.Add(__instance);
+            Anglerfish.updateAnglerfish(__instance);
             return true;
         }
 
@@ -69,7 +70,7 @@ namespace ClassLibrary2
         private static float _visionDistance = 200f;
         private static float _smellDistance = 500f;
 
-        public static bool? enabledAI { get { return _enabledAI.GetValueOrDefault(true) } set { _enabledAI = value; updateAnglerfish(); } }
+        public static bool? enabledAI { get { return _enabledAI.GetValueOrDefault(true); } set { _enabledAI = value; updateAnglerfish(); } }
         public static bool canStun { get { return _canStun; } set { _canStun = value; } }
         public static bool canFeel { get { return _canFeel; } set { _canFeel = value; } }
         public static bool canHear { get { return _canHear; } set { _canHear = value; } }
@@ -110,24 +111,9 @@ namespace ClassLibrary2
 
         public static void Update()
         {
-            updateAnglerfish();
-        }
-
-        private static void updateAnglerfish()
-        {
             foreach (AnglerfishController anglerfishController in anglerfish)
             {
-                if (enabledAI != null)
-                    anglerfishController.enabled = enabledAI.Value;
-                updateParameter(anglerfishController, "_acceleration", _overrideAcceleration);
-                updateParameter(anglerfishController, "_investigateSpeed", _overrideInvestigateSpeed);
-                updateParameter(anglerfishController, "_chaseSpeed", _overrideChaseSpeed);
-                updateParameter(anglerfishController, "_turnSpeed", _overrideTurnSpeed);
-                updateParameter(anglerfishController, "_quickTurnSpeed", _overrideQuickTurnSpeed);
-                updateParameter(anglerfishController, "_arrivalDistance", _overrideMouthOpenDistance);
-                updateParameter(anglerfishController, "_pursueDistance", _overridePursueDistance);
-                updateParameter(anglerfishController, "_escapeDistance", _overrideEscapeDistance);
-
+                updateAnglerfish(anglerfishController);
                 if (!canStun)
                 {
                     updateParameter(anglerfishController, "_stunTimer", 0f);
@@ -159,9 +145,29 @@ namespace ClassLibrary2
                         }
                     }
                 }
-
-                
             }
+        }
+
+        private static void updateAnglerfish()
+        {
+            foreach (AnglerfishController anglerfishController in anglerfish)
+            {
+                updateAnglerfish(anglerfishController);
+            }
+        }
+
+        public static void updateAnglerfish(AnglerfishController anglerfishController)
+        {
+            if (enabledAI != null)
+                anglerfishController.enabled = enabledAI.Value;
+            updateParameter(anglerfishController, "_acceleration", _overrideAcceleration);
+            updateParameter(anglerfishController, "_investigateSpeed", _overrideInvestigateSpeed);
+            updateParameter(anglerfishController, "_chaseSpeed", _overrideChaseSpeed);
+            updateParameter(anglerfishController, "_turnSpeed", _overrideTurnSpeed);
+            updateParameter(anglerfishController, "_quickTurnSpeed", _overrideQuickTurnSpeed);
+            updateParameter(anglerfishController, "_arrivalDistance", _overrideMouthOpenDistance);
+            updateParameter(anglerfishController, "_pursueDistance", _overridePursueDistance);
+            updateParameter(anglerfishController, "_escapeDistance", _overrideEscapeDistance);
         }
 
         private static OWRigidbody getPlayerBody()
