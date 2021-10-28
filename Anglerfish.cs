@@ -102,7 +102,7 @@ namespace ClassLibrary2
 
         public static void Awake()
         {
-            
+
         }
 
         public static void Destroy(ModHelper helper)
@@ -186,7 +186,7 @@ namespace ClassLibrary2
         {
             foreach (AnglerfishController anglerfishController in anglerfish)
             {
-                anglerfishController.SetValue(id, parameter == null ? defaultValue : parameter);
+                anglerfishController.SetValue(id, parameter.GetValueOrDefault(defaultValue));
             }
         }
 
@@ -194,7 +194,7 @@ namespace ClassLibrary2
         {
             if (parameter != null)
             {
-                anglerfishController.SetValue(id, parameter);
+                anglerfishController.SetValue(id, parameter.Value);
             }
         }
 
