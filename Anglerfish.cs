@@ -48,48 +48,47 @@ namespace ClassLibrary2
 
         private static ModHelper _helper;
 
-        private static bool _enabledAI = true;
+        private static bool? _enabledAI = null;
         private static bool _canStun = true;
         private static bool _canFeel = true;
         private static bool _canHear = true;
         private static bool _canSmell = false;
         private static bool _canSee = false;
-        private static float _overrideAcceleration = -1f;
-        private static float _overrideInvestigateSpeed = -1f;
-        private static float _overrideChaseSpeed = -1f;
-        private static float _overrideTurnSpeed = -1f;
-        private static float _overrideQuickTurnSpeed = -1f;
-        private static float _overrideMouthOpenDistance = -1f;
-        private static float _overridePursueDistance = -1f;
-        private static float _overrideEscapeDistance = -1f;
+        private static float? _overrideAcceleration = null;
+        private static float? _overrideInvestigateSpeed = null;
+        private static float? _overrideChaseSpeed = null;
+        private static float? _overrideTurnSpeed = null;
+        private static float? _overrideQuickTurnSpeed = null;
+        private static float? _overrideMouthOpenDistance = null;
+        private static float? _overridePursueDistance = null;
+        private static float? _overrideEscapeDistance = null;
 
+        private static float _visionX = 180f;
+        private static float _visionY = 100f;
+        private static float _visionYoffset = 45f;
+        private static float _visionDistance = 200f;
+        private static float _smellDistance = 500f;
 
-        public static float _visionX = 180f;
-        public static float _visionY = 100f;
-        public static float _visionYoffset = 45f;
-        public static float _visionDistance = 200f;
-        public static float _smellDistance = 500f;
+        public static bool? enabledAI { get { return _enabledAI.GetValueOrDefault(true) } set { _enabledAI = value; updateAnglerfish(); } }
+        public static bool canStun { get { return _canStun; } set { _canStun = value; } }
+        public static bool canFeel { get { return _canFeel; } set { _canFeel = value; } }
+        public static bool canHear { get { return _canHear; } set { _canHear = value; } }
+        public static bool canSmell { get { return _canSmell; } set { _canSmell = value; } }
+        public static bool canSee { get { return _canSee; } set { _canSee = value; } }
+        public static float? acceleration { get { return _overrideAcceleration.GetValueOrDefault(getParameter("_acceleration", 2f)); } set { _overrideAcceleration = value; updateParameter("_acceleration", value, 2f); } }
+        public static float? investigateSpeed { get { return _overrideInvestigateSpeed.GetValueOrDefault(getParameter("_investigateSpeed", 20f)); } set { _overrideInvestigateSpeed = value; updateParameter("_investigateSpeed", value, 20f); } }
+        public static float? chaseSpeed { get { return _overrideChaseSpeed.GetValueOrDefault(getParameter("_chaseSpeed", 42f)); } set { _overrideChaseSpeed = value; updateParameter("_chaseSpeed", value, 42f); } }
+        public static float? turnSpeed { get { return _overrideTurnSpeed.GetValueOrDefault(getParameter("_turnSpeed", 180f)); } set { _overrideTurnSpeed = value; updateParameter("_turnSpeed", value, 180f); } }
+        public static float? quickTurnSpeed { get { return _overrideQuickTurnSpeed.GetValueOrDefault(getParameter("_quickTurnSpeed", 360f)); } set { _overrideQuickTurnSpeed = value; updateParameter("_quickTurnSpeed", value, 360f); } }
+        public static float? mouthOpenDistance { get { return _overrideMouthOpenDistance.GetValueOrDefault(getParameter("_arrivalDistance", 100f)); } set { _overrideMouthOpenDistance = value; updateParameter("_arrivalDistance", value, 100f); } }
+        public static float? pursueDistance { get { return _overridePursueDistance.GetValueOrDefault(getParameter("_pursueDistance", 200f)); } set { _overridePursueDistance = value; updateParameter("_pursueDistance", value, 200f); } }
+        public static float? escapeDistance { get { return _overrideEscapeDistance.GetValueOrDefault(getParameter("_escapeDistance", 500f)); } set { _overrideEscapeDistance = value; updateParameter("_escapeDistance", value, 500f); } }
 
-        public static bool enabledAI { get { return _enabledAI; } set { _enabledAI = value; updateAnglerfish(); } }
-        public static bool canStun { get { return _canStun; } set { _canStun = value; updateAnglerfish(); } }
-        public static bool canFeel { get { return _canFeel; } set { _canFeel = value; updateAnglerfish(); } }
-        public static bool canHear { get { return _canHear; } set { _canHear = value; updateAnglerfish(); } }
-        public static bool canSmell { get { return _canSmell; } set { _canSmell = value; updateAnglerfish(); } }
-        public static bool canSee { get { return _canSee; } set { _canSee = value; updateAnglerfish(); } }
-        public static float acceleration { get { return _overrideAcceleration < 0f ? getParameter("_acceleration", 2f) : _overrideAcceleration; } set { _overrideAcceleration = value; updateParameter("_acceleration", value, 2f); } }
-        public static float investigateSpeed { get { return _overrideInvestigateSpeed < 0f ? getParameter("_investigateSpeed", 20f) : _overrideInvestigateSpeed; } set { _overrideInvestigateSpeed = value; updateParameter("_investigateSpeed", value, 20f); } }
-        public static float chaseSpeed { get { return _overrideChaseSpeed < 0f ? getParameter("_chaseSpeed", 42f) : _overrideChaseSpeed; } set { _overrideChaseSpeed = value; updateParameter("_chaseSpeed", value, 42f); } }
-        public static float turnSpeed { get { return _overrideTurnSpeed < 0f ? getParameter("_turnSpeed", 180f) : _overrideTurnSpeed; } set { _overrideTurnSpeed = value; updateParameter("_turnSpeed", value, 180f); } }
-        public static float quickTurnSpeed { get { return _overrideQuickTurnSpeed < 0f ? getParameter("_quickTurnSpeed", 360f) : _overrideQuickTurnSpeed; } set { _overrideQuickTurnSpeed = value; updateParameter("_quickTurnSpeed", value, 360f); } }
-        public static float mouthOpenDistance { get { return _overrideMouthOpenDistance < 0f ? getParameter("_arrivalDistance", 100f) : _overrideMouthOpenDistance; } set { _overrideMouthOpenDistance = value; updateParameter("_arrivalDistance", value, 100f); } }
-        public static float pursueDistance { get { return _overridePursueDistance < 0f ? getParameter("_pursueDistance", 200f) : _overridePursueDistance; } set { _overridePursueDistance = value; updateParameter("_pursueDistance", value, 200f); } }
-        public static float escapeDistance { get { return _overrideEscapeDistance < 0f ? getParameter("_escapeDistance", 500f) : _overrideEscapeDistance; } set { _overrideEscapeDistance = value; updateParameter("_escapeDistance", value, 500f); } }
-
-        public static float visionX { get { return _visionX; } set { _visionX = value < 0f ? 180f : value; } }
-        public static float visionY { get { return _visionY; } set { _visionY = value < 0f ? 100f : value; } }
-        public static float visionYoffset { get { return _visionYoffset; } set { _visionYoffset = value < 0f ? 45f : value; } }
-        public static float visionDistance { get { return _visionDistance; } set { _visionDistance = value < 0f ? 200f : value; } }
-        public static float smellDistance { get { return _smellDistance; } set { _smellDistance = value < 0f ? 100f : value; } }
+        public static float? visionX { get { return _visionX; } set { _visionX = value.GetValueOrDefault(180f); } }
+        public static float? visionY { get { return _visionY; } set { _visionY = value.GetValueOrDefault(100f); } }
+        public static float? visionYoffset { get { return _visionYoffset; } set { _visionYoffset = value.GetValueOrDefault(45f); } }
+        public static float? visionDistance { get { return _visionDistance; } set { _visionDistance = value.GetValueOrDefault(200f); } }
+        public static float? smellDistance { get { return _smellDistance; } set { _smellDistance = value.GetValueOrDefault(500f); } }
 
         public static void Start(ModHelper helper)
         {
@@ -118,7 +117,8 @@ namespace ClassLibrary2
         {
             foreach (AnglerfishController anglerfishController in anglerfish)
             {
-                anglerfishController.enabled = enabledAI;
+                if (enabledAI != null)
+                    anglerfishController.enabled = enabledAI.Value;
                 updateParameter(anglerfishController, "_acceleration", _overrideAcceleration);
                 updateParameter(anglerfishController, "_investigateSpeed", _overrideInvestigateSpeed);
                 updateParameter(anglerfishController, "_chaseSpeed", _overrideChaseSpeed);
@@ -150,9 +150,9 @@ namespace ClassLibrary2
                     {
                         var distance = Locator.GetPlayerBody().GetPosition() - anglerfishController.transform.position;
                         var xAngle = Vector3.Angle(distance, anglerfishController.transform.forward);
-                        var yAngle = Vector3.Angle(distance, anglerfishController.transform.up);
+                        var yAngle = Vector3.Angle(distance, anglerfishController.transform.up) - _visionYoffset;
 
-                        if (distance.magnitude < _visionDistance && (xAngle * 2) < _visionX && (yAngle - _visionYoffset) >= 0f && (yAngle - _visionYoffset) <= _visionY)
+                        if (distance.magnitude <= _visionDistance && (xAngle * 2) <= _visionX && 0 <= yAngle && yAngle <= _visionY)
                         {
                             anglerfishController.SetValue("_targetBody", getPlayerBody());
                             anglerfishController.Invoke("ChangeState", AnglerfishController.AnglerState.Chasing);
@@ -176,17 +176,17 @@ namespace ClassLibrary2
             }
         }
 
-        private static void updateParameter(string id, float parameter, float defaultValue)
+        private static void updateParameter(string id, float? parameter, float defaultValue)
         {
             foreach (AnglerfishController anglerfishController in anglerfish)
             {
-                anglerfishController.SetValue(id, parameter);
+                anglerfishController.SetValue(id, parameter == null ? defaultValue : parameter);
             }
         }
 
-        private static void updateParameter(AnglerfishController anglerfishController, string id, float parameter)
+        private static void updateParameter(AnglerfishController anglerfishController, string id, float? parameter)
         {
-            if ( parameter >= 0f)
+            if (parameter != null)
             {
                 anglerfishController.SetValue(id, parameter);
             }

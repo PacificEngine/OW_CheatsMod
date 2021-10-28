@@ -55,7 +55,7 @@ namespace ClassLibrary2
 
     public class MainClass : ModBehaviour
     {
-        private const string verison = "0.2.4";
+        private const string verison = "0.2.5";
 
         bool cheatsEnabled = true;
         Dictionary<CheatOptions, MultiInputClass> inputs = new Dictionary<CheatOptions, MultiInputClass>();
