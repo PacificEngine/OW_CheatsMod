@@ -19,6 +19,7 @@ Default value for commands
 * Toggle Supernova Timer: V + 0
 * Decrease Supernova Timer: V + Minus
 * Increase Supernova Timer: V + Equals
+* Collapse Quantum Moon: Q + 0
 * Teleport To The Sun: T + 1
 * Teleport To Sun Station: T + 2
 * Teleport To Ember Twin: T + 3
