@@ -10,12 +10,15 @@ namespace ClassLibrary2
 {
     class Teleportation
     {
+        public static OWRigidbody lastTeleporation { get; private set; }
+
         public static void teleportPlayerToSun()
         {
             if (Locator.GetPlayerBody() && Locator.GetAstroObject(AstroObject.Name.Sun))
             {
                 ignoreSand(false);
-                teleportPlayerTo(Locator.GetAstroObject(AstroObject.Name.Sun).GetAttachedOWRigidbody(), new Vector3(0f, 5000f, 0f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
+                var parent = Locator.GetAstroObject(AstroObject.Name.Sun);
+                teleportPlayerTo(parent.GetAttachedOWRigidbody(), new Vector3(0, 5000f, 0), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
             }
         }
 
@@ -24,7 +27,8 @@ namespace ClassLibrary2
             if (Locator.GetPlayerBody() && Locator.GetWarpReceiver(NomaiWarpPlatform.Frequency.SunStation))
             {
                 ignoreSand(false);
-                teleportPlayerTo(Locator.GetWarpReceiver(NomaiWarpPlatform.Frequency.SunStation).GetAttachedOWRigidbody(), Vector3.zero, Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
+                var parent = Locator.GetWarpReceiver(NomaiWarpPlatform.Frequency.SunStation).GetAttachedOWRigidbody();
+                teleportPlayerTo(parent, Vector3.zero, Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
             }
         }
 
@@ -33,7 +37,8 @@ namespace ClassLibrary2
             if (Locator.GetPlayerBody() && Locator.GetAstroObject(AstroObject.Name.CaveTwin))
             {
                 ignoreSand(false);
-                teleportPlayerTo(Locator.GetAstroObject(AstroObject.Name.CaveTwin).GetAttachedOWRigidbody(), new Vector3(0f, 165f, 0f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
+                var parent = Locator.GetAstroObject(AstroObject.Name.CaveTwin);
+                teleportPlayerTo(parent.GetAttachedOWRigidbody(), new Vector3(0, 165f, 0), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
             }
         }
 
@@ -42,7 +47,8 @@ namespace ClassLibrary2
             if (Locator.GetPlayerBody() && Locator.GetAstroObject(AstroObject.Name.TowerTwin))
             {
                 ignoreSand(false);
-                teleportPlayerTo(Locator.GetAstroObject(AstroObject.Name.TowerTwin).GetAttachedOWRigidbody(), new Vector3(0f, 180f, 0f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
+                var parent = Locator.GetAstroObject(AstroObject.Name.TowerTwin);
+                teleportPlayerTo(parent.GetAttachedOWRigidbody(), new Vector3(0, 180f, 0), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
             }
         }
 
@@ -75,7 +81,8 @@ namespace ClassLibrary2
             if (Locator.GetPlayerBody() && Locator.GetAstroObject(AstroObject.Name.TimberHearth))
             {
                 ignoreSand(false);
-                teleportPlayerTo(Locator.GetAstroObject(AstroObject.Name.TimberHearth).GetAttachedOWRigidbody(), new Vector3(0f, 280f, 0f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
+                var parent = Locator.GetAstroObject(AstroObject.Name.TimberHearth);
+                teleportPlayerTo(parent.GetAttachedOWRigidbody(), new Vector3(0, 280f, 0), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
             }
         }
 
@@ -84,7 +91,16 @@ namespace ClassLibrary2
             if (Locator.GetPlayerBody() && Locator.GetAstroObject(AstroObject.Name.TimberHearth))
             {
                 ignoreSand(false);
-                teleportPlayerTo(Locator.GetAstroObject(AstroObject.Name.TimberHearth).GetSatellite().GetAttachedOWRigidbody(), -new Vector3(1f, 0f, 0f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
+                var parent = Locator.GetAstroObject(AstroObject.Name.TimberHearth).GetSatellite();
+                if (!PlayerState.IsInsideShip())
+                {
+                    teleportPlayerTo(parent.GetAttachedOWRigidbody(), new Vector3(0, 0, -1f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
+                }
+                else
+                {
+                    teleportPlayerTo(parent.GetAttachedOWRigidbody(), new Vector3(0, 0, -8f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
+                }
+                
             }
         }
 
@@ -93,7 +109,8 @@ namespace ClassLibrary2
             if (Locator.GetPlayerBody() && Locator.GetAstroObject(AstroObject.Name.TimberHearth))
             {
                 ignoreSand(false);
-                teleportPlayerTo(Locator.GetAstroObject(AstroObject.Name.TimberHearth).GetMoon().GetAttachedOWRigidbody(), new Vector3(0f, 85f, 0f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
+                var parent = Locator.GetAstroObject(AstroObject.Name.TimberHearth).GetMoon();
+                teleportPlayerTo(parent.GetAttachedOWRigidbody(), new Vector3(0f, 85f, 0f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
             }
         }
 
@@ -113,7 +130,15 @@ namespace ClassLibrary2
             if (Locator.GetPlayerBody() && Locator.GetAstroObject(AstroObject.Name.BrittleHollow))
             {
                 ignoreSand(false);
-                teleportPlayerTo(Locator.GetAstroObject(AstroObject.Name.BrittleHollow).GetMoon().GetAttachedOWRigidbody(), new Vector3(0f, 150f, 0f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
+                var parent = Locator.GetAstroObject(AstroObject.Name.BrittleHollow).GetMoon();
+                if (!PlayerState.IsInsideShip())
+                {
+                    teleportPlayerTo(parent.GetAttachedOWRigidbody(), new Vector3(30.3f, 92.8f, 34.2f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
+                }
+                else
+                {
+                    teleportPlayerTo(parent.GetAttachedOWRigidbody(), new Vector3(27.9f, 98.6f, 34.7f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
+                }
             }
         }
 
@@ -122,13 +147,15 @@ namespace ClassLibrary2
             if (Locator.GetPlayerBody() && Locator.GetAstroObject(AstroObject.Name.GiantsDeep))
             {
                 ignoreSand(false);
+                GlobalMessenger.FireEvent("PlayerEnterGiantsDeep");
+                var parent = Locator.GetAstroObject(AstroObject.Name.GiantsDeep);
                 if (!PlayerState.IsInsideShip())
                 {
-                    teleportPlayerTo(Locator.GetAstroObject(AstroObject.Name.GiantsDeep).GetAttachedOWRigidbody(), new Vector3(0f, 505f, 0f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
+                    teleportPlayerTo(parent.GetAttachedOWRigidbody(), new Vector3(0f, 505f, 0f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
                 }
                 else
                 {
-                    teleportPlayerTo(Locator.GetAstroObject(AstroObject.Name.GiantsDeep).GetAttachedOWRigidbody(), new Vector3(0f, 520f, 0f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
+                    teleportPlayerTo(parent.GetAttachedOWRigidbody(), new Vector3(0f, 520f, 0f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
                 }
             }
         }
@@ -138,7 +165,8 @@ namespace ClassLibrary2
             if (Locator.GetPlayerBody() && Locator.GetAstroObject(AstroObject.Name.ProbeCannon))
             {
                 ignoreSand(false);
-                teleportPlayerTo(Locator.GetAstroObject(AstroObject.Name.ProbeCannon).GetAttachedOWRigidbody(), Vector3.zero, Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
+                var parent = Locator.GetAstroObject(AstroObject.Name.ProbeCannon);
+                teleportPlayerTo(parent.GetAttachedOWRigidbody(), Vector3.zero, Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
             }
         }
 
@@ -147,7 +175,8 @@ namespace ClassLibrary2
             if (Locator.GetPlayerBody() && Locator.GetAstroObject(AstroObject.Name.DarkBramble))
             {
                 ignoreSand(false);
-                teleportPlayerTo(Locator.GetAstroObject(AstroObject.Name.DarkBramble).GetAttachedOWRigidbody(), new Vector3(0f, 950f, 0f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
+                var parent = Locator.GetAstroObject(AstroObject.Name.DarkBramble);
+                teleportPlayerTo(parent.GetAttachedOWRigidbody(), new Vector3(0f, 950f, 0f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
             }
         }
 
@@ -183,7 +212,8 @@ namespace ClassLibrary2
             if (Locator.GetPlayerBody() && Locator.GetAstroObject(AstroObject.Name.Comet))
             {
                 ignoreSand(false);
-                teleportPlayerTo(Locator.GetAstroObject(AstroObject.Name.Comet).GetAttachedOWRigidbody(), new Vector3(0f, 85f, 0f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
+                var parent = Locator.GetAstroObject(AstroObject.Name.Comet);
+                teleportPlayerTo(parent.GetAttachedOWRigidbody(), new Vector3(0f, 85f, 0f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
             }
         }
 
@@ -192,7 +222,8 @@ namespace ClassLibrary2
             if (Locator.GetPlayerBody() && Locator.GetAstroObject(AstroObject.Name.WhiteHole))
             {
                 ignoreSand(false);
-                teleportPlayerTo(Locator.GetAstroObject(AstroObject.Name.WhiteHole).GetAttachedOWRigidbody(), new Vector3(40f, 0f, 0f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
+                var parent = Locator.GetAstroObject(AstroObject.Name.WhiteHole);
+                teleportPlayerTo(parent.GetAttachedOWRigidbody(), new Vector3(0f, 0f, 40f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
             }
         }
 
@@ -201,7 +232,8 @@ namespace ClassLibrary2
             if (Locator.GetPlayerBody() && Locator.GetAstroObject(AstroObject.Name.WhiteHoleTarget))
             {
                 ignoreSand(false);
-                teleportPlayerTo(Locator.GetAstroObject(AstroObject.Name.WhiteHoleTarget).GetAttachedOWRigidbody(), new Vector3(0f, 0f, 0f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
+                var parent = Locator.GetAstroObject(AstroObject.Name.WhiteHoleTarget);
+                teleportPlayerTo(parent.GetAttachedOWRigidbody(), Vector3.zero, Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
             }
         }
 
@@ -210,7 +242,8 @@ namespace ClassLibrary2
             if (Locator.GetPlayerBody() && Locator.GetAstroObject(AstroObject.Name.RingWorld))
             {
                 ignoreSand(false);
-                Teleportation.teleportPlayerTo(Locator.GetAstroObject(AstroObject.Name.RingWorld).GetAttachedOWRigidbody(), new Vector3(-320f, -320f, -50f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
+                var parent = Locator.GetAstroObject(AstroObject.Name.RingWorld);
+                Teleportation.teleportPlayerTo(Locator.GetAstroObject(AstroObject.Name.RingWorld).GetAttachedOWRigidbody(), new Vector3(45.5f, -169f, -290f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
             }
         }
 
@@ -219,6 +252,7 @@ namespace ClassLibrary2
             if (Locator.GetPlayerBody() && Locator.GetAstroObject(AstroObject.Name.DreamWorld))
             {
                 ignoreSand(false);
+                var parent = Locator.GetAstroObject(AstroObject.Name.DreamWorld);
                 Teleportation.teleportPlayerTo(Locator.GetAstroObject(AstroObject.Name.DreamWorld).GetAttachedOWRigidbody(), new Vector3(0f, 100f, 0f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
             }
         }
@@ -227,7 +261,9 @@ namespace ClassLibrary2
             if (Locator.GetPlayerBody() && Locator.GetAstroObject(AstroObject.Name.QuantumMoon))
             {
                 ignoreSand(false);
-                Teleportation.teleportPlayerTo(Locator.GetAstroObject(AstroObject.Name.QuantumMoon).GetAttachedOWRigidbody(), new Vector3(0f, -110f, 0f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
+                var parent = Locator.GetAstroObject(AstroObject.Name.QuantumMoon);
+                Teleportation.teleportPlayerTo(parent.GetAttachedOWRigidbody(), new Vector3(0f, 80f, 0f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
+                GlobalMessenger.FireEvent("WarpPlayer");
             }
         }
 
@@ -239,14 +275,7 @@ namespace ClassLibrary2
                     foreach (Collider componentsInChild in Locator.GetShipBody().GetComponentsInChildren<Collider>())
                         Physics.IgnoreCollision(sandLevelController.GetSandCollider(), componentsInChild, ignore);
             }
-            else if (ignore)
-            {
-                GlobalMessenger<OWRigidbody>.FireEvent("EnterTimeLoopCentral", Locator.GetPlayerBody());
-            }
-            else
-            {
-                GlobalMessenger<OWRigidbody>.FireEvent("ExitTimeLoopCentral", Locator.GetPlayerBody());
-            }
+            GlobalMessenger<OWRigidbody>.FireEvent(ignore ? "EnterTimeLoopCentral" : "ExitTimeLoopCentral", Locator.GetPlayerBody());
         }
 
         private static OWRigidbody getPlayerBody()
@@ -278,7 +307,8 @@ namespace ClassLibrary2
         {
             if (teleportTo)
             {
-                var newPosition = position + teleportTo.GetPosition();
+                lastTeleporation = teleportTo;
+                var newPosition = teleportTo.transform.TransformPoint(position);
                 var newVelocity = velocity + teleportTo.GetVelocity();
                 var newAnglarVelocity = angularVelocity + teleportTo.GetAngularVelocity();
                 var newAcceleration = acceleration + teleportTo.GetAcceleration();

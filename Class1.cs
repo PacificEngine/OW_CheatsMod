@@ -51,11 +51,12 @@ namespace ClassLibrary2
         Toggle_Supernova_Timer,
         Decrease_Supernova_Timer,
         Increase_Supernova_Timer,
+        Quantum_Moon_Collapse,
     }
 
     public class MainClass : ModBehaviour
     {
-        private const string verison = "0.2.5";
+        private const string verison = "0.2.6";
 
         bool cheatsEnabled = true;
         Dictionary<CheatOptions, MultiInputClass> inputs = new Dictionary<CheatOptions, MultiInputClass>();
@@ -176,6 +177,8 @@ namespace ClassLibrary2
             addInput(config, CheatOptions.Decrease_Supernova_Timer, "V,Minus");
             addInput(config, CheatOptions.Increase_Supernova_Timer, "V,Equals");
 
+            addInput(config, CheatOptions.Quantum_Moon_Collapse, "Q,Digit0");
+
             ModHelper.Console.WriteLine("CheatMods Confgiured!");
         }
 
@@ -190,6 +193,14 @@ namespace ClassLibrary2
         void OnGUI()
         {
             GUI.Label(new Rect(((float)Screen.width) - 300f, ((float)Screen.height) - 20f, 300f, 20f), "CheatsMod v" + verison + " " + (cheatsEnabled ? "Enabled" : "Disabled"));
+
+            /*if (Teleportation.lastTeleporation)
+            {
+                var parent = Teleportation.lastTeleporation;
+                var relativePosition = (Locator.GetPlayerBody().GetPosition() - parent.GetPosition());
+                GUI.Label(new Rect(((float)Screen.width) - 300f, ((float)Screen.height) - 60f, 300f, 20f), "Position: " + (parent.transform.InverseTransformPoint(Locator.GetPlayerBody().GetPosition())));
+                GUI.Label(new Rect(((float)Screen.width) - 300f, ((float)Screen.height) - 40f, 300f, 20f), "Velocity: " + (Locator.GetPlayerBody().GetVelocity() - parent.GetVelocity()));
+            }*/
         }
 
         void Update()
@@ -420,6 +431,11 @@ namespace ClassLibrary2
                 {
                     SuperNova.adjust(60f);
                     ModHelper.Console.WriteLine("CheatsMod: Remaining Time " + TimeLoop.GetSecondsRemaining());
+                }
+
+                if (inputs[CheatOptions.Quantum_Moon_Collapse].isPressedThisFrame())
+                {
+                    QuantumMoonHelper.collapse();
                 }
             }
         }
