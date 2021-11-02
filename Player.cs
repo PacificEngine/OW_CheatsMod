@@ -276,6 +276,22 @@ namespace ClassLibrary2
                 }
             }
         }
+        public static float thrust
+        {
+            get
+            {
+                var model = getJetpack();
+                if (model)
+                    return model.GetMaxTranslationalThrust();
+                return 6f;
+            }
+            set
+            {
+                var model = getJetpack();
+                if (model)
+                    model.SetValue("_maxTranslationalThrust", value);
+            }
+        }
 
         public static void Update()
         {

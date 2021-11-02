@@ -411,6 +411,30 @@ namespace ClassLibrary2
                     ModHelper.Console.WriteLine("CheatsMod: Remaining Time " + TimeLoop.GetSecondsRemaining());
                 }
 
+                if (inputs[CheatOptions.Decrease_Jetpack_Acceleration].isPressedThisFrame())
+                {
+                    Player.thrust = Player.thrust / 2f;
+                    ModHelper.Console.WriteLine("CheatsMod: JetPack Acceleration Multiplier " + (Player.thrust / 6f));
+                }
+
+                if (inputs[CheatOptions.Increase_Jetpack_Acceleration].isPressedThisFrame())
+                {
+                    Player.thrust = Player.thrust * 2f;
+                    ModHelper.Console.WriteLine("CheatsMod: JetPack Acceleration Multiplier " + (Player.thrust / 6f));
+                }
+
+                if (inputs[CheatOptions.Decrease_Ship_Acceleration].isPressedThisFrame())
+                {
+                    Ship.thrust = Ship.thrust / 2f;
+                    ModHelper.Console.WriteLine("CheatsMod: JetPack Acceleration Multiplier " + (Ship.thrust / 50f));
+                }
+
+                if (inputs[CheatOptions.Increase_Ship_Acceleration].isPressedThisFrame())
+                {
+                    Ship.thrust = Ship.thrust * 2f;
+                    ModHelper.Console.WriteLine("CheatsMod: JetPack Acceleration Multiplier " + (Ship.thrust / 50f));
+                }
+
                 if (inputs[CheatOptions.Quantum_Moon_Collapse].isPressedThisFrame())
                     QuantumMoonHelper.collapse();
             }

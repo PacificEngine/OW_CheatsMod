@@ -7,6 +7,7 @@ Default value for commands
 * Toggle Helmet: C + H
 * Toggle Invinciblity: C + I
 * Toggle Spacesuit: C + G
+* Toggle Training Suit: C + 1
 * Toggle Player Collision: C + N
 * Toggle Ship Collision: C + M
 * Toggle Unlimited Boost: C + T

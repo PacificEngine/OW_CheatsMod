@@ -30,6 +30,16 @@ namespace ClassLibrary2
             return null;
         }
 
+        public static ShipThrusterModel getThrustModel()
+        {
+            ShipThrusterModel controller = null;
+            if (Locator.GetShipTransform() && Locator.GetShipTransform().TryGetComponent<ShipThrusterModel>(out controller))
+            {
+                return controller;
+            }
+            return null;
+        }
+
         public static bool hasUnlimitedFuel { get; set; }
         public static bool hasUnlimitedOxygen { get; set; }
         public static bool isInvincible { get; set; }
@@ -121,6 +131,22 @@ namespace ClassLibrary2
                         }
                     }
                 }
+            }
+        }
+        public static float thrust
+        {
+            get
+            {
+                var model = getThrustModel();
+                if (model)
+                    return model.GetMaxTranslationalThrust();
+                return 50f;
+            }
+            set
+            {
+                var model = getThrustModel();
+                if (model)
+                    model.SetValue("_maxTranslationalThrust", value);
             }
         }
 
