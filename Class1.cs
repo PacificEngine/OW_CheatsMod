@@ -52,15 +52,18 @@ namespace ClassLibrary2
         Decrease_Supernova_Timer,
         Increase_Supernova_Timer,
         Quantum_Moon_Collapse,
+        Decrease_Jetpack_Acceleration,
+        Increase_Jetpack_Acceleration,
+        Decrease_Ship_Acceleration,
+        Increase_Ship_Acceleration
     }
 
     public class MainClass : ModBehaviour
     {
-        private const string verison = "0.2.6";
+        private const string verison = "0.2.7";
 
         bool cheatsEnabled = true;
         Dictionary<CheatOptions, MultiInputClass> inputs = new Dictionary<CheatOptions, MultiInputClass>();
-        float boostSeconds = 0f;
 
         void Start()
         {
@@ -178,6 +181,10 @@ namespace ClassLibrary2
             addInput(config, CheatOptions.Increase_Supernova_Timer, "V,Equals");
 
             addInput(config, CheatOptions.Quantum_Moon_Collapse, "Q,Digit0");
+            addInput(config, CheatOptions.Decrease_Jetpack_Acceleration, "P,Minus");
+            addInput(config, CheatOptions.Increase_Jetpack_Acceleration, "P,Equals");
+            addInput(config, CheatOptions.Decrease_Ship_Acceleration, "O,Minus");
+            addInput(config, CheatOptions.Increase_Ship_Acceleration, "O,Equals");
 
             ModHelper.Console.WriteLine("CheatMods Confgiured!");
         }
@@ -225,8 +232,11 @@ namespace ClassLibrary2
                     Ship.repair();
                 }
 
-                if (inputs[CheatOptions.Toggle_Launch_Codes].isPressedThisFrame() && PlayerData.IsLoaded())
-                    toggleLaunchCodes();
+                if (inputs[CheatOptions.Toggle_Launch_Codes].isPressedThisFrame())
+                {
+                    Data.launchCodes = !Data.launchCodes;
+                    ModHelper.Console.WriteLine("CheatsMod: Launch Codes Known " + Data.launchCodes);
+                }
 
                 if (inputs[CheatOptions.Toggle_All_Frequencies].isPressedThisFrame() && PlayerData.IsLoaded())
                     toggleFrequencies();
@@ -300,68 +310,28 @@ namespace ClassLibrary2
                 if (inputs[CheatOptions.Teleport_To_QuantumMoon].isPressedThisFrame())
                     Teleportation.teleportPlayerToQuantumMoon();
 
-                if (inputs[CheatOptions.Toggle_Helmet].isPressedThisFrame() && Locator.GetPlayerSuit())
+                if (inputs[CheatOptions.Toggle_Helmet].isPressedThisFrame())
                 {
-                    if (Locator.GetPlayerSuit().IsWearingHelmet())
-                    {
-                        Locator.GetPlayerSuit().RemoveHelmet();
-                    }
-                    else
-                    {
-                        Locator.GetPlayerSuit().PutOnHelmet();
-                    }
+                    Player.helmet = !Player.helmet;
+                    ModHelper.Console.WriteLine("CheatsMod: Player Helmet " + Player.helmet);
                 }
 
-                if (inputs[CheatOptions.Toggle_Player_Collision].isPressedThisFrame() && Locator.GetPlayerBody())
+                if (inputs[CheatOptions.Toggle_Player_Collision].isPressedThisFrame())
                 {
-                    if (Locator.GetPlayerBody().GetRequiredComponent<Rigidbody>().detectCollisions)
-                    {
-                        Locator.GetPlayerBody().DisableCollisionDetection();
-                    }
-                    else
-                    {
-                        Locator.GetPlayerBody().EnableCollisionDetection();
-                    }
-
-                    foreach (Collider collider in Locator.GetPlayerBody().GetComponentsInChildren<Collider>())
-                    {
-                        if (!collider.isTrigger)
-                        {
-                            collider.enabled = !collider.enabled;
-                        }
-                    }
+                    Player.collision = !Player.collision;
+                    ModHelper.Console.WriteLine("CheatsMod: Player Collision " + Player.collision);
                 }
 
-                if (inputs[CheatOptions.Toggle_Ship_Collision].isPressedThisFrame() && Locator.GetShipBody())
+                if (inputs[CheatOptions.Toggle_Ship_Collision].isPressedThisFrame())
                 {
-                    if (Locator.GetShipBody().GetRequiredComponent<Rigidbody>().detectCollisions)
-                    {
-                        Locator.GetShipBody().DisableCollisionDetection();
-                    }
-                    else
-                    {
-                        Locator.GetShipBody().EnableCollisionDetection();
-                    }
-
-                    foreach (Collider collider2 in Locator.GetShipTransform().GetComponentsInChildren<Collider>())
-                    {
-                        if (!collider2.isTrigger)
-                        {
-                            collider2.enabled = !collider2.enabled;
-                        }
-                    }
+                    Ship.collision = !Ship.collision;
+                    ModHelper.Console.WriteLine("CheatsMod: Ship Collision " + Ship.collision);
                 }
 
-                if (inputs[CheatOptions.Toggle_Spacesuit].isPressedThisFrame() && Locator.GetPlayerSuit())
+                if (inputs[CheatOptions.Toggle_Spacesuit].isPressedThisFrame())
                 {
-                    if (!Locator.GetPlayerSuit().IsWearingSuit(true))
-                    {
-                        Locator.GetPlayerSuit().SuitUp(false, false);
-                    }
-                    else
-                    {
-                        Locator.GetPlayerSuit().RemoveSuit(false);
-                    }
+                    Player.spaceSuit = !Player.spaceSuit;
+                    ModHelper.Console.WriteLine("CheatsMod: Space Suit " + Player.spaceSuit);
                 }
 
                 if (inputs[CheatOptions.Toggle_Invinciblity].isPressedThisFrame())
@@ -434,137 +404,46 @@ namespace ClassLibrary2
                 }
 
                 if (inputs[CheatOptions.Quantum_Moon_Collapse].isPressedThisFrame())
-                {
                     QuantumMoonHelper.collapse();
-                }
-            }
-        }
-
-        private void toggleLaunchCodes()
-        {
-            if (PlayerData.KnowsLaunchCodes())
-            {
-                DialogueConditionManager.SharedInstance.SetConditionState("TalkedToHornfels", false);
-                DialogueConditionManager.SharedInstance.SetConditionState("SCIENTIST_3", false);
-                DialogueConditionManager.SharedInstance.SetConditionState("LAUNCH_CODES_GIVEN", false);
-                StandaloneProfileManager.SharedInstance.currentProfileGameSave.SetPersistentCondition("LAUNCH_CODES_GIVEN", false);
-
-                ModHelper.Console.WriteLine("Cheat Mods: Forget Launch Codes!");
-            }
-            else
-            {
-                PlayerData.LearnLaunchCodes();
-                DialogueConditionManager.SharedInstance.SetConditionState("TalkedToHornfels", true);
-                DialogueConditionManager.SharedInstance.SetConditionState("SCIENTIST_3", true);
-                DialogueConditionManager.SharedInstance.SetConditionState("LAUNCH_CODES_GIVEN", true);
-                StandaloneProfileManager.SharedInstance.currentProfileGameSave.SetPersistentCondition("LAUNCH_CODES_GIVEN", true);
-                GlobalMessenger.FireEvent(nameof(PlayerData.LearnLaunchCodes));
-
-                ModHelper.Console.WriteLine("Cheat Mods: Learn Launch Codes!");
             }
         }
 
         private void toggleFacts()
         {
-            bool knowsRumors = true;
-            bool knowsFacts = true;
-            foreach(ShipLogFact fact in Locator.GetShipLogManager().GetValue<List<ShipLogFact>>("_factList"))
+            if (Data.knowAllRumors && Data.knowAllFacts)
             {
-                if (!fact.IsRevealed())
-                {
-                    if (fact.IsRumor())
-                    {
-                        knowsRumors = false;
-                    }
-                    else
-                    {
-                        knowsFacts = false;
-                    }
-                }
+                Data.knowAllRumors = false;
+                Data.knowAllFacts = false;
             }
-
-            if (knowsRumors && knowsFacts)
+            else if (Data.knowAllRumors)
             {
-                foreach (ShipLogFactSave fact in StandaloneProfileManager.SharedInstance.currentProfileGameSave.shipLogFactSaves.Values)
-                {
-                    fact.newlyRevealed = false;
-                    fact.read = false;
-                    fact.revealOrder = -1;
-                }
-
-                ModHelper.Console.WriteLine("Cheat Mods: Forget Rumors & Facts!");
-            }
-            else if (knowsRumors)
-            {
-                Locator.GetShipLogManager().RevealAllFacts(false);
-
-                ModHelper.Console.WriteLine("Cheat Mods: Learn Facts!");
+                Data.knowAllFacts = true;
             }
             else
             {
-                Locator.GetShipLogManager().RevealAllFacts(true);
-
-                ModHelper.Console.WriteLine("Cheat Mods: Learn Rumors!");
+                Data.knowAllRumors = true;
             }
 
-            PlayerData.SaveCurrentGame();
+            ModHelper.Console.WriteLine("Cheat Mods: All Rumors " + Data.knowAllRumors + " All Fact " + Data.knowAllFacts);
         }
 
         private void toggleFrequencies()
         {
-            bool knowsFrequency = true;
-            bool knowsSignal = true;
-            foreach (SignalFrequency frequency in (SignalFrequency[])Enum.GetValues(typeof(SignalFrequency)))
+            if (Data.knowAllFrequencies && Data.knowAllSignals)
             {
-                if (frequency != SignalFrequency.Default && !PlayerData.KnowsFrequency(frequency))
-                {
-                    knowsFrequency = false;
-                }
+                Data.knowAllSignals = false;
+                Data.knowAllFrequencies = false;
             }
-            foreach (SignalName signal in (SignalName[])Enum.GetValues(typeof(SignalName)))
+            else if (Data.knowAllFrequencies)
             {
-                if (signal != SignalName.Default && !PlayerData.KnowsSignal(signal))
-                {
-                    knowsSignal = false;
-                }
-            }
-
-            if (knowsFrequency && knowsSignal)
-            {
-                foreach (SignalName signal in (SignalName[])Enum.GetValues(typeof(SignalName)))
-                {
-                    StandaloneProfileManager.SharedInstance.currentProfileGameSave.knownSignals.Remove((int)signal);
-                }
-
-                PlayerData.ForgetFrequency(SignalFrequency.Quantum);
-                PlayerData.ForgetFrequency(SignalFrequency.EscapePod);
-                PlayerData.ForgetFrequency(SignalFrequency.Statue);
-                PlayerData.ForgetFrequency(SignalFrequency.WarpCore);
-                PlayerData.ForgetFrequency(SignalFrequency.HideAndSeek);
-                PlayerData.ForgetFrequency(SignalFrequency.Radio);
-
-                ModHelper.Console.WriteLine("Cheat Mods: Forget Frequencies & Signals!");
-            }
-            else if (knowsFrequency)
-            {
-                foreach (SignalName signal in (SignalName[])Enum.GetValues(typeof(SignalName)))
-                {
-                    StandaloneProfileManager.SharedInstance.currentProfileGameSave.knownSignals[(int)signal] = true;
-                }
-
-                ModHelper.Console.WriteLine("Cheat Mods: Learn Signals!");
+                Data.knowAllSignals = true;
             }
             else
             {
-                foreach (SignalFrequency frequency in (SignalFrequency[])Enum.GetValues(typeof(SignalFrequency)))
-                {
-                    PlayerData.LearnFrequency(frequency);
-                }
-
-                ModHelper.Console.WriteLine("Cheat Mods: Learn Frequencies!");
+                Data.knowAllFrequencies = true;
             }
 
-            PlayerData.SaveCurrentGame();
+            ModHelper.Console.WriteLine("Cheat Mods: All Frequencies " + Data.knowAllFrequencies + " All Signals " + Data.knowAllSignals);
         }
     }
 }

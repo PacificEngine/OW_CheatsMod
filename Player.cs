@@ -140,6 +140,142 @@ namespace ClassLibrary2
                 }
             }
         }
+        public static bool collision
+        {
+            get
+            {
+                if (Locator.GetPlayerBody())
+                {
+                    if (!Locator.GetPlayerBody().GetRequiredComponent<Rigidbody>().detectCollisions)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            set
+            {
+                if (Locator.GetPlayerBody())
+                {
+                    if (!value)
+                    {
+                        Locator.GetPlayerBody().DisableCollisionDetection();
+                    }
+                    else
+                    {
+                        Locator.GetPlayerBody().EnableCollisionDetection();
+                    }
+
+                    foreach (Collider collider in Locator.GetPlayerBody().GetComponentsInChildren<Collider>())
+                    {
+                        if (!collider.isTrigger)
+                        {
+                            collider.enabled = value;
+                        }
+                    }
+                }
+            }
+        }
+        public static bool helmet
+        {
+            get
+            {
+                if (Locator.GetPlayerSuit())
+                {
+                    if ((spaceSuit || trainingSuit) && Locator.GetPlayerSuit().IsWearingHelmet())
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            set
+            {
+                if (Locator.GetPlayerSuit() && (spaceSuit || trainingSuit) && helmet != value)
+                {
+                    if (value)
+                    {
+                        Locator.GetPlayerSuit().PutOnHelmet();
+                    }
+                    else
+                    {
+                        Locator.GetPlayerSuit().RemoveHelmet();
+                    }
+                }
+            }
+        }
+        public static bool spaceSuit
+        {
+            get
+            {
+                if (Locator.GetPlayerSuit())
+                {
+                    if (Locator.GetPlayerSuit().IsWearingSuit(false))
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            set
+            {
+                if (Locator.GetPlayerSuit() && value != spaceSuit)
+                {
+                    if (value)
+                    {
+                        if (trainingSuit)
+                        {
+                            Locator.GetPlayerSuit().RemoveSuit(true);
+                            Locator.GetPlayerSuit().SuitUp(false, true, true);
+                        }
+                        else
+                        {
+                            Locator.GetPlayerSuit().SuitUp(false, false, true);
+                        }
+                    }
+                    else
+                    {
+                        Locator.GetPlayerSuit().RemoveSuit(false);
+                    }
+                }
+            }
+        }
+        public static bool trainingSuit
+        {
+            get
+            {
+                if (Locator.GetPlayerSuit())
+                {
+                    if (!Locator.GetPlayerSuit().IsWearingSuit(false) && Locator.GetPlayerSuit().IsWearingSuit(true))
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            set
+            {
+                if (Locator.GetPlayerSuit() && value != trainingSuit)
+                {
+                    if (value)
+                    {
+                        if (spaceSuit)
+                        {
+                            Locator.GetPlayerSuit().RemoveSuit(true);
+                            Locator.GetPlayerSuit().SuitUp(true, true, true);
+                        }
+                        else
+                        {
+                            Locator.GetPlayerSuit().SuitUp(true, false, true);
+                        }
+                    }
+                    else
+                    {
+                        Locator.GetPlayerSuit().RemoveSuit(false);
+                    }
+                }
+            }
+        }
 
         public static void Update()
         {

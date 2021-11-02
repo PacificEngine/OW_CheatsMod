@@ -87,6 +87,42 @@ namespace ClassLibrary2
                 }
             }
         }
+        public static bool collision
+        {
+            get
+            {
+                if (Locator.GetShipBody())
+                {
+                    if (!Locator.GetShipBody().GetRequiredComponent<Rigidbody>().detectCollisions)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            set
+            {
+                if (Locator.GetShipBody())
+                {
+                    if (!value)
+                    {
+                        Locator.GetShipBody().DisableCollisionDetection();
+                    }
+                    else
+                    {
+                        Locator.GetShipBody().EnableCollisionDetection();
+                    }
+
+                    foreach (Collider collider in Locator.GetShipBody().GetComponentsInChildren<Collider>())
+                    {
+                        if (!collider.isTrigger)
+                        {
+                            collider.enabled = value;
+                        }
+                    }
+                }
+            }
+        }
 
         public static void Update()
         {
