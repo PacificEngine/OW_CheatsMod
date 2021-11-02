@@ -159,21 +159,18 @@ namespace ClassLibrary2
 
                 if (value)
                 {
-                    Locator.GetShipLogManager().RevealAllFacts(false);
+                    Locator.GetShipLogManager().RevealAllFacts(true);
                 }
                 else
                 {
                     foreach (ShipLogFact fact in Locator.GetShipLogManager().GetValue<List<ShipLogFact>>("_factList"))
                     {
-                        if (!fact.IsRevealed())
+                        if (fact.IsRumor())
                         {
-                            if (fact.IsRumor())
-                            {
-                                var savedFact = StandaloneProfileManager.SharedInstance.currentProfileGameSave.shipLogFactSaves[fact.GetEntryID()];
-                                savedFact.newlyRevealed = false;
-                                savedFact.read = false;
-                                savedFact.revealOrder = -1;
-                            }
+                            var savedFact = StandaloneProfileManager.SharedInstance.currentProfileGameSave.shipLogFactSaves[fact.GetID() ?? fact.GetEntryID()];
+                            savedFact.newlyRevealed = false;
+                            savedFact.read = false;
+                            savedFact.revealOrder = -1;
                         }
                     }
                 }
@@ -211,21 +208,18 @@ namespace ClassLibrary2
 
                 if (value)
                 {
-                    Locator.GetShipLogManager().RevealAllFacts(true);
+                    Locator.GetShipLogManager().RevealAllFacts(false);
                 }
                 else
                 {
                     foreach (ShipLogFact fact in Locator.GetShipLogManager().GetValue<List<ShipLogFact>>("_factList"))
                     {
-                        if (!fact.IsRevealed())
+                        if (!fact.IsRumor())
                         {
-                            if (!fact.IsRumor())
-                            {
-                                var savedFact = StandaloneProfileManager.SharedInstance.currentProfileGameSave.shipLogFactSaves[fact.GetEntryID()];
-                                savedFact.newlyRevealed = false;
-                                savedFact.read = false;
-                                savedFact.revealOrder = -1;
-                            }
+                            var savedFact = StandaloneProfileManager.SharedInstance.currentProfileGameSave.shipLogFactSaves[fact.GetID() ?? fact.GetEntryID()];
+                            savedFact.newlyRevealed = false;
+                            savedFact.read = false;
+                            savedFact.revealOrder = -1;
                         }
                     }
                 }

@@ -39,6 +39,7 @@ namespace ClassLibrary2
         Toggle_Helmet,
         Toggle_Invinciblity,
         Toggle_Spacesuit,
+        Toggle_Training_Suit,
         Toggle_Player_Collision,
         Toggle_Ship_Collision,
         Toggle_Unlimited_Boost,
@@ -142,6 +143,7 @@ namespace ClassLibrary2
             addInput(config, CheatOptions.Toggle_Helmet, "C,H");
             addInput(config, CheatOptions.Toggle_Invinciblity, "C,I");
             addInput(config, CheatOptions.Toggle_Spacesuit, "C,G");
+            addInput(config, CheatOptions.Toggle_Training_Suit, "C,Digit1");
             addInput(config, CheatOptions.Toggle_Player_Collision, "C,N");
             addInput(config, CheatOptions.Toggle_Ship_Collision, "C,M");
             addInput(config, CheatOptions.Toggle_Unlimited_Boost, "C,T");
@@ -326,6 +328,12 @@ namespace ClassLibrary2
                 {
                     Ship.collision = !Ship.collision;
                     ModHelper.Console.WriteLine("CheatsMod: Ship Collision " + Ship.collision);
+                }
+
+                if (inputs[CheatOptions.Toggle_Training_Suit].isPressedThisFrame())
+                {
+                    Player.trainingSuit = !Player.trainingSuit;
+                    ModHelper.Console.WriteLine("CheatsMod: Training Suit " + Player.trainingSuit);
                 }
 
                 if (inputs[CheatOptions.Toggle_Spacesuit].isPressedThisFrame())
