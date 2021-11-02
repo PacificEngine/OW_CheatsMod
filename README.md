@@ -47,6 +47,7 @@ Default value for commands
 * Teleport To Ship: T + Numpad 9
 * Teleport To Ship To Player: T + Numpad /
 * Teleport To Probe: T + Numpad *
+* Give To Warp Core: G + W
 
 # Customizing Inputs
 You can add multiple key input combos using `|`.

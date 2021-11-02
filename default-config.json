@@ -104,6 +104,7 @@
     "Teleport To QuantumMoon": "T,Numpad7",
     "Teleport To Ship": "T,Numpad9",
     "Teleport Ship To Player": "T,NumpadDivide",
-    "Teleport To Probe": "T,NumpadMultiply"
+    "Teleport To Probe": "T,NumpadMultiply",
+    "Give Warp Core": "G,W"
   }
 }

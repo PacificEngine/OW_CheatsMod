@@ -65,16 +65,16 @@ namespace ClassLibrary2
         public static bool enabledAI { get { return _enabledAI; } set { _enabledAI = value; updateGhosts(); } }
         public static bool enabledHostility { get { return _enabledHostility; } set { _enabledHostility = value; updateGhosts(); } }
 
-        public static void Start(ModHelper helper)
+        public static void Start()
         {
-            helper.HarmonyHelper.AddPrefix<WaitAction>("CalculateUtility", typeof(EnabledInhabitants), "updateGhosts");
-            helper.HarmonyHelper.AddPrefix<ChaseAction>("CalculateUtility", typeof(HostileInhabitants), "updateGhosts");
-            helper.HarmonyHelper.AddPrefix<HuntAction>("CalculateUtility", typeof(HostileInhabitants), "updateGhosts");
-            helper.HarmonyHelper.AddPrefix<StalkAction>("CalculateUtility", typeof(HostileInhabitants), "updateGhosts");
-            helper.HarmonyHelper.AddPrefix<GrabAction>("CalculateUtility", typeof(HostileInhabitants), "updateGhosts");
+            Helper.helper.HarmonyHelper.AddPrefix<WaitAction>("CalculateUtility", typeof(EnabledInhabitants), "updateGhosts");
+            Helper.helper.HarmonyHelper.AddPrefix<ChaseAction>("CalculateUtility", typeof(HostileInhabitants), "updateGhosts");
+            Helper.helper.HarmonyHelper.AddPrefix<HuntAction>("CalculateUtility", typeof(HostileInhabitants), "updateGhosts");
+            Helper.helper.HarmonyHelper.AddPrefix<StalkAction>("CalculateUtility", typeof(HostileInhabitants), "updateGhosts");
+            Helper.helper.HarmonyHelper.AddPrefix<GrabAction>("CalculateUtility", typeof(HostileInhabitants), "updateGhosts");
         }
 
-        public static void Destroy(ModHelper helper)
+        public static void Destroy()
         {
 
         }

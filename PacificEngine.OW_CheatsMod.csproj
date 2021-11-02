@@ -59,6 +59,9 @@
     <Reference Include="UnityEngine.IMGUIModule">
       <HintPath>$(OuterWildsRootDirectory)\OuterWilds_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.ParticleSystemModule">
+      <HintPath>J:\Program Files (x86)\Steam\steamapps\common\Outer Wilds\OuterWilds_Data\Managed\UnityEngine.ParticleSystemModule.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.PhysicsModule">
       <HintPath>$(OuterWildsRootDirectory)\OuterWilds_Data\Managed\UnityEngine.PhysicsModule.dll</HintPath>
     </Reference>
@@ -76,8 +79,10 @@
     <Compile Include="Anglerfish.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Data.cs" />
+    <Compile Include="Helper.cs" />
     <Compile Include="Inhabitants.cs" />
     <Compile Include="Inputs.cs" />
+    <Compile Include="Items.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="QuantumMoonHelper.cs" />
     <Compile Include="Ship.cs" />

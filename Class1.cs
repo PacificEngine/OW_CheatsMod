@@ -56,12 +56,13 @@ namespace ClassLibrary2
         Decrease_Jetpack_Acceleration,
         Increase_Jetpack_Acceleration,
         Decrease_Ship_Acceleration,
-        Increase_Ship_Acceleration
+        Increase_Ship_Acceleration,
+        Give_Warp_Core
     }
 
     public class MainClass : ModBehaviour
     {
-        private const string verison = "0.2.7";
+        private const string verison = "0.2.8";
 
         bool cheatsEnabled = true;
         Dictionary<CheatOptions, MultiInputClass> inputs = new Dictionary<CheatOptions, MultiInputClass>();
@@ -69,15 +70,17 @@ namespace ClassLibrary2
         void Start()
         {
             ModHelper.Events.Player.OnPlayerAwake += (player) => onAwake();
-            Anglerfish.Start((ModHelper)ModHelper);
-            Inhabitants.Start((ModHelper)ModHelper);
+            Anglerfish.Start();
+            Inhabitants.Start();
+            Items.Start();
             ModHelper.Console.WriteLine("CheatMods ready!");
         }
 
         void Destory()
         {
-            Anglerfish.Destroy((ModHelper)ModHelper);
-            Inhabitants.Destroy((ModHelper)ModHelper);
+            Anglerfish.Destroy();
+            Inhabitants.Destroy();
+            Items.Destroy();
             ModHelper.Console.WriteLine("CheatMods clean up!");
         }
 
@@ -118,6 +121,7 @@ namespace ClassLibrary2
         public override void Configure(IModConfig config)
         {
             cheatsEnabled = config.Enabled;
+            Helper.helper = (ModHelper)ModHelper;
 
             Player.isInvincible = getConfigOrDefault<bool>(config, "Invincible", false);
             Ship.isInvincible = Player.isInvincible;
@@ -188,11 +192,14 @@ namespace ClassLibrary2
             addInput(config, CheatOptions.Decrease_Ship_Acceleration, "O,Minus");
             addInput(config, CheatOptions.Increase_Ship_Acceleration, "O,Equals");
 
+            addInput(config, CheatOptions.Give_Warp_Core, "G,W");
+
             ModHelper.Console.WriteLine("CheatMods Confgiured!");
         }
 
         void onAwake()
         {
+            Helper.helper = (ModHelper)ModHelper;
             Anglerfish.Awake();
             Inhabitants.Awake();
 
@@ -214,6 +221,7 @@ namespace ClassLibrary2
 
         void Update()
         {
+            Helper.helper = (ModHelper)ModHelper;
             foreach (MultiInputClass input in inputs.Values)
             {
                 input.Update();
@@ -437,6 +445,9 @@ namespace ClassLibrary2
 
                 if (inputs[CheatOptions.Quantum_Moon_Collapse].isPressedThisFrame())
                     QuantumMoonHelper.collapse();
+
+                if (inputs[CheatOptions.Give_Warp_Core].isPressedThisFrame())
+                    Items.pickUpWarpCore(WarpCoreType.Vessel);
             }
         }
 

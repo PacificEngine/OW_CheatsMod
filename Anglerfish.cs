@@ -47,8 +47,6 @@ namespace ClassLibrary2
     {
         public static HashSet<AnglerfishController> anglerfish = new HashSet<AnglerfishController>();
 
-        private static ModHelper _helper;
-
         private static bool? _enabledAI = null;
         private static bool _canStun = true;
         private static bool _canFeel = true;
@@ -91,13 +89,12 @@ namespace ClassLibrary2
         public static float? visionDistance { get { return _visionDistance; } set { _visionDistance = value.GetValueOrDefault(200f); } }
         public static float? smellDistance { get { return _smellDistance; } set { _smellDistance = value.GetValueOrDefault(500f); } }
 
-        public static void Start(ModHelper helper)
+        public static void Start()
         {
-            _helper = helper;
-            helper.HarmonyHelper.AddPrefix<AnglerfishController>("Awake", typeof(AnglerfishHelper), "Awake");
-            helper.HarmonyHelper.AddPrefix<AnglerfishController>("OnDestroy", typeof(AnglerfishHelper), "OnDestroy");
-            helper.HarmonyHelper.AddPrefix<AnglerfishController>("OnImpact", typeof(AnglerfishHelper), "onFeel");
-            helper.HarmonyHelper.AddPrefix<AnglerfishController>("OnClosestAudibleNoise", typeof(AnglerfishHelper), "onHearSound");
+            Helper.helper.HarmonyHelper.AddPrefix<AnglerfishController>("Awake", typeof(AnglerfishHelper), "Awake");
+            Helper.helper.HarmonyHelper.AddPrefix<AnglerfishController>("OnDestroy", typeof(AnglerfishHelper), "OnDestroy");
+            Helper.helper.HarmonyHelper.AddPrefix<AnglerfishController>("OnImpact", typeof(AnglerfishHelper), "onFeel");
+            Helper.helper.HarmonyHelper.AddPrefix<AnglerfishController>("OnClosestAudibleNoise", typeof(AnglerfishHelper), "onHearSound");
         }
 
         public static void Awake()
@@ -105,7 +102,7 @@ namespace ClassLibrary2
 
         }
 
-        public static void Destroy(ModHelper helper)
+        public static void Destroy()
         {
         }
 
