@@ -19,10 +19,11 @@ Default value for commands
 * Toggle Supernova Timer: V + 0
 * Decrease Supernova Timer: V + Minus
 * Increase Supernova Timer: V + Equals
-* Decrease JetPack Timer: P + Minus
-* Increase JetPack Timer: P + Equals
-* Decrease Ship Timer: O + Minus
-* Increase Ship Timer: O + Equals
+* Decrease JetPack Acceleration: P + Minus
+* Increase JetPack Acceleration: P + Equals
+* Decrease Ship Acceleration: O + Minus
+* Increase Ship Acceleration: O + Equals
+* Collapse Quantum Moon: Q + 0
 * Teleport To The Sun: T + 1
 * Teleport To Sun Station: T + 2
 * Teleport To Ember Twin: T + 3
