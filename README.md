@@ -2,6 +2,7 @@
 Default value for commands
 * Fill Fuel and Health: C + J
 * Toggle Launch Codes: C + L
+* Toggle Eye Coordinates: C + E,
 * Toggle All Frequencies: C + F (Toggles between: no signals nor frequencies, all frequencies, and all signals and frequencies)
 * Toggle Rumors: C + R (Toggles between: no rumors nor facts, all rumors, and rumors and facts)
 * Toggle Helmet: C + H
@@ -47,6 +48,7 @@ Default value for commands
 * Teleport To Ship: T + Numpad 9
 * Teleport Ship To Player: T + Numpad /
 * Teleport To Probe: T + Numpad *
+* Teleport To Nomai Probe: T + Numpad -
 * Give To Warp Core: G + W
 
 # Customizing Inputs

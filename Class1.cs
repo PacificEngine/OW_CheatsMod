@@ -12,6 +12,7 @@ namespace ClassLibrary2
     {
         Fill_Fuel_and_Health,
         Toggle_Launch_Codes,
+        Toggle_Eye_Coordinates,
         Toggle_All_Frequencies,
         Toggle_Rumors,
         Teleport_To_Sun,
@@ -35,6 +36,7 @@ namespace ClassLibrary2
         Teleport_To_QuantumMoon,
         Teleport_To_Ship,
         Teleport_To_Probe,
+        Teleport_To_Nomai_Probe,
         Teleport_Ship_To_Player,
         Toggle_Helmet,
         Toggle_Invinciblity,
@@ -62,7 +64,8 @@ namespace ClassLibrary2
 
     public class MainClass : ModBehaviour
     {
-        private const string verison = "0.2.8";
+        private const string verison = "0.2.9";
+        private ScreenPrompt cheatsTagger = new ScreenPrompt("");
 
         bool cheatsEnabled = true;
         Dictionary<CheatOptions, MultiInputClass> inputs = new Dictionary<CheatOptions, MultiInputClass>();
@@ -142,6 +145,7 @@ namespace ClassLibrary2
             inputs.Clear();
             addInput(config, CheatOptions.Fill_Fuel_and_Health, "C,J");
             addInput(config, CheatOptions.Toggle_Launch_Codes, "C,L");
+            addInput(config, CheatOptions.Toggle_Eye_Coordinates, "C,E");
             addInput(config, CheatOptions.Toggle_All_Frequencies, "C,F");
             addInput(config, CheatOptions.Toggle_Rumors, "C,R");
             addInput(config, CheatOptions.Toggle_Helmet, "C,H");
@@ -178,6 +182,7 @@ namespace ClassLibrary2
             addInput(config, CheatOptions.Teleport_To_Ship, "T,Numpad9");
             addInput(config, CheatOptions.Teleport_Ship_To_Player, "T,NumpadDivide");
             addInput(config, CheatOptions.Teleport_To_Probe, "T,NumpadMultiply");
+            addInput(config, CheatOptions.Teleport_To_Nomai_Probe, "T,NumpadMinus");
 
             addInput(config, CheatOptions.Toggle_Anglerfish_AI, "V,I");
             addInput(config, CheatOptions.Toggle_Inhabitants_AI, "V,O");
@@ -208,8 +213,11 @@ namespace ClassLibrary2
 
         void OnGUI()
         {
-            GUI.Label(new Rect(((float)Screen.width) - 300f, ((float)Screen.height) - 20f, 300f, 20f), "CheatsMod v" + verison + " " + (cheatsEnabled ? "Enabled" : "Disabled"));
-
+            cheatsTagger.SetText("CheatsMod v" + verison + ": " + (cheatsEnabled ? "Enabled" : "Disabled"));
+            if (Locator.GetPromptManager()?.GetScreenPromptList(PromptPosition.LowerLeft)?.Contains(cheatsTagger) == false)
+            {
+                Locator.GetPromptManager().AddScreenPrompt(cheatsTagger, PromptPosition.LowerLeft, true);
+            }
             /*if (Teleportation.lastTeleporation)
             {
                 var parent = Teleportation.lastTeleporation;
@@ -246,6 +254,12 @@ namespace ClassLibrary2
                 {
                     Data.launchCodes = !Data.launchCodes;
                     ModHelper.Console.WriteLine("CheatsMod: Launch Codes Known " + Data.launchCodes);
+                }
+
+                if (inputs[CheatOptions.Toggle_Eye_Coordinates].isPressedThisFrame())
+                {
+                    Data.eyeCoordinates = !Data.eyeCoordinates;
+                    ModHelper.Console.WriteLine("CheatsMod: Eye Coordinates Known " + Data.eyeCoordinates);
                 }
 
                 if (inputs[CheatOptions.Toggle_All_Frequencies].isPressedThisFrame() && PlayerData.IsLoaded())
@@ -301,6 +315,9 @@ namespace ClassLibrary2
 
                 if (inputs[CheatOptions.Teleport_To_Probe].isPressedThisFrame())
                     Teleportation.teleportPlayerToProbe();
+
+                if (inputs[CheatOptions.Teleport_To_Nomai_Probe].isPressedThisFrame())
+                    Teleportation.teleportPlayerToNomaiProbe();
 
                 if (inputs[CheatOptions.Teleport_To_Interloper].isPressedThisFrame())
                     Teleportation.teleportPlayerToInterloper();

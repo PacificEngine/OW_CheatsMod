@@ -28,6 +28,7 @@ namespace ClassLibrary2
                         DialogueConditionManager.SharedInstance.SetConditionState("LAUNCH_CODES_GIVEN", true);
                         StandaloneProfileManager.SharedInstance.currentProfileGameSave.SetPersistentCondition("LAUNCH_CODES_GIVEN", true);
                         GlobalMessenger.FireEvent(nameof(PlayerData.LearnLaunchCodes));
+                        GameObject.FindWithTag("Global")?.GetComponent<KeyInfoPromptController>()?.Invoke("OnLearnLaunchCodes");
                     }
                     else
                     {
@@ -35,8 +36,36 @@ namespace ClassLibrary2
                         DialogueConditionManager.SharedInstance.SetConditionState("SCIENTIST_3", false);
                         DialogueConditionManager.SharedInstance.SetConditionState("LAUNCH_CODES_GIVEN", false);
                         StandaloneProfileManager.SharedInstance.currentProfileGameSave.SetPersistentCondition("LAUNCH_CODES_GIVEN", false);
+                        GameObject.FindWithTag("Global")?.GetComponent<KeyInfoPromptController>()?.Invoke("OnLaunchCodesEntered");
                     }
                     PlayerData.SaveCurrentGame();
+                }
+            }
+        }
+
+        public static bool eyeCoordinates
+        {
+            get
+            {
+                return PlayerData.IsLoaded() && Locator.GetShipLogManager() && Locator.GetShipLogManager().IsFactRevealed("OPC_EYE_COORDINATES_X1");
+            }
+            set
+            {
+                if (PlayerData.IsLoaded() && Locator.GetShipLogManager() && value != eyeCoordinates)
+                {
+                    if (value)
+                    {
+                        Locator.GetShipLogManager().RevealFact("OPC_EYE_COORDINATES_X1", true, false);
+                    }
+                    else
+                    {
+                        var savedFact = StandaloneProfileManager.SharedInstance.currentProfileGameSave.shipLogFactSaves["OPC_EYE_COORDINATES_X1"];
+                        savedFact.newlyRevealed = false;
+                        savedFact.read = false;
+                        savedFact.revealOrder = -1;
+                        PlayerData.SaveCurrentGame();
+                    }
+                    GameObject.FindWithTag("Global")?.GetComponent<KeyInfoPromptController>()?.GetValue<ScreenPrompt>("_eyeCoordinatesPrompt")?.SetVisibility(value);
                 }
             }
         }

@@ -60,6 +60,7 @@
     },
     "Fill Fuel and Health": "C,J",
     "Toggle Launch Codes": "C,L",
+    "Toggle Eye Coordinates": "C,E",
     "Toggle All Frequencies": "C,F",
     "Toggle Rumors": "C,R",
     "Toggle Helmet": "C,H",
@@ -105,6 +106,7 @@
     "Teleport To Ship": "T,Numpad9",
     "Teleport Ship To Player": "T,NumpadDivide",
     "Teleport To Probe": "T,NumpadMultiply",
+    "Teleport To Nomai Probe": "T,NumpadMinus",
     "Give Warp Core": "G,W"
   }
 }

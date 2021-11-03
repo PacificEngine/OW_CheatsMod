@@ -60,10 +60,16 @@
       <HintPath>$(OuterWildsRootDirectory)\OuterWilds_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.ParticleSystemModule">
-      <HintPath>J:\Program Files (x86)\Steam\steamapps\common\Outer Wilds\OuterWilds_Data\Managed\UnityEngine.ParticleSystemModule.dll</HintPath>
+      <HintPath>$(OuterWildsRootDirectory)\OuterWilds_Data\Managed\UnityEngine.ParticleSystemModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.PhysicsModule">
       <HintPath>$(OuterWildsRootDirectory)\OuterWilds_Data\Managed\UnityEngine.PhysicsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TextCoreModule">
+      <HintPath>J:\Program Files (x86)\Steam\steamapps\common\Outer Wilds\OuterWilds_Data\Managed\UnityEngine.TextCoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>J:\Program Files (x86)\Steam\steamapps\common\Outer Wilds\OuterWilds_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>$(OuterWildsRootDirectory)\OuterWilds_Data\Managed\UnityEngine.UI.dll</HintPath>

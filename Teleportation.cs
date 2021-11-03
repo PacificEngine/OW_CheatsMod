@@ -198,6 +198,18 @@ namespace ClassLibrary2
             }
         }
 
+        public static void teleportPlayerToNomaiProbe()
+        {
+            if (Locator.GetPlayerBody())
+            {
+                ignoreSand(false);
+                var parent = Locator.GetAstroObject(AstroObject.Name.ProbeCannon)?.GetComponent<OrbitalProbeLaunchController>()?.GetValue<OWRigidbody>("_probeBody");
+                if (parent)
+                    teleportPlayerTo(parent, new Vector3(0f, 0f, -25f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
+             }
+        }
+
+
         public static void teleportShipToPlayer()
         {
             if (Locator.GetPlayerBody() && Locator.GetShipBody() && !PlayerState.IsInsideShip())
