@@ -66,6 +66,7 @@ namespace ClassLibrary2
     {
         private const string verison = "0.2.9";
         private ScreenPrompt cheatsTagger = new ScreenPrompt("");
+        private NomaiCoordinateInterface coordinates;
 
         bool cheatsEnabled = true;
         Dictionary<CheatOptions, MultiInputClass> inputs = new Dictionary<CheatOptions, MultiInputClass>();
@@ -208,6 +209,8 @@ namespace ClassLibrary2
             Anglerfish.Awake();
             Inhabitants.Awake();
 
+            coordinates = GameObject.FindObjectOfType<NomaiCoordinateInterface>();
+
             ModHelper.Console.WriteLine("CheatMods: Player Awakes");
         }
 
@@ -218,6 +221,7 @@ namespace ClassLibrary2
             {
                 Locator.GetPromptManager().AddScreenPrompt(cheatsTagger, PromptPosition.LowerLeft, true);
             }
+
             /*if (Teleportation.lastTeleporation)
             {
                 var parent = Teleportation.lastTeleporation;
