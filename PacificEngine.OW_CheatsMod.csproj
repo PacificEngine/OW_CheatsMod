@@ -97,7 +97,6 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="config.json" />
     <None Include="default-config.json" />
     <None Include="manifest.json" />
     <None Include="README.md" />
@@ -105,19 +104,19 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>
+      rmdir /Q /S "$(OuterWildsModsDirectory)\PacificEngine.CheatsMod"
       rmdir /Q /S "$(OuterWildsModsDirectory)\$(ProjectName)"
       md "$(OuterWildsModsDirectory)\$(ProjectName)"
       copy /y "$(ProjectDir)default-config.json" "$(OuterWildsModsDirectory)\$(ProjectName)"
       copy /y "$(ProjectDir)manifest.json" "$(OuterWildsModsDirectory)\$(ProjectName)"
       copy /y "$(TargetPath)" "$(OuterWildsModsDirectory)\$(ProjectName)"
-    </PostBuildEvent>
-    <PostBuildEvent>
+
       rmdir /Q /S "$(ProjectDir)$(ProjectName)"
       md "$(ProjectDir)$(ProjectName)"
       copy /y "$(ProjectDir)default-config.json" "$(ProjectDir)$(ProjectName)"
       copy /y "$(ProjectDir)manifest.json" "$(ProjectDir)$(ProjectName)"
       copy /y "$(TargetPath)" "$(ProjectDir)$(ProjectName)"
-      del "$(ProjectDir)..\$(ProjectName).zip"
+      del /q "$(ProjectDir)..\$(ProjectName).zip"
       powershell Compress-Archive "$(ProjectDir)$(ProjectName)" "$(ProjectDir)..\$(ProjectName).zip"
       rmdir /Q /S "$(ProjectDir)$(ProjectName)"
     </PostBuildEvent>
