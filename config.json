@@ -107,6 +107,7 @@
     "Teleport Ship To Player": "T,NumpadDivide",
     "Teleport To Probe": "T,NumpadMultiply",
     "Teleport To Nomai Probe": "T,NumpadMinus",
-    "Give Warp Core": "G,W"
+    "Give Warp Core": "G,W",
+    "Toggle Position Display": "D,P"
   }
 }

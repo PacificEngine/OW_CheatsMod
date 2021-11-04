@@ -90,6 +90,7 @@
     <Compile Include="Inputs.cs" />
     <Compile Include="Items.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="Position.cs" />
     <Compile Include="QuantumMoonHelper.cs" />
     <Compile Include="Ship.cs" />
     <Compile Include="SuperNova.cs" />

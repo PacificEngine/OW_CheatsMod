@@ -60,7 +60,8 @@ namespace ClassLibrary2
         Increase_Jetpack_Acceleration,
         Decrease_Ship_Acceleration,
         Increase_Ship_Acceleration,
-        Give_Warp_Core
+        Give_Warp_Core,
+        Toggle_Position_Display
     }
 
     public class MainClass : ModBehaviour
@@ -74,6 +75,7 @@ namespace ClassLibrary2
         void Start()
         {
             ModHelper.Events.Player.OnPlayerAwake += (player) => onAwake();
+            Position.Start();
             Anglerfish.Start();
             Inhabitants.Start();
             Items.Start();
@@ -82,6 +84,7 @@ namespace ClassLibrary2
 
         void Destory()
         {
+            Position.Destroy();
             Anglerfish.Destroy();
             Inhabitants.Destroy();
             Items.Destroy();
@@ -200,12 +203,16 @@ namespace ClassLibrary2
 
             addInput(config, CheatOptions.Give_Warp_Core, "G,W");
 
+            addInput(config, CheatOptions.Toggle_Position_Display, "D,P");
+            
+
             ModHelper.Console.WriteLine("CheatMods Confgiured!");
         }
 
         void onAwake()
         {
             Helper.helper = (ModHelper)ModHelper;
+            Position.Awake();
             Anglerfish.Awake();
             Inhabitants.Awake();
 
@@ -219,14 +226,6 @@ namespace ClassLibrary2
             {
                 Locator.GetPromptManager().AddScreenPrompt(cheatsTagger, PromptPosition.LowerLeft, true);
             }
-
-            /*if (Teleportation.lastTeleporation)
-            {
-                var parent = Teleportation.lastTeleporation;
-                var relativePosition = (Locator.GetPlayerBody().GetPosition() - parent.GetPosition());
-                GUI.Label(new Rect(((float)Screen.width) - 300f, ((float)Screen.height) - 60f, 300f, 20f), "Position: " + (parent.transform.InverseTransformPoint(Locator.GetPlayerBody().GetPosition())));
-                GUI.Label(new Rect(((float)Screen.width) - 300f, ((float)Screen.height) - 40f, 300f, 20f), "Velocity: " + (Locator.GetPlayerBody().GetVelocity() - parent.GetVelocity()));
-            }*/
         }
 
         void Update()
@@ -238,6 +237,7 @@ namespace ClassLibrary2
             }
             if (cheatsEnabled)
             {
+                Position.Update();
                 Player.Update();
                 Ship.Update();
                 Anglerfish.Update();
@@ -467,6 +467,9 @@ namespace ClassLibrary2
 
                 if (inputs[CheatOptions.Give_Warp_Core].isPressedThisFrame())
                     Items.pickUpWarpCore(WarpCoreType.Vessel);
+
+                if (inputs[CheatOptions.Toggle_Position_Display].isPressedThisFrame())
+                    Position.debugMode = !Position.debugMode;
             }
         }
 

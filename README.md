@@ -50,6 +50,7 @@ Default value for commands
 * Teleport To Probe: T + Numpad *
 * Teleport To Nomai Probe: T + Numpad -
 * Give To Warp Core: G + W
+* Toggle Display Current Position: D + P
 
 # Customizing Inputs
 You can add multiple key input combos using `|`.
