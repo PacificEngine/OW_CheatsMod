@@ -1,6 +1,7 @@
 ﻿using OWML.Common;
 using OWML.ModHelper;
 using OWML.ModHelper.Events;
+using OWML.Utils;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -64,7 +65,7 @@ namespace ClassLibrary2
 
     public class MainClass : ModBehaviour
     {
-        private const string verison = "0.2.9";
+        private const string verison = "0.3.0";
         private ScreenPrompt cheatsTagger = new ScreenPrompt("");
 
         bool cheatsEnabled = true;
@@ -102,7 +103,7 @@ namespace ClassLibrary2
                 }
                 return sValue;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 config.SetSettingsValue(id, defaultValue);
                 return defaultValue;
