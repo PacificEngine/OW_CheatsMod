@@ -29,6 +29,7 @@ namespace ClassLibrary2
         Teleport_To_GiantsDeep,
         Teleport_To_ProbeCannon,
         Teleport_To_DarkBramble,
+        Teleport_To_Vessel,
         Teleport_To_Interloper, // Comet
         Teleport_To_WhiteHole,
         Teleport_To_WhiteHoleStation, // WhiteHoleTarget
@@ -61,6 +62,7 @@ namespace ClassLibrary2
         Decrease_Ship_Acceleration,
         Increase_Ship_Acceleration,
         Give_Warp_Core,
+        Toggle_Fog,
         Toggle_Position_Display
     }
 
@@ -76,6 +78,7 @@ namespace ClassLibrary2
         {
             ModHelper.Events.Player.OnPlayerAwake += (player) => onAwake();
             Position.Start();
+            Fog.Start();
             Anglerfish.Start();
             Inhabitants.Start();
             Items.Start();
@@ -85,6 +88,7 @@ namespace ClassLibrary2
         void Destory()
         {
             Position.Destroy();
+            Fog.Destroy();
             Anglerfish.Destroy();
             Inhabitants.Destroy();
             Items.Destroy();
@@ -187,6 +191,7 @@ namespace ClassLibrary2
             addInput(config, CheatOptions.Teleport_Ship_To_Player, "T,NumpadDivide");
             addInput(config, CheatOptions.Teleport_To_Probe, "T,NumpadMultiply");
             addInput(config, CheatOptions.Teleport_To_Nomai_Probe, "T,NumpadMinus");
+            addInput(config, CheatOptions.Teleport_To_Vessel, "T,NumpadPlus");
 
             addInput(config, CheatOptions.Toggle_Anglerfish_AI, "V,I");
             addInput(config, CheatOptions.Toggle_Inhabitants_AI, "V,O");
@@ -203,6 +208,7 @@ namespace ClassLibrary2
 
             addInput(config, CheatOptions.Give_Warp_Core, "G,W");
 
+            addInput(config, CheatOptions.Toggle_Fog, "F,O,G");
             addInput(config, CheatOptions.Toggle_Position_Display, "D,P");
             
 
@@ -213,6 +219,7 @@ namespace ClassLibrary2
         {
             Helper.helper = (ModHelper)ModHelper;
             Position.Awake();
+            Fog.Awake();
             Anglerfish.Awake();
             Inhabitants.Awake();
 
@@ -238,6 +245,7 @@ namespace ClassLibrary2
             if (cheatsEnabled)
             {
                 Position.Update();
+                Fog.Update();
                 Player.Update();
                 Ship.Update();
                 Anglerfish.Update();
@@ -308,6 +316,9 @@ namespace ClassLibrary2
 
                 if (inputs[CheatOptions.Teleport_To_DarkBramble].isPressedThisFrame())
                     Teleportation.teleportPlayerToDarkBramble();
+
+                if (inputs[CheatOptions.Teleport_To_Vessel].isPressedThisFrame())
+                    Teleportation.teleportPlayerToVessel();
 
                 if (inputs[CheatOptions.Teleport_To_Ship].isPressedThisFrame())
                     Teleportation.teleportPlayerToShip();
@@ -467,6 +478,12 @@ namespace ClassLibrary2
 
                 if (inputs[CheatOptions.Give_Warp_Core].isPressedThisFrame())
                     Items.pickUpWarpCore(WarpCoreType.Vessel);
+
+                if (inputs[CheatOptions.Toggle_Fog].isPressedThisFrame())
+                {
+                    Fog.enabled = !Fog.enabled;
+                    ModHelper.Console.WriteLine("CheatsMod: Fog " + Fog.enabled);
+                }
 
                 if (inputs[CheatOptions.Toggle_Position_Display].isPressedThisFrame())
                     Position.debugMode = !Position.debugMode;

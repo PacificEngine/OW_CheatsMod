@@ -35,7 +35,14 @@ namespace ClassLibrary2
             ProbeCannon,
             NomaiProbe,
             DarkBramble,
+            InnerDarkBramble_Hub,
+            InnerDarkBramble_EscapePod,
+            InnerDarkBramble_Nest,
+            InnerDarkBramble_Feldspar,
+            InnerDarkBramble_Gutter,
             InnerDarkBramble_Vessel,
+            InnerDarkBramble_Maze,
+            InnerDarkBramble_SmallNest,
             Interloper,
             WhiteHole,
             WhiteHoleStation,
@@ -76,7 +83,14 @@ namespace ClassLibrary2
             bodies.Add(HeavenlyBodies.ProbeCannon, () => Locator.GetAstroObject(AstroObject.Name.ProbeCannon)?.GetAttachedOWRigidbody());
             bodies.Add(HeavenlyBodies.NomaiProbe, () => Locator.GetAstroObject(AstroObject.Name.ProbeCannon)?.GetComponent<OrbitalProbeLaunchController>()?.GetValue<OWRigidbody>("_probeBody"));
             bodies.Add(HeavenlyBodies.DarkBramble, () => Locator.GetAstroObject(AstroObject.Name.DarkBramble)?.GetAttachedOWRigidbody());
-
+            bodies.Add(HeavenlyBodies.InnerDarkBramble_Hub, () => Helper.getSector(Sector.Name.BrambleDimension).Find(body => OuterFogWarpVolume.Name.Hub.Equals(body?.GetComponentInChildren<OuterFogWarpVolume>()?.GetName()))?.GetAttachedOWRigidbody());
+            bodies.Add(HeavenlyBodies.InnerDarkBramble_EscapePod, () => Helper.getSector(Sector.Name.BrambleDimension).Find(body => OuterFogWarpVolume.Name.EscapePod.Equals(body?.GetComponentInChildren<OuterFogWarpVolume>()?.GetName()))?.GetAttachedOWRigidbody());
+            bodies.Add(HeavenlyBodies.InnerDarkBramble_Nest, () => Helper.getSector(Sector.Name.BrambleDimension).Find(body => OuterFogWarpVolume.Name.AnglerNest.Equals(body?.GetComponentInChildren<OuterFogWarpVolume>()?.GetName()))?.GetAttachedOWRigidbody());
+            bodies.Add(HeavenlyBodies.InnerDarkBramble_Feldspar, () => Helper.getSector(Sector.Name.BrambleDimension).Find(body => OuterFogWarpVolume.Name.Pioneer.Equals(body?.GetComponentInChildren<OuterFogWarpVolume>()?.GetName()))?.GetAttachedOWRigidbody());
+            bodies.Add(HeavenlyBodies.InnerDarkBramble_Gutter, () => Helper.getSector(Sector.Name.BrambleDimension).Find(body => OuterFogWarpVolume.Name.ExitOnly.Equals(body?.GetComponentInChildren<OuterFogWarpVolume>()?.GetName()))?.GetAttachedOWRigidbody());
+            bodies.Add(HeavenlyBodies.InnerDarkBramble_Vessel, () => Helper.getSector(Sector.Name.VesselDimension).Find(body => OuterFogWarpVolume.Name.Vessel.Equals(body?.GetComponentInChildren<OuterFogWarpVolume>()?.GetName()))?.GetAttachedOWRigidbody());
+            bodies.Add(HeavenlyBodies.InnerDarkBramble_Maze, () => Helper.getSector(Sector.Name.BrambleDimension).Find(body => OuterFogWarpVolume.Name.Cluster.Equals(body?.GetComponentInChildren<OuterFogWarpVolume>()?.GetName()))?.GetAttachedOWRigidbody());
+            bodies.Add(HeavenlyBodies.InnerDarkBramble_SmallNest, () => Helper.getSector(Sector.Name.BrambleDimension).Find(body => OuterFogWarpVolume.Name.SmallNest.Equals(body?.GetComponentInChildren<OuterFogWarpVolume>()?.GetName()))?.GetAttachedOWRigidbody());
             bodies.Add(HeavenlyBodies.Interloper, () => Locator.GetAstroObject(AstroObject.Name.Comet)?.GetAttachedOWRigidbody());
             bodies.Add(HeavenlyBodies.WhiteHole, () => Locator.GetAstroObject(AstroObject.Name.WhiteHole)?.GetAttachedOWRigidbody());
             bodies.Add(HeavenlyBodies.WhiteHoleStation, () => Locator.GetAstroObject(AstroObject.Name.WhiteHoleTarget)?.GetAttachedOWRigidbody());
@@ -87,7 +101,6 @@ namespace ClassLibrary2
 
         public static void Awake()
         {
-            
         }
 
         public static void Destroy()

@@ -85,6 +85,7 @@
     <Compile Include="Anglerfish.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Data.cs" />
+    <Compile Include="Fog.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="Inhabitants.cs" />
     <Compile Include="Inputs.cs" />

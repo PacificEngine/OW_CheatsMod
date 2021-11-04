@@ -177,6 +177,17 @@ namespace ClassLibrary2
             }
         }
 
+        public static void teleportPlayerToVessel()
+        {
+            var parent = Position.getBody(Position.HeavenlyBodies.InnerDarkBramble_Vessel);
+            if (Locator.GetPlayerBody() && parent)
+            {
+                ignoreSand(false);
+                Teleportation.teleportPlayerTo(parent, new Vector3(149.1f, 11.9f, -8.6f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
+                GlobalMessenger.FireEvent("WarpPlayer");
+            }
+        }
+
         public static void teleportPlayerToShip()
         {
             if (Locator.GetPlayerBody() && Locator.GetShipBody() && !PlayerState.IsInsideShip())
@@ -204,7 +215,6 @@ namespace ClassLibrary2
                 teleportPlayerTo(parent, new Vector3(0f, 0f, -25f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
              }
         }
-
 
         public static void teleportShipToPlayer()
         {
@@ -264,6 +274,7 @@ namespace ClassLibrary2
                 Teleportation.teleportPlayerTo(parent, new Vector3(0f, 100f, 0f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
             }
         }
+
         public static void teleportPlayerToQuantumMoon()
         {
             var parent = Position.getBody(Position.HeavenlyBodies.QuantumMoon);
