@@ -29,7 +29,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyName>OW_CheatsMod</AssemblyName>
+    <AssemblyName>$(ProjectName)</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <!--<OuterWildsRootDirectory>%OuterWilds%\Outer Wilds</OuterWildsRootDirectory>-->
     <!--<OuterWildsModsDirectory>%AppData%\OuterWildsModManager\OWML\Mods</OuterWildsModsDirectory>-->
@@ -66,13 +66,16 @@
       <HintPath>$(OuterWildsRootDirectory)\OuterWilds_Data\Managed\UnityEngine.PhysicsModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TextCoreModule">
-      <HintPath>J:\Program Files (x86)\Steam\steamapps\common\Outer Wilds\OuterWilds_Data\Managed\UnityEngine.TextCoreModule.dll</HintPath>
+      <HintPath>$(OuterWildsRootDirectory)\OuterWilds_Data\Managed\UnityEngine.TextCoreModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TextRenderingModule">
-      <HintPath>J:\Program Files (x86)\Steam\steamapps\common\Outer Wilds\OuterWilds_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
+      <HintPath>$(OuterWildsRootDirectory)\OuterWilds_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>$(OuterWildsRootDirectory)\OuterWilds_Data\Managed\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="PacificEngine.OW_CommonResourcesMod">
+      <HintPath>$(OuterWildsModsDirectory)\PacificEngine.OW_CommonResourcesMod\PacificEngine.OW_CommonResourcesMod.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -82,20 +85,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Anglerfish.cs" />
-    <Compile Include="Class1.cs" />
-    <Compile Include="Data.cs" />
-    <Compile Include="Fog.cs" />
-    <Compile Include="Helper.cs" />
-    <Compile Include="Inhabitants.cs" />
-    <Compile Include="Inputs.cs" />
-    <Compile Include="Items.cs" />
-    <Compile Include="Player.cs" />
-    <Compile Include="Position.cs" />
-    <Compile Include="QuantumMoonHelper.cs" />
-    <Compile Include="Ship.cs" />
-    <Compile Include="SuperNova.cs" />
-    <Compile Include="Teleportation.cs" />
+    <Compile Include="CheatsMod.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />

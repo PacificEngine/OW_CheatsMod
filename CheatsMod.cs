@@ -6,8 +6,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using PacificEngine.OW_CommonResourcesMod;
 
-namespace ClassLibrary2
+namespace PacificEngine.OW_CheatsMod
 {
     enum CheatOptions
     {
@@ -68,7 +69,7 @@ namespace ClassLibrary2
 
     public class MainClass : ModBehaviour
     {
-        private const string verison = "0.3.0";
+        private const string verison = "0.4.0";
         private ScreenPrompt cheatsTagger = new ScreenPrompt("");
 
         bool cheatsEnabled = true;
@@ -77,50 +78,17 @@ namespace ClassLibrary2
         void Start()
         {
             ModHelper.Events.Player.OnPlayerAwake += (player) => onAwake();
-            Position.Start();
-            Fog.Start();
-            Anglerfish.Start();
-            Inhabitants.Start();
-            Items.Start();
             ModHelper.Console.WriteLine("CheatMods ready!");
         }
 
         void Destory()
         {
-            Position.Destroy();
-            Fog.Destroy();
-            Anglerfish.Destroy();
-            Inhabitants.Destroy();
-            Items.Destroy();
             ModHelper.Console.WriteLine("CheatMods clean up!");
         }
 
-        private T getConfigOrDefault<T>(IModConfig config, string id, T defaultValue)
-        {
-            try
-            {
-                var sValue = config.GetSettingsValue<T>(id);
-                if (sValue == null)
-                {
-                    throw new NullReferenceException(id);
-                }
-                if (sValue is string && ((string)(object)sValue).Length < 1)
-                {
-                    throw new NullReferenceException(id);
-                }
-                return sValue;
-            }
-            catch (Exception)
-            {
-                config.SetSettingsValue(id, defaultValue);
-                return defaultValue;
-            };
-        }
-
-
         private MultiInputClass getInputConfigOrDefault(IModConfig config, string id, string defaultValue)
         {
-            return MultiInputClass.fromString(getConfigOrDefault<string>(config, id, defaultValue));
+            return MultiInputClass.fromString(Config.getConfigOrDefault<string>(config, id, defaultValue));
         }
 
         private void addInput(IModConfig config, CheatOptions option, string defaultValue)
@@ -134,22 +102,22 @@ namespace ClassLibrary2
             cheatsEnabled = config.Enabled;
             Helper.helper = (ModHelper)ModHelper;
 
-            Player.isInvincible = getConfigOrDefault<bool>(config, "Invincible", false);
+            Player.isInvincible = Config.getConfigOrDefault<bool>(config, "Invincible", false);
             Ship.isInvincible = Player.isInvincible;
 
-            Player.hasUnlimitedFuel = getConfigOrDefault<bool>(config, "Unlimited Fuel", false);
+            Player.hasUnlimitedFuel = Config.getConfigOrDefault<bool>(config, "Unlimited Fuel", false);
             Ship.hasUnlimitedFuel = Player.hasUnlimitedFuel;
 
-            Player.hasUnlimitedOxygen = getConfigOrDefault<bool>(config, "Unlimited Oxygen", false);
+            Player.hasUnlimitedOxygen = Config.getConfigOrDefault<bool>(config, "Unlimited Oxygen", false);
             Ship.hasUnlimitedOxygen = Player.hasUnlimitedOxygen;
 
-            Player.hasUnlimitedHealth = getConfigOrDefault<bool>(config, "Unlimited Health", false);
-            Player.hasUnlimitedBoost = getConfigOrDefault<bool>(config, "Unlimited Boost", false);
+            Player.hasUnlimitedHealth = Config.getConfigOrDefault<bool>(config, "Unlimited Health", false);
+            Player.hasUnlimitedBoost = Config.getConfigOrDefault<bool>(config, "Unlimited Boost", false);
 
-            Anglerfish.enabledAI = getConfigOrDefault<bool>(config, "Anglerfish AI", true);
-            Inhabitants.enabledAI = getConfigOrDefault<bool>(config, "Inhabitants AI", true);
-            Inhabitants.enabledHostility = getConfigOrDefault<bool>(config, "Inhabitants Hostility", true);
-            Fog.enabled = getConfigOrDefault<bool>(config, "Fog", true);
+            Anglerfish.enabledAI = Config.getConfigOrDefault<bool>(config, "Anglerfish AI", true);
+            Inhabitants.enabledAI = Config.getConfigOrDefault<bool>(config, "Inhabitants AI", true);
+            Inhabitants.enabledHostility = Config.getConfigOrDefault<bool>(config, "Inhabitants Hostility", true);
+            Fog.enabled = Config.getConfigOrDefault<bool>(config, "Fog", true);
 
             inputs.Clear();
             addInput(config, CheatOptions.Fill_Fuel_and_Health, "C,J");
@@ -218,12 +186,6 @@ namespace ClassLibrary2
 
         void onAwake()
         {
-            Helper.helper = (ModHelper)ModHelper;
-            Position.Awake();
-            Fog.Awake();
-            Anglerfish.Awake();
-            Inhabitants.Awake();
-
             ModHelper.Console.WriteLine("CheatMods: Player Awakes");
         }
 
@@ -238,20 +200,12 @@ namespace ClassLibrary2
 
         void Update()
         {
-            Helper.helper = (ModHelper)ModHelper;
             foreach (MultiInputClass input in inputs.Values)
             {
                 input.Update();
             }
             if (cheatsEnabled)
             {
-                Position.Update();
-                Fog.Update();
-                Player.Update();
-                Ship.Update();
-                Anglerfish.Update();
-                SuperNova.Update();
-
                 if (inputs[CheatOptions.Fill_Fuel_and_Health].isPressedThisFrame() && Locator.GetPlayerTransform())
                 {
                     Player.oxygenSeconds = Player.maxOxygenSeconds;
@@ -434,20 +388,20 @@ namespace ClassLibrary2
 
                 if (inputs[CheatOptions.Toggle_Supernova_Timer].isPressedThisFrame())
                 {
-                    SuperNova.freeze(!SuperNova.isFrozen());
-                    ModHelper.Console.WriteLine("CheatsMod: SuperNova Frozen " + SuperNova.isFrozen());
+                    SuperNova.freeze = !SuperNova.freeze;
+                    ModHelper.Console.WriteLine("CheatsMod: SuperNova Frozen " + SuperNova.freeze);
                 }
 
                 if (inputs[CheatOptions.Decrease_Supernova_Timer].isPressedThisFrame())
                 {
-                    SuperNova.adjust(-60f);
-                    ModHelper.Console.WriteLine("CheatsMod: Remaining Time " + TimeLoop.GetSecondsRemaining());
+                    SuperNova.remaining -= -60f;
+                    ModHelper.Console.WriteLine("CheatsMod: Remaining Time " + SuperNova.remaining);
                 }
 
                 if (inputs[CheatOptions.Increase_Supernova_Timer].isPressedThisFrame())
                 {
-                    SuperNova.adjust(60f);
-                    ModHelper.Console.WriteLine("CheatsMod: Remaining Time " + TimeLoop.GetSecondsRemaining());
+                    SuperNova.remaining += -60f;
+                    ModHelper.Console.WriteLine("CheatsMod: Remaining Time " + SuperNova.remaining);
                 }
 
                 if (inputs[CheatOptions.Decrease_Jetpack_Acceleration].isPressedThisFrame())

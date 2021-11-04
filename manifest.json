@@ -1,9 +1,10 @@
 {
-	"filename": "OW_CheatsMod.dll",
+	"filename": "PacificEngine.OW_CheatsMod.dll",
 	"author": "PacificEngine",
 	"name": "Cheats Mod",
 	"uniqueName": "PacificEngine.CheatsMod",
-	"version": "0.3.0",
+	"version": "0.4.0",
 	"owmlVersion": "2.1.0",
+	"dependencies": [ "PacificEngine.OW_CommonResourcesMod" ],
 	"enabled": true
 }
