@@ -75,7 +75,7 @@
       <HintPath>$(OuterWildsRootDirectory)\OuterWilds_Data\Managed\UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="PacificEngine.OW_CommonResourcesMod">
-      <HintPath>$(OuterWildsModsDirectory)\PacificEngine.OW_CommonResourcesMod\PacificEngine.OW_CommonResourcesMod.dll</HintPath>
+      <HintPath>$(OuterWildsModsDirectory)\PacificEngine.OW_CommonResources\PacificEngine.OW_CommonResources.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
