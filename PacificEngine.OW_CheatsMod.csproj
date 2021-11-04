@@ -31,11 +31,20 @@
   <PropertyGroup>
     <AssemblyName>$(ProjectName)</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <CommonResourcesProject>$(ProjectDir)..\PacificEngine.OW_CommonResources\PacificEngine.OW_CommonResources.csproj</CommonResourcesProject>
     <!--<OuterWildsRootDirectory>%OuterWilds%\Outer Wilds</OuterWildsRootDirectory>-->
     <!--<OuterWildsModsDirectory>%AppData%\OuterWildsModManager\OWML\Mods</OuterWildsModsDirectory>-->
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="OWML" Version="2.1.0" />
+  </ItemGroup>
+  <ItemGroup Condition="Exists($(CommonResourcesProject))">
+    <ProjectReference Include="$(CommonResourcesProject)" />
+  </ItemGroup>
+  <ItemGroup Condition="!Exists($(CommonResourcesProject))">
+    <Reference Include="PacificEngine.OW_CommonResources">
+      <HintPath>$(OuterWildsModsDirectory)\PacificEngine.OW_CommonResources\PacificEngine.OW_CommonResources.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
@@ -73,9 +82,6 @@
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>$(OuterWildsRootDirectory)\OuterWilds_Data\Managed\UnityEngine.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="PacificEngine.OW_CommonResourcesMod">
-      <HintPath>$(OuterWildsModsDirectory)\PacificEngine.OW_CommonResources\PacificEngine.OW_CommonResources.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
