@@ -19,6 +19,7 @@ Default value for commands
 * Toggle Inhabitants AI: V + O
 * Toggle Inhabitants Hostility: V + H
 * Toggle Supernova Timer: V + 0
+* Toggle Fog: F + O + G
 * Decrease Supernova Timer: V + Minus
 * Increase Supernova Timer: V + Equals
 * Decrease JetPack Acceleration: P + Minus
@@ -49,6 +50,7 @@ Default value for commands
 * Teleport Ship To Player: T + Numpad /
 * Teleport To Probe: T + Numpad *
 * Teleport To Nomai Probe: T + Numpad -
+* Teleport To Vessel: T + Numpad +
 * Give To Warp Core: G + W
 * Toggle Display Current Position: D + P
 

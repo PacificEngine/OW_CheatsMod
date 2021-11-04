@@ -77,6 +77,7 @@
     "Toggle Inhabitants AI": "V,O",
     "Toggle Inhabitants Hostility": "V,H",
     "Toggle Supernova Timer": "V,Digit0",
+    "Toggle Fog": "F,O,G",
     "Decrease Supernova Timer": "V,Minus",
     "Increase Supernova Timer": "V,Equals",
     "Quantum Moon Collapse": "Q,Digit0",
@@ -107,6 +108,7 @@
     "Teleport Ship To Player": "T,NumpadDivide",
     "Teleport To Probe": "T,NumpadMultiply",
     "Teleport To Nomai Probe": "T,NumpadMinus",
+    "Teleport To Vessel": "T,NumpadPlus",
     "Give Warp Core": "G,W",
     "Toggle Position Display": "D,P"
   }
