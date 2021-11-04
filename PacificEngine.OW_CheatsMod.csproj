@@ -112,13 +112,14 @@
       copy /y "$(TargetPath)" "$(OuterWildsModsDirectory)\$(ProjectName)"
     </PostBuildEvent>
     <PostBuildEvent>
-      rmdir /Q /S "$(ProjectDir)zip"
-      md "$(ProjectDir)zip"
-      copy /y "$(ProjectDir)default-config.json" "$(ProjectDir)zip"
-      copy /y "$(ProjectDir)manifest.json" "$(ProjectDir)zip"
-      copy /y "$(TargetPath)" "$(ProjectDir)zip"
-      powershell Compress-Archive "$(ProjectDir)zip" "$(ProjectDir)..\$(ProjectName).zip"
-      rmdir /Q /S "$(ProjectDir)zip"
+      rmdir /Q /S "$(ProjectDir)$(ProjectName)"
+      md "$(ProjectDir)$(ProjectName)"
+      copy /y "$(ProjectDir)default-config.json" "$(ProjectDir)$(ProjectName)"
+      copy /y "$(ProjectDir)manifest.json" "$(ProjectDir)$(ProjectName)"
+      copy /y "$(TargetPath)" "$(ProjectDir)$(ProjectName)"
+      del "$(ProjectDir)..\$(ProjectName).zip"
+      powershell Compress-Archive "$(ProjectDir)$(ProjectName)" "$(ProjectDir)..\$(ProjectName).zip"
+      rmdir /Q /S "$(ProjectDir)$(ProjectName)"
     </PostBuildEvent>
   </PropertyGroup>
 </Project>
