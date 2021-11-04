@@ -184,7 +184,15 @@ namespace ClassLibrary2
             {
                 ignoreSand(false);
                 Teleportation.teleportPlayerTo(parent, new Vector3(149.1f, 11.9f, -8.6f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
-                GlobalMessenger.FireEvent("WarpPlayer");
+                if (PlayerState.IsInsideShip())
+                {
+                    GlobalMessenger.FireEvent("WarpPlayer");
+                    GlobalMessenger.FireEvent("EnterShip");
+                }
+                else
+                {
+                    GlobalMessenger.FireEvent("WarpPlayer");
+                }
             }
         }
 
@@ -282,7 +290,15 @@ namespace ClassLibrary2
             {
                 ignoreSand(false);
                 Teleportation.teleportPlayerTo(parent, new Vector3(0f, 80f, 0f), Vector3.zero, Vector3.zero, Vector3.zero, Quaternion.identity);
-                GlobalMessenger.FireEvent("WarpPlayer");
+                if (PlayerState.IsInsideShip())
+                {
+                    GlobalMessenger.FireEvent("WarpPlayer");
+                    GlobalMessenger.FireEvent("EnterShip");
+                }
+                else
+                {
+                    GlobalMessenger.FireEvent("WarpPlayer");
+                }
             }
         }
 

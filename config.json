@@ -58,6 +58,13 @@
       "no": "Disabled",
       "title": "Inhabitants Hostility"
     },
+    "Fog": {
+      "type": "toggle",
+      "value": true,
+      "yes": "Enabled",
+      "no": "Disabled",
+      "title": "Fog"
+    },
     "Fill Fuel and Health": "C,J",
     "Toggle Launch Codes": "C,L",
     "Toggle Eye Coordinates": "C,E",

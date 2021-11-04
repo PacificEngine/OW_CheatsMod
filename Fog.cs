@@ -63,8 +63,6 @@ namespace ClassLibrary2
             Helper.helper.HarmonyHelper.AddPostfix<PlanetaryFogController>("OnDisable", typeof(Fog), "OnDestroyPlanetaryFogController");
             Helper.helper.HarmonyHelper.AddPostfix<FogOverrideVolume>("Awake", typeof(Fog), "OnAwakeFogOverrideVolume");
             Helper.helper.HarmonyHelper.AddPostfix<FogOverrideVolume>("OnDestroy", typeof(Fog), "OnDestroyFogOverrideVolume");
-
-            // TODO Error - method PlanetaryFogController.OnDestroy not found.
         }
 
         public static void Awake()
@@ -79,7 +77,7 @@ namespace ClassLibrary2
         {
         }
 
-        private static bool _enabled;
+        private static bool _enabled = true;
         public static bool enabled
         {
             get

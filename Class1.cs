@@ -146,9 +146,10 @@ namespace ClassLibrary2
             Player.hasUnlimitedHealth = getConfigOrDefault<bool>(config, "Unlimited Health", false);
             Player.hasUnlimitedBoost = getConfigOrDefault<bool>(config, "Unlimited Boost", false);
 
-            Anglerfish.enabledAI = getConfigOrDefault<bool>(config, "Anglerfish AI", false);
-            Inhabitants.enabledAI = getConfigOrDefault<bool>(config, "Inhabitants AI", false);
-            Inhabitants.enabledHostility = getConfigOrDefault<bool>(config, "Inhabitants Hostility", false);
+            Anglerfish.enabledAI = getConfigOrDefault<bool>(config, "Anglerfish AI", true);
+            Inhabitants.enabledAI = getConfigOrDefault<bool>(config, "Inhabitants AI", true);
+            Inhabitants.enabledHostility = getConfigOrDefault<bool>(config, "Inhabitants Hostility", true);
+            Fog.enabled = getConfigOrDefault<bool>(config, "Fog", true);
 
             inputs.Clear();
             addInput(config, CheatOptions.Fill_Fuel_and_Health, "C,J");
