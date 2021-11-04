@@ -219,11 +219,6 @@ namespace ClassLibrary2
                 Locator.GetPromptManager().AddScreenPrompt(cheatsTagger, PromptPosition.LowerLeft, true);
             }
 
-            if (coordinates)
-            {
-                GUI.Label(new Rect(((float)Screen.width) - 300f, ((float)Screen.height) - 60f, 300f, 20f), "X: " + string.Join(",", coordinates.GetValue<int[]>("_coordinateX")) + ", Y: " + string.Join(",", coordinates.GetValue<int[]>("_coordinateY")) + ", Z: " + string.Join(",", coordinates.GetValue<int[]>("_coordinateZ")));
-            }
-
             /*if (Teleportation.lastTeleporation)
             {
                 var parent = Teleportation.lastTeleporation;
