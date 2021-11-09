@@ -7,6 +7,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using PacificEngine.OW_CommonResources;
+using PacificEngine.OW_CommonResources.Game.Player;
+using PacificEngine.OW_CommonResources.Game.State;
+using PacificEngine.OW_CommonResources.Game.Resource;
 
 namespace PacificEngine.OW_CheatsMod
 {
@@ -29,6 +32,7 @@ namespace PacificEngine.OW_CheatsMod
         Teleport_To_HollowLattern, // BrittleHollow.Moon
         Teleport_To_GiantsDeep,
         Teleport_To_ProbeCannon,
+        Teleport_To_ProbeCannonCommandModule,
         Teleport_To_DarkBramble,
         Teleport_To_Vessel,
         Teleport_To_Interloper, // Comet
@@ -69,7 +73,7 @@ namespace PacificEngine.OW_CheatsMod
 
     public class MainClass : ModBehaviour
     {
-        private const string verison = "0.4.1";
+        private const string verison = "0.4.2";
         private ScreenPrompt cheatsTagger = new ScreenPrompt("");
 
         bool cheatsEnabled = true;
@@ -78,6 +82,7 @@ namespace PacificEngine.OW_CheatsMod
         void Start()
         {
             ModHelper.Events.Player.OnPlayerAwake += (player) => onAwake();
+
             ModHelper.Console.WriteLine("CheatMods ready!");
         }
 
@@ -161,6 +166,7 @@ namespace PacificEngine.OW_CheatsMod
             addInput(config, CheatOptions.Teleport_To_Probe, "T,NumpadMultiply");
             addInput(config, CheatOptions.Teleport_To_Nomai_Probe, "T,NumpadMinus");
             addInput(config, CheatOptions.Teleport_To_Vessel, "T,NumpadPlus");
+            addInput(config, CheatOptions.Teleport_To_ProbeCannonCommandModule, "T,NumpadPeriod");
 
             addInput(config, CheatOptions.Toggle_Anglerfish_AI, "V,I");
             addInput(config, CheatOptions.Toggle_Inhabitants_AI, "V,O");
@@ -268,6 +274,9 @@ namespace PacificEngine.OW_CheatsMod
 
                 if (inputs[CheatOptions.Teleport_To_ProbeCannon].isPressedThisFrame())
                     Teleportation.teleportPlayerToProbeCannon();
+
+                if (inputs[CheatOptions.Teleport_To_ProbeCannonCommandModule].isPressedThisFrame())
+                    Teleportation.teleportPlayerToProbeCannonCommandModule();
 
                 if (inputs[CheatOptions.Teleport_To_DarkBramble].isPressedThisFrame())
                     Teleportation.teleportPlayerToDarkBramble();
@@ -432,7 +441,7 @@ namespace PacificEngine.OW_CheatsMod
                     QuantumMoonHelper.collapse();
 
                 if (inputs[CheatOptions.Give_Warp_Core].isPressedThisFrame())
-                    Items.pickUpWarpCore(WarpCoreType.Vessel);
+                    Possession.pickUpWarpCore(WarpCoreType.Vessel);
 
                 if (inputs[CheatOptions.Toggle_Fog].isPressedThisFrame())
                 {
