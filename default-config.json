@@ -58,14 +58,6 @@
       "no": "Disabled",
       "title": "Fog"
     },
-    "Customize Inputs": {
-      "title": "Customize Inputs",
-      "type": "separator"
-    },
-    "Player Data": {
-      "title": "Player Data",
-      "type": "separator"
-    },
     "Fill Fuel and Health": "C,J",
     "Toggle Helmet": "C,H",
     "Toggle Invinciblity": "C,I",
@@ -77,18 +69,12 @@
     "Toggle Unlimited Fuel": "C,Y",
     "Toggle Unlimited Oxygen": "C,O",
     "Toggle Unlimited Health": "C,U",
-    "Persistent Data": {
-      "title": "Persistent Data",
-      "type": "separator"
-    },
+
     "Toggle Launch Codes": "C,L",
     "Toggle Eye Coordinates": "C,E",
     "Toggle All Frequencies": "C,F",
     "Toggle Rumors": "C,R",
-    "Game State": {
-      "title": "Game State",
-      "type": "separator"
-    },
+
     "Toggle Fog": "F,O,G",
     "Toggle Anglerfish AI": "V,I",
     "Toggle Inhabitants AI": "V,O",
@@ -97,18 +83,12 @@
     "Decrease Supernova Timer": "V,Minus",
     "Increase Supernova Timer": "V,Equals",
     "Quantum Moon Collapse": "Q,Digit0",
-    "Acceleration": {
-      "title": "Acceleration",
-      "type": "separator"
-    },
+
     "Increase Jetpack Acceleration": "P,Equals",
     "Decrease Jetpack Acceleration": "P,Minus",
     "Decrease Ship Acceleration": "O,Minus",
     "Increase Ship Acceleration": "O,Equals",
-    "Teleportation": {
-      "title": "Teleportation",
-      "type": "separator"
-    },
+
     "Teleport To Sun": "T,Digit1",
     "Teleport To SunStation": "T,Digit2",
     "Teleport To EmberTwin": "T,Digit3",
@@ -134,15 +114,9 @@
     "Teleport To Probe": "T,NumpadMultiply",
     "Teleport To Nomai Probe": "T,NumpadMinus",
     "Teleport To Vessel": "T,NumpadPlus",
-    "Giving Items": {
-      "title": "Giving Items",
-      "type": "separator"
-    },
+
     "Give Warp Core": "G,W",
-    "Debugging": {
-      "title": "Debugging",
-      "type": "separator"
-    },
+
     "Toggle Position Display": "D,P"
   }
 }
