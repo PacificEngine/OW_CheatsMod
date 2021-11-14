@@ -121,7 +121,6 @@ namespace PacificEngine.OW_CheatsMod
 
             Anglerfish.enabledAI = Config.getConfigOrDefault<bool>(config, "Anglerfish AI", true);
             Inhabitants.enabledAI = Config.getConfigOrDefault<bool>(config, "Inhabitants AI", true);
-            Inhabitants.enabledHostility = Config.getConfigOrDefault<bool>(config, "Inhabitants Hostility", true);
             Fog.enabled = Config.getConfigOrDefault<bool>(config, "Fog", true);
 
             inputs.Clear();

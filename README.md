@@ -25,7 +25,7 @@ Default value for commands
 `O` + `-` | Decrease Ship Acceleration
 `O` + `+` | Increase Ship Acceleration
 
-## Save Data
+## Persistent Data
 | Key | Description |
 | :-: | --- |
 `C` + `L` | Toggle Launch Codes
