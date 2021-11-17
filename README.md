@@ -17,14 +17,6 @@ Default value for commands
 `C` + `N` | Toggle Player Collision
 `C` + `M` | Toggle Ship Collision
 
-## Player Acceleration
-| Key | Description |
-| :-: | --- |
-`P` + `-` | Decrease JetPack Acceleration
-`P` + `+` | Increase JetPack Acceleration
-`O` + `-` | Decrease Ship Acceleration
-`O` + `+` | Increase Ship Acceleration
-
 ## Persistent Data
 | Key | Description |
 | :-: | --- |
@@ -44,6 +36,14 @@ Default value for commands
 `V` + `+` | Increase Supernova Timer
 `F` + `O` + `G` | Toggle Fog
 `Q` + `0` | Change Quantum Moon Position
+
+## Player Acceleration
+| Key | Description |
+| :-: | --- |
+`P` + `-` | Decrease JetPack Acceleration
+`P` + `+` | Increase JetPack Acceleration
+`O` + `-` | Decrease Ship Acceleration
+`O` + `+` | Increase Ship Acceleration
 
 ## Teleportation
 | Key | Description |

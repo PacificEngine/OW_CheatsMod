@@ -2,6 +2,10 @@
   "enabled": true,
   "requireVR": false,
   "settings": {
+    "PacificEngine.CheatsMod.ToggableSettings": {
+      "type": "separator",
+      "title": "Toggable Settings"
+    },
     "Invincible": {
       "type": "toggle",
       "value": false,
@@ -58,7 +62,14 @@
       "no": "Disabled",
       "title": "Fog"
     },
-
+    "PacificEngine.CheatsMod.InputSettings": {
+      "type": "separator",
+      "title": "Customize Inputs"
+    },
+    "PacificEngine.CheatsMod.PlayerData": {
+      "type": "separator",
+      "title": "Player Data"
+    },
     "Fill Fuel and Health": "C,J",
     "Toggle Helmet": "C,H",
     "Toggle Invinciblity": "C,I",
@@ -70,12 +81,18 @@
     "Toggle Unlimited Fuel": "C,Y",
     "Toggle Unlimited Oxygen": "C,O",
     "Toggle Unlimited Health": "C,U",
-
+    "PacificEngine.CheatsMod.PersistentData": {
+      "type": "separator",
+      "title": "Persistent Data"
+    },
     "Toggle Launch Codes": "C,L",
     "Toggle Eye Coordinates": "C,E",
     "Toggle All Frequencies": "C,F",
     "Toggle Rumors": "C,R",
-
+    "PacificEngine.CheatsMod.GameState": {
+      "type": "separator",
+      "title": "Game State"
+    },
     "Toggle Fog": "F,O,G",
     "Toggle Anglerfish AI": "V,I",
     "Toggle Inhabitants AI": "V,O",
@@ -84,12 +101,18 @@
     "Decrease Supernova Timer": "V,Minus",
     "Increase Supernova Timer": "V,Equals",
     "Quantum Moon Collapse": "Q,Digit0",
-
+    "PacificEngine.CheatsMod.PlayerAcceleration": {
+      "type": "separator",
+      "title": "Player Acceleration"
+    },
     "Increase Jetpack Acceleration": "P,Equals",
     "Decrease Jetpack Acceleration": "P,Minus",
     "Decrease Ship Acceleration": "O,Minus",
     "Increase Ship Acceleration": "O,Equals",
-
+    "PacificEngine.CheatsMod.Teleportation": {
+      "type": "separator",
+      "title": "Teleportation"
+    },
     "Teleport To Sun": "T,Digit1",
     "Teleport To SunStation": "T,Digit2",
     "Teleport To EmberTwin": "T,Digit3",
@@ -115,9 +138,15 @@
     "Teleport To Probe": "T,NumpadMultiply",
     "Teleport To Nomai Probe": "T,NumpadMinus",
     "Teleport To Vessel": "T,NumpadPlus",
-
+    "PacificEngine.CheatsMod.GivingItems": {
+      "type": "separator",
+      "title": "Giving Items"
+    },
     "Give Warp Core": "G,W",
-
+    "PacificEngine.CheatsMod.Debugging": {
+      "type": "separator",
+      "title": "Debugging"
+    },
     "Toggle Position Display": "D,P"
   }
 }

@@ -10,6 +10,8 @@ using PacificEngine.OW_CommonResources;
 using PacificEngine.OW_CommonResources.Game.Player;
 using PacificEngine.OW_CommonResources.Game.State;
 using PacificEngine.OW_CommonResources.Game.Resource;
+using PacificEngine.OW_CommonResources.Config;
+using PacificEngine.OW_CommonResources.Game;
 
 namespace PacificEngine.OW_CheatsMod
 {
@@ -93,7 +95,7 @@ namespace PacificEngine.OW_CheatsMod
 
         private MultiInputClass getInputConfigOrDefault(IModConfig config, string id, string defaultValue)
         {
-            return MultiInputClass.fromString(Config.getConfigOrDefault<string>(config, id, defaultValue));
+            return MultiInputClass.fromString(ConfigHelper.getConfigOrDefault<string>(config, id, defaultValue));
         }
 
         private void addInput(IModConfig config, CheatOptions option, string defaultValue)
@@ -107,21 +109,21 @@ namespace PacificEngine.OW_CheatsMod
             cheatsEnabled = config.Enabled;
             Helper.helper = (ModHelper)ModHelper;
 
-            Player.isInvincible = Config.getConfigOrDefault<bool>(config, "Invincible", false);
+            Player.isInvincible = ConfigHelper.getConfigOrDefault<bool>(config, "Invincible", false);
             Ship.isInvincible = Player.isInvincible;
 
-            Player.hasUnlimitedFuel = Config.getConfigOrDefault<bool>(config, "Unlimited Fuel", false);
+            Player.hasUnlimitedFuel = ConfigHelper.getConfigOrDefault<bool>(config, "Unlimited Fuel", false);
             Ship.hasUnlimitedFuel = Player.hasUnlimitedFuel;
 
-            Player.hasUnlimitedOxygen = Config.getConfigOrDefault<bool>(config, "Unlimited Oxygen", false);
+            Player.hasUnlimitedOxygen = ConfigHelper.getConfigOrDefault<bool>(config, "Unlimited Oxygen", false);
             Ship.hasUnlimitedOxygen = Player.hasUnlimitedOxygen;
 
-            Player.hasUnlimitedHealth = Config.getConfigOrDefault<bool>(config, "Unlimited Health", false);
-            Player.hasUnlimitedBoost = Config.getConfigOrDefault<bool>(config, "Unlimited Boost", false);
+            Player.hasUnlimitedHealth = ConfigHelper.getConfigOrDefault<bool>(config, "Unlimited Health", false);
+            Player.hasUnlimitedBoost = ConfigHelper.getConfigOrDefault<bool>(config, "Unlimited Boost", false);
 
-            Anglerfish.enabledAI = Config.getConfigOrDefault<bool>(config, "Anglerfish AI", true);
-            Inhabitants.enabledAI = Config.getConfigOrDefault<bool>(config, "Inhabitants AI", true);
-            Fog.enabled = Config.getConfigOrDefault<bool>(config, "Fog", true);
+            Anglerfish.enabledAI = ConfigHelper.getConfigOrDefault<bool>(config, "Anglerfish AI", true);
+            Inhabitants.enabledAI = ConfigHelper.getConfigOrDefault<bool>(config, "Inhabitants AI", true);
+            Fog.enabled = ConfigHelper.getConfigOrDefault<bool>(config, "Fog", true);
 
             inputs.Clear();
             addInput(config, CheatOptions.Fill_Fuel_and_Health, "C,J");
