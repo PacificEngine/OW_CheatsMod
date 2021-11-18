@@ -120,6 +120,10 @@
 
     "Toggle Position Display": "D,P",
     "Toggle Bramble Portal Display": "D,B",
-    "Toggle Warp Pad Display": "D,W"
+    "Toggle Warp Pad Display": "D,W",
+
+    "Log Fact Reveals": "L,Digit1",
+    "Log Save Condition Changes": "L,Digit2",
+    "Log Dialogue Condition Changes": "L,Digit3"
   }
 }

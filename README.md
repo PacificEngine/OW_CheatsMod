@@ -86,6 +86,13 @@ Default value for commands
 `D` + `B` | Toggle Display of Bramble Portal Mapping
 `D` + `W` | Toggle Display of Warp Pad Mapping
 
+## Detailed Logging
+| Key | Description |
+| :-: | --- |
+`L` + `1` | Log When New Facts Are Revealed
+`L` + `2` | Log When Conditions Changes on the Save File
+`L` + `3` | Log When Conditions Changes due to Dialogue
+
 # Customizing Inputs
 Customized inputs can be done under the options menu, but due to a scrolling glitch, it can be more easily done by editing `%AppData%\OuterWildsModManager\OWML\Mods\PacificEngine.CheatsMod\config.json`
 * You can add multiple key input combos using `|`.

@@ -72,7 +72,10 @@ namespace PacificEngine.OW_CheatsMod
         Toggle_Fog,
         Toggle_Position_Display,
         Toggle_Bramble_Portal_Display,
-        Toggle_Warp_Pad_Display
+        Toggle_Warp_Pad_Display,
+        Log_Fact_Reveals,
+        Log_Save_Condition_Changes,
+        Log_Dialogue_Condition_Changes
     }
 
     public class MainClass : ModBehaviour
@@ -81,6 +84,7 @@ namespace PacificEngine.OW_CheatsMod
         private ScreenPrompt cheatsTagger = new ScreenPrompt("");
 
         bool cheatsEnabled = true;
+        Dictionary<InputClass, CheatOptions> inputsCollisions = new Dictionary<InputClass, CheatOptions>();
         Dictionary<CheatOptions, MultiInputClass> inputs = new Dictionary<CheatOptions, MultiInputClass>();
 
         void Start()
@@ -103,13 +107,24 @@ namespace PacificEngine.OW_CheatsMod
         private void addInput(IModConfig config, CheatOptions option, string defaultValue)
         {
             var name = Enum.GetName(option.GetType(), option).Replace("_", " ");
-            inputs.Add(option, getInputConfigOrDefault(config, name, defaultValue));
+            var input = getInputConfigOrDefault(config, name, defaultValue);
+            inputs.Add(option, input);
+            foreach(var key in input.getKeysCombos())
+            {
+                if (inputsCollisions.ContainsKey(key))
+                {
+                    ModHelper.Console.WriteLine("Input [" + key + "] is used both by " + inputsCollisions[key] + " and " + option, MessageType.Warning);
+                }
+                else
+                {
+                    inputsCollisions.Add(key, option);
+                }
+            }
         }
 
         public override void Configure(IModConfig config)
         {
             cheatsEnabled = config.Enabled;
-            Helper.helper = (ModHelper)ModHelper;
 
             Player.isInvincible = ConfigHelper.getConfigOrDefault<bool>(config, "Invincible", false);
             Ship.isInvincible = Player.isInvincible;
@@ -190,6 +205,9 @@ namespace PacificEngine.OW_CheatsMod
             addInput(config, CheatOptions.Toggle_Position_Display, "D,P");
             addInput(config, CheatOptions.Toggle_Bramble_Portal_Display, "D,B");
             addInput(config, CheatOptions.Toggle_Warp_Pad_Display, "D,W");
+            addInput(config, CheatOptions.Log_Fact_Reveals, "L,Digit1");
+            addInput(config, CheatOptions.Log_Save_Condition_Changes, "L,Digit2");
+            addInput(config, CheatOptions.Log_Dialogue_Condition_Changes, "L,Digit3");
 
             ModHelper.Console.WriteLine("CheatMods Confgiured!");
         }
@@ -454,13 +472,37 @@ namespace PacificEngine.OW_CheatsMod
                 }
 
                 if (inputs[CheatOptions.Toggle_Position_Display].isPressedThisFrame())
+                {
                     Position.debugMode = !Position.debugMode;
+                }
 
                 if (inputs[CheatOptions.Toggle_Bramble_Portal_Display].isPressedThisFrame())
+                {
                     BramblePortals.debugMode = !BramblePortals.debugMode;
+                }
 
                 if (inputs[CheatOptions.Toggle_Warp_Pad_Display].isPressedThisFrame())
+                {
                     WarpPad.debugMode = !WarpPad.debugMode;
+                }
+
+                if (inputs[CheatOptions.Log_Fact_Reveals].isPressedThisFrame())
+                {
+                    Data.debugFacts = !Data.debugFacts;
+                    ModHelper.Console.WriteLine("CheatsMod: Debug Facts " + Data.debugFacts);
+                }
+
+                if (inputs[CheatOptions.Log_Save_Condition_Changes].isPressedThisFrame())
+                {
+                    Data.debugPersistentConditions = !Data.debugPersistentConditions;
+                    ModHelper.Console.WriteLine("CheatsMod: Debug Saved Conditions " + Data.debugPersistentConditions);
+                }
+
+                if (inputs[CheatOptions.Log_Dialogue_Condition_Changes].isPressedThisFrame())
+                {
+                    Data.debugDialogConditions = !Data.debugDialogConditions;
+                    ModHelper.Console.WriteLine("CheatsMod: Debug Dialogue Conditions " + Data.debugDialogConditions);
+                }
             }
         }
 
