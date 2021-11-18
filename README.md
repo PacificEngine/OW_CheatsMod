@@ -83,6 +83,8 @@ Default value for commands
 | Key | Description |
 | :-: | --- |
 `D` + `P` | Toggle Display of Coordinates
+`D` + `B` | Toggle Display of Bramble Portal Mapping
+`D` + `W` | Toggle Display of Warp Pad Mapping
 
 # Customizing Inputs
 Customized inputs can be done under the options menu, but due to a scrolling glitch, it can be more easily done by editing `%AppData%\OuterWildsModManager\OWML\Mods\PacificEngine.CheatsMod\config.json`

@@ -118,6 +118,8 @@
 
     "Give Warp Core": "G,W",
 
-    "Toggle Position Display": "D,P"
+    "Toggle Position Display": "D,P",
+    "Toggle Bramble Portal Display": "D,B",
+    "Toggle Warp Pad Display": "D,W"
   }
 }

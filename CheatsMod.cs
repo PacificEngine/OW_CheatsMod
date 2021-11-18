@@ -70,12 +70,14 @@ namespace PacificEngine.OW_CheatsMod
         Increase_Ship_Acceleration,
         Give_Warp_Core,
         Toggle_Fog,
-        Toggle_Position_Display
+        Toggle_Position_Display,
+        Toggle_Bramble_Portal_Display,
+        Toggle_Warp_Pad_Display
     }
 
     public class MainClass : ModBehaviour
     {
-        private const string verison = "0.4.2";
+        private const string verison = "0.5.1";
         private ScreenPrompt cheatsTagger = new ScreenPrompt("");
 
         bool cheatsEnabled = true;
@@ -186,7 +188,8 @@ namespace PacificEngine.OW_CheatsMod
 
             addInput(config, CheatOptions.Toggle_Fog, "F,O,G");
             addInput(config, CheatOptions.Toggle_Position_Display, "D,P");
-            
+            addInput(config, CheatOptions.Toggle_Bramble_Portal_Display, "D,B");
+            addInput(config, CheatOptions.Toggle_Warp_Pad_Display, "D,W");
 
             ModHelper.Console.WriteLine("CheatMods Confgiured!");
         }
@@ -452,6 +455,12 @@ namespace PacificEngine.OW_CheatsMod
 
                 if (inputs[CheatOptions.Toggle_Position_Display].isPressedThisFrame())
                     Position.debugMode = !Position.debugMode;
+
+                if (inputs[CheatOptions.Toggle_Bramble_Portal_Display].isPressedThisFrame())
+                    BramblePortals.debugMode = !BramblePortals.debugMode;
+
+                if (inputs[CheatOptions.Toggle_Warp_Pad_Display].isPressedThisFrame())
+                    WarpPad.debugMode = !WarpPad.debugMode;
             }
         }
 
