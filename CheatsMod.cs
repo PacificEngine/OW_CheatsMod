@@ -143,6 +143,7 @@ namespace PacificEngine.OW_CheatsMod
             Fog.enabled = ConfigHelper.getConfigOrDefault<bool>(config, "Fog", true);
 
             inputs.Clear();
+            inputsCollisions.Clear();
             addInput(config, CheatOptions.Fill_Fuel_and_Health, "C,J");
             addInput(config, CheatOptions.Toggle_Launch_Codes, "C,L");
             addInput(config, CheatOptions.Toggle_Eye_Coordinates, "C,E");
