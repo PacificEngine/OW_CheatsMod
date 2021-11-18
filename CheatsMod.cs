@@ -84,7 +84,6 @@ namespace PacificEngine.OW_CheatsMod
         private ScreenPrompt cheatsTagger = new ScreenPrompt("");
 
         bool cheatsEnabled = true;
-        Dictionary<InputClass, CheatOptions> inputsCollisions = new Dictionary<InputClass, CheatOptions>();
         Dictionary<CheatOptions, MultiInputClass> inputs = new Dictionary<CheatOptions, MultiInputClass>();
 
         void Start()
@@ -109,17 +108,6 @@ namespace PacificEngine.OW_CheatsMod
             var name = Enum.GetName(option.GetType(), option).Replace("_", " ");
             var input = getInputConfigOrDefault(config, name, defaultValue);
             inputs.Add(option, input);
-            foreach(var key in input.getKeysCombos())
-            {
-                if (inputsCollisions.ContainsKey(key))
-                {
-                    ModHelper.Console.WriteLine("Input [" + key + "] is used both by " + inputsCollisions[key] + " and " + option, MessageType.Warning);
-                }
-                else
-                {
-                    inputsCollisions.Add(key, option);
-                }
-            }
         }
 
         public override void Configure(IModConfig config)
@@ -143,7 +131,6 @@ namespace PacificEngine.OW_CheatsMod
             Fog.enabled = ConfigHelper.getConfigOrDefault<bool>(config, "Fog", true);
 
             inputs.Clear();
-            inputsCollisions.Clear();
             addInput(config, CheatOptions.Fill_Fuel_and_Health, "C,J");
             addInput(config, CheatOptions.Toggle_Launch_Codes, "C,L");
             addInput(config, CheatOptions.Toggle_Eye_Coordinates, "C,E");
@@ -210,7 +197,39 @@ namespace PacificEngine.OW_CheatsMod
             addInput(config, CheatOptions.Log_Save_Condition_Changes, "L,Digit2");
             addInput(config, CheatOptions.Log_Dialogue_Condition_Changes, "L,Digit3");
 
+            detectCollisions();
+
             ModHelper.Console.WriteLine("CheatMods Confgiured!");
+        }
+
+        private void detectCollisions()
+        {
+            Dictionary<InputClass, CheatOptions> inputsCollisions = new Dictionary<InputClass, CheatOptions>();
+            foreach (var input in inputs)
+            {
+                foreach (var key in input.Value.getKeysCombos())
+                {
+                    inputsCollisions[key] = input.Key;
+                }
+            }
+
+            foreach (var input in inputs)
+            {
+                foreach (var key in input.Value.getKeysCombos())
+                {
+                    foreach (var subsetKeys in Helper.Subsets(key.getKeys()))
+                    {
+                        var subset = new InputClass(new List<Key>(subsetKeys).ToArray());
+                        if (inputsCollisions.ContainsKey(subset))
+                        {
+                            if (inputsCollisions[subset] != input.Key)
+                            {
+                                ModHelper.Console.WriteLine("Input [" + subset + "] is used both by " + inputsCollisions[subset] + " and " + input.Key, MessageType.Warning);
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         void onAwake()
