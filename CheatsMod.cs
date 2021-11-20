@@ -10,7 +10,7 @@ using PacificEngine.OW_CommonResources;
 using PacificEngine.OW_CommonResources.Game.Player;
 using PacificEngine.OW_CommonResources.Game.State;
 using PacificEngine.OW_CommonResources.Game.Resource;
-using PacificEngine.OW_CommonResources.Config;
+using PacificEngine.OW_CommonResources.Game.Config;
 using PacificEngine.OW_CommonResources.Game;
 
 namespace PacificEngine.OW_CheatsMod
@@ -84,7 +84,7 @@ namespace PacificEngine.OW_CheatsMod
         private ScreenPrompt cheatsTagger = new ScreenPrompt("");
 
         bool cheatsEnabled = true;
-        Dictionary<CheatOptions, MultiInputClass> inputs = new Dictionary<CheatOptions, MultiInputClass>();
+        InputMapping<CheatOptions> inputs = new InputMapping<CheatOptions>();
 
         void Start()
         {
@@ -96,18 +96,6 @@ namespace PacificEngine.OW_CheatsMod
         void Destory()
         {
             ModHelper.Console.WriteLine("CheatMods clean up!");
-        }
-
-        private MultiInputClass getInputConfigOrDefault(IModConfig config, string id, string defaultValue)
-        {
-            return MultiInputClass.fromString(ConfigHelper.getConfigOrDefault<string>(config, id, defaultValue));
-        }
-
-        private void addInput(IModConfig config, CheatOptions option, string defaultValue)
-        {
-            var name = Enum.GetName(option.GetType(), option).Replace("_", " ");
-            var input = getInputConfigOrDefault(config, name, defaultValue);
-            inputs.Add(option, input);
         }
 
         public override void Configure(IModConfig config)
@@ -131,106 +119,76 @@ namespace PacificEngine.OW_CheatsMod
             Fog.enabled = ConfigHelper.getConfigOrDefault<bool>(config, "Fog", true);
 
             inputs.Clear();
-            addInput(config, CheatOptions.Fill_Fuel_and_Health, "C,J");
-            addInput(config, CheatOptions.Toggle_Launch_Codes, "C,L");
-            addInput(config, CheatOptions.Toggle_Eye_Coordinates, "C,E");
-            addInput(config, CheatOptions.Toggle_All_Frequencies, "C,F");
-            addInput(config, CheatOptions.Toggle_Rumors, "C,R");
-            addInput(config, CheatOptions.Toggle_Helmet, "C,H");
-            addInput(config, CheatOptions.Toggle_Invinciblity, "C,I");
-            addInput(config, CheatOptions.Toggle_Spacesuit, "C,G");
-            addInput(config, CheatOptions.Toggle_Training_Suit, "C,Digit1");
-            addInput(config, CheatOptions.Toggle_Player_Collision, "C,N");
-            addInput(config, CheatOptions.Toggle_Ship_Collision, "C,M");
-            addInput(config, CheatOptions.Toggle_Unlimited_Boost, "C,T");
-            addInput(config, CheatOptions.Toggle_Unlimited_Fuel, "C,Y");
-            addInput(config, CheatOptions.Toggle_Unlimited_Oxygen, "C,O");
-            addInput(config, CheatOptions.Toggle_Unlimited_Health, "C,U");
+            inputs.addInput(config, CheatOptions.Fill_Fuel_and_Health, "C,J");
+            inputs.addInput(config, CheatOptions.Toggle_Launch_Codes, "C,L");
+            inputs.addInput(config, CheatOptions.Toggle_Eye_Coordinates, "C,E");
+            inputs.addInput(config, CheatOptions.Toggle_All_Frequencies, "C,F");
+            inputs.addInput(config, CheatOptions.Toggle_Rumors, "C,R");
+            inputs.addInput(config, CheatOptions.Toggle_Helmet, "C,H");
+            inputs.addInput(config, CheatOptions.Toggle_Invinciblity, "C,I");
+            inputs.addInput(config, CheatOptions.Toggle_Spacesuit, "C,G");
+            inputs.addInput(config, CheatOptions.Toggle_Training_Suit, "C,Digit1");
+            inputs.addInput(config, CheatOptions.Toggle_Player_Collision, "C,N");
+            inputs.addInput(config, CheatOptions.Toggle_Ship_Collision, "C,M");
+            inputs.addInput(config, CheatOptions.Toggle_Unlimited_Boost, "C,T");
+            inputs.addInput(config, CheatOptions.Toggle_Unlimited_Fuel, "C,Y");
+            inputs.addInput(config, CheatOptions.Toggle_Unlimited_Oxygen, "C,O");
+            inputs.addInput(config, CheatOptions.Toggle_Unlimited_Health, "C,U");
 
-            addInput(config, CheatOptions.Teleport_To_Sun, "T,Digit1");
-            addInput(config, CheatOptions.Teleport_To_SunStation, "T,Digit2");
-            addInput(config, CheatOptions.Teleport_To_EmberTwin, "T,Digit3");
-            addInput(config, CheatOptions.Teleport_To_AshTwin, "T,Digit4");
-            addInput(config, CheatOptions.Teleport_To_TimerHearth, "T,Digit5");
-            addInput(config, CheatOptions.Teleport_To_Attlerock, "T,Digit6");
-            addInput(config, CheatOptions.Teleport_To_BrittleHollow, "T,Digit7");
-            addInput(config, CheatOptions.Teleport_To_HollowLattern, "T,Digit8");
-            addInput(config, CheatOptions.Teleport_To_GiantsDeep, "T,Digit9");
-            addInput(config, CheatOptions.Teleport_To_DarkBramble, "T,Digit0");
+            inputs.addInput(config, CheatOptions.Teleport_To_Sun, "T,Digit1");
+            inputs.addInput(config, CheatOptions.Teleport_To_SunStation, "T,Digit2");
+            inputs.addInput(config, CheatOptions.Teleport_To_EmberTwin, "T,Digit3");
+            inputs.addInput(config, CheatOptions.Teleport_To_AshTwin, "T,Digit4");
+            inputs.addInput(config, CheatOptions.Teleport_To_TimerHearth, "T,Digit5");
+            inputs.addInput(config, CheatOptions.Teleport_To_Attlerock, "T,Digit6");
+            inputs.addInput(config, CheatOptions.Teleport_To_BrittleHollow, "T,Digit7");
+            inputs.addInput(config, CheatOptions.Teleport_To_HollowLattern, "T,Digit8");
+            inputs.addInput(config, CheatOptions.Teleport_To_GiantsDeep, "T,Digit9");
+            inputs.addInput(config, CheatOptions.Teleport_To_DarkBramble, "T,Digit0");
 
-            addInput(config, CheatOptions.Teleport_To_Interloper, "T,Numpad0");
-            addInput(config, CheatOptions.Teleport_To_TimerHearth_Probe, "T,Numpad1");
-            addInput(config, CheatOptions.Teleport_To_ProbeCannon, "T,Numpad2");
-            addInput(config, CheatOptions.Teleport_To_WhiteHole, "T,Numpad3");
-            addInput(config, CheatOptions.Teleport_To_WhiteHoleStation, "T,Numpad4");
-            addInput(config, CheatOptions.Teleport_To_Stranger, "T,Numpad5");
-            addInput(config, CheatOptions.Teleport_To_DreamWorld, "T,Numpad6");
-            addInput(config, CheatOptions.Teleport_To_QuantumMoon, "T,Numpad7");
-            addInput(config, CheatOptions.Teleport_To_AshTwinProject, "T,Numpad8");
-            addInput(config, CheatOptions.Teleport_To_Ship, "T,Numpad9");
-            addInput(config, CheatOptions.Teleport_Ship_To_Player, "T,NumpadDivide");
-            addInput(config, CheatOptions.Teleport_To_Probe, "T,NumpadMultiply");
-            addInput(config, CheatOptions.Teleport_To_Nomai_Probe, "T,NumpadMinus");
-            addInput(config, CheatOptions.Teleport_To_Vessel, "T,NumpadPlus");
-            addInput(config, CheatOptions.Teleport_To_ProbeCannonCommandModule, "T,NumpadPeriod");
+            inputs.addInput(config, CheatOptions.Teleport_To_Interloper, "T,Numpad0");
+            inputs.addInput(config, CheatOptions.Teleport_To_TimerHearth_Probe, "T,Numpad1");
+            inputs.addInput(config, CheatOptions.Teleport_To_ProbeCannon, "T,Numpad2");
+            inputs.addInput(config, CheatOptions.Teleport_To_WhiteHole, "T,Numpad3");
+            inputs.addInput(config, CheatOptions.Teleport_To_WhiteHoleStation, "T,Numpad4");
+            inputs.addInput(config, CheatOptions.Teleport_To_Stranger, "T,Numpad5");
+            inputs.addInput(config, CheatOptions.Teleport_To_DreamWorld, "T,Numpad6");
+            inputs.addInput(config, CheatOptions.Teleport_To_QuantumMoon, "T,Numpad7");
+            inputs.addInput(config, CheatOptions.Teleport_To_AshTwinProject, "T,Numpad8");
+            inputs.addInput(config, CheatOptions.Teleport_To_Ship, "T,Numpad9");
+            inputs.addInput(config, CheatOptions.Teleport_Ship_To_Player, "T,NumpadDivide");
+            inputs.addInput(config, CheatOptions.Teleport_To_Probe, "T,NumpadMultiply");
+            inputs.addInput(config, CheatOptions.Teleport_To_Nomai_Probe, "T,NumpadMinus");
+            inputs.addInput(config, CheatOptions.Teleport_To_Vessel, "T,NumpadPlus");
+            inputs.addInput(config, CheatOptions.Teleport_To_ProbeCannonCommandModule, "T,NumpadPeriod");
 
-            addInput(config, CheatOptions.Toggle_Anglerfish_AI, "V,I");
-            addInput(config, CheatOptions.Toggle_Inhabitants_AI, "V,O");
-            addInput(config, CheatOptions.Toggle_Inhabitants_Hostility, "V,H");
-            addInput(config, CheatOptions.Toggle_Supernova_Timer, "V,0");
-            addInput(config, CheatOptions.Decrease_Supernova_Timer, "V,Minus");
-            addInput(config, CheatOptions.Increase_Supernova_Timer, "V,Equals");
+            inputs.addInput(config, CheatOptions.Toggle_Anglerfish_AI, "V,I");
+            inputs.addInput(config, CheatOptions.Toggle_Inhabitants_AI, "V,O");
+            inputs.addInput(config, CheatOptions.Toggle_Inhabitants_Hostility, "V,H");
+            inputs.addInput(config, CheatOptions.Toggle_Supernova_Timer, "V,0");
+            inputs.addInput(config, CheatOptions.Decrease_Supernova_Timer, "V,Minus");
+            inputs.addInput(config, CheatOptions.Increase_Supernova_Timer, "V,Equals");
 
-            addInput(config, CheatOptions.Quantum_Moon_Collapse, "Q,Digit0");
-            addInput(config, CheatOptions.Decrease_Jetpack_Acceleration, "P,Minus");
-            addInput(config, CheatOptions.Increase_Jetpack_Acceleration, "P,Equals");
-            addInput(config, CheatOptions.Decrease_Ship_Acceleration, "O,Minus");
-            addInput(config, CheatOptions.Increase_Ship_Acceleration, "O,Equals");
+            inputs.addInput(config, CheatOptions.Quantum_Moon_Collapse, "Q,Digit0");
+            inputs.addInput(config, CheatOptions.Decrease_Jetpack_Acceleration, "P,Minus");
+            inputs.addInput(config, CheatOptions.Increase_Jetpack_Acceleration, "P,Equals");
+            inputs.addInput(config, CheatOptions.Decrease_Ship_Acceleration, "O,Minus");
+            inputs.addInput(config, CheatOptions.Increase_Ship_Acceleration, "O,Equals");
 
-            addInput(config, CheatOptions.Give_Warp_Core, "G,W");
+            inputs.addInput(config, CheatOptions.Give_Warp_Core, "G,W");
 
-            addInput(config, CheatOptions.Toggle_Fog, "F,O,G");
-            addInput(config, CheatOptions.Toggle_Position_Display, "D,P");
-            addInput(config, CheatOptions.Toggle_Bramble_Portal_Display, "D,B");
-            addInput(config, CheatOptions.Toggle_Warp_Pad_Display, "D,W");
-            addInput(config, CheatOptions.Log_Fact_Reveals, "L,Digit1");
-            addInput(config, CheatOptions.Log_Save_Condition_Changes, "L,Digit2");
-            addInput(config, CheatOptions.Log_Dialogue_Condition_Changes, "L,Digit3");
-
-            detectCollisions();
+            inputs.addInput(config, CheatOptions.Toggle_Fog, "F,O,G");
+            inputs.addInput(config, CheatOptions.Toggle_Position_Display, "D,P");
+            inputs.addInput(config, CheatOptions.Toggle_Bramble_Portal_Display, "D,B");
+            inputs.addInput(config, CheatOptions.Toggle_Warp_Pad_Display, "D,W");
+            inputs.addInput(config, CheatOptions.Log_Fact_Reveals, "L,Digit1");
+            inputs.addInput(config, CheatOptions.Log_Save_Condition_Changes, "L,Digit2");
+            inputs.addInput(config, CheatOptions.Log_Dialogue_Condition_Changes, "L,Digit3");
 
             ModHelper.Console.WriteLine("CheatMods Confgiured!");
         }
 
-        private void detectCollisions()
-        {
-            Dictionary<InputClass, CheatOptions> inputsCollisions = new Dictionary<InputClass, CheatOptions>();
-            foreach (var input in inputs)
-            {
-                foreach (var key in input.Value.getKeysCombos())
-                {
-                    inputsCollisions[key] = input.Key;
-                }
-            }
 
-            foreach (var input in inputs)
-            {
-                foreach (var key in input.Value.getKeysCombos())
-                {
-                    foreach (var subsetKeys in Helper.Subsets(key.getKeys()))
-                    {
-                        var subset = new InputClass(new List<Key>(subsetKeys).ToArray());
-                        if (inputsCollisions.ContainsKey(subset))
-                        {
-                            if (inputsCollisions[subset] != input.Key)
-                            {
-                                ModHelper.Console.WriteLine("Input [" + subset + "] is used both by " + inputsCollisions[subset] + " and " + input.Key, MessageType.Warning);
-                            }
-                        }
-                    }
-                }
-            }
-        }
 
         void onAwake()
         {
@@ -248,280 +206,230 @@ namespace PacificEngine.OW_CheatsMod
 
         void Update()
         {
-            foreach (MultiInputClass input in inputs.Values)
-            {
-                input.Update();
-            }
+            inputs.Update();
             if (cheatsEnabled)
             {
-                if (inputs[CheatOptions.Fill_Fuel_and_Health].isPressedThisFrame() && Locator.GetPlayerTransform())
+                var currentFrame = inputs.getPressedThisFrame();
+                currentFrame = currentFrame.FindAll(x => x.Item2.keyMatchCount() == currentFrame[0].Item2.keyMatchCount());
+
+                foreach (var input in currentFrame)
                 {
-                    Player.oxygenSeconds = Player.maxOxygenSeconds;
-                    Player.fuelSeconds = Player.maxFuelSeconds;
-                    Player.health = Player.maxHealth;
-                    Player.boostSeconds = Player.maxBoostSeconds;
-                    Ship.repair();
-                }
-
-                if (inputs[CheatOptions.Toggle_Launch_Codes].isPressedThisFrame())
-                {
-                    Data.launchCodes = !Data.launchCodes;
-                    ModHelper.Console.WriteLine("CheatsMod: Launch Codes Known " + Data.launchCodes);
-                }
-
-                if (inputs[CheatOptions.Toggle_Eye_Coordinates].isPressedThisFrame())
-                {
-                    Data.eyeCoordinates = !Data.eyeCoordinates;
-                    ModHelper.Console.WriteLine("CheatsMod: Eye Coordinates Known " + Data.eyeCoordinates);
-                }
-
-                if (inputs[CheatOptions.Toggle_All_Frequencies].isPressedThisFrame() && PlayerData.IsLoaded())
-                    toggleFrequencies();
-
-                if (inputs[CheatOptions.Toggle_Rumors].isPressedThisFrame() && Locator.GetShipLogManager())
-                    toggleFacts();
-
-                if (inputs[CheatOptions.Teleport_To_Sun].isPressedThisFrame())
-                    Teleportation.teleportPlayerToSun();
-
-                if (inputs[CheatOptions.Teleport_To_SunStation].isPressedThisFrame())
-                    Teleportation.teleportPlayerToSunStation();
-
-                if (inputs[CheatOptions.Teleport_To_EmberTwin].isPressedThisFrame())
-                    Teleportation.teleportPlayerToEmberTwin();
-
-                if (inputs[CheatOptions.Teleport_To_AshTwin].isPressedThisFrame())
-                    Teleportation.teleportPlayerToAshTwin();
-
-                if (inputs[CheatOptions.Teleport_To_AshTwinProject].isPressedThisFrame())
-                    Teleportation.teleportPlayerToAshTwinProject();
-
-                if (inputs[CheatOptions.Teleport_To_TimerHearth].isPressedThisFrame())
-                    Teleportation.teleportPlayerToTimberHearth();
-
-                if (inputs[CheatOptions.Teleport_To_TimerHearth_Probe].isPressedThisFrame())
-                    Teleportation.teleportPlayerToTimberHearthProbe();
-
-                if (inputs[CheatOptions.Teleport_To_Attlerock].isPressedThisFrame())
-                    Teleportation.teleportPlayerToAttlerock();
-
-                if (inputs[CheatOptions.Teleport_To_BrittleHollow].isPressedThisFrame())
-                    Teleportation.teleportPlayerToBlackHoleForgeTeleporter();
-
-                if (inputs[CheatOptions.Teleport_To_HollowLattern].isPressedThisFrame())
-                    Teleportation.teleportPlayerToHollowLattern();
-
-                if (inputs[CheatOptions.Teleport_To_GiantsDeep].isPressedThisFrame())
-                    Teleportation.teleportPlayerToGiantsDeep();
-
-                if (inputs[CheatOptions.Teleport_To_ProbeCannon].isPressedThisFrame())
-                    Teleportation.teleportPlayerToProbeCannon();
-
-                if (inputs[CheatOptions.Teleport_To_ProbeCannonCommandModule].isPressedThisFrame())
-                    Teleportation.teleportPlayerToProbeCannonCommandModule();
-
-                if (inputs[CheatOptions.Teleport_To_DarkBramble].isPressedThisFrame())
-                    Teleportation.teleportPlayerToDarkBramble();
-
-                if (inputs[CheatOptions.Teleport_To_Vessel].isPressedThisFrame())
-                    Teleportation.teleportPlayerToVessel();
-
-                if (inputs[CheatOptions.Teleport_To_Ship].isPressedThisFrame())
-                    Teleportation.teleportPlayerToShip();
-
-                if (inputs[CheatOptions.Teleport_Ship_To_Player].isPressedThisFrame())
-                    Teleportation.teleportShipToPlayer();
-
-                if (inputs[CheatOptions.Teleport_To_Probe].isPressedThisFrame())
-                    Teleportation.teleportPlayerToProbe();
-
-                if (inputs[CheatOptions.Teleport_To_Nomai_Probe].isPressedThisFrame())
-                    Teleportation.teleportPlayerToNomaiProbe();
-
-                if (inputs[CheatOptions.Teleport_To_Interloper].isPressedThisFrame())
-                    Teleportation.teleportPlayerToInterloper();
-
-                if (inputs[CheatOptions.Teleport_To_WhiteHole].isPressedThisFrame())
-                    Teleportation.teleportPlayerToWhiteHole();
-
-                if (inputs[CheatOptions.Teleport_To_WhiteHoleStation].isPressedThisFrame())
-                    Teleportation.teleportPlayerToWhiteHoleStation();
-
-                if (inputs[CheatOptions.Teleport_To_Stranger].isPressedThisFrame())
-                    Teleportation.teleportPlayerToStranger();
-
-                if (inputs[CheatOptions.Teleport_To_DreamWorld].isPressedThisFrame())
-                    Teleportation.teleportPlayerToDreamWorld();
-
-                if (inputs[CheatOptions.Teleport_To_QuantumMoon].isPressedThisFrame())
-                    Teleportation.teleportPlayerToQuantumMoon();
-
-                if (inputs[CheatOptions.Toggle_Helmet].isPressedThisFrame())
-                {
-                    Player.helmet = !Player.helmet;
-                    ModHelper.Console.WriteLine("CheatsMod: Player Helmet " + Player.helmet);
-                }
-
-                if (inputs[CheatOptions.Toggle_Player_Collision].isPressedThisFrame())
-                {
-                    Player.collision = !Player.collision;
-                    ModHelper.Console.WriteLine("CheatsMod: Player Collision " + Player.collision);
-                }
-
-                if (inputs[CheatOptions.Toggle_Ship_Collision].isPressedThisFrame())
-                {
-                    Ship.collision = !Ship.collision;
-                    ModHelper.Console.WriteLine("CheatsMod: Ship Collision " + Ship.collision);
-                }
-
-                if (inputs[CheatOptions.Toggle_Training_Suit].isPressedThisFrame())
-                {
-                    Player.trainingSuit = !Player.trainingSuit;
-                    ModHelper.Console.WriteLine("CheatsMod: Training Suit " + Player.trainingSuit);
-                }
-
-                if (inputs[CheatOptions.Toggle_Spacesuit].isPressedThisFrame())
-                {
-                    Player.spaceSuit = !Player.spaceSuit;
-                    ModHelper.Console.WriteLine("CheatsMod: Space Suit " + Player.spaceSuit);
-                }
-
-                if (inputs[CheatOptions.Toggle_Invinciblity].isPressedThisFrame())
-                {
-                    Player.isInvincible = !Player.isInvincible;
-                    Ship.isInvincible = Player.isInvincible;
-                    ModHelper.Console.WriteLine("CheatsMod: Invicible " + Player.isInvincible);
-                }
-
-                if (inputs[CheatOptions.Toggle_Unlimited_Fuel].isPressedThisFrame())
-                {
-                    Player.hasUnlimitedFuel = !Player.hasUnlimitedFuel;
-                    Ship.hasUnlimitedFuel = Player.hasUnlimitedFuel;
-                    ModHelper.Console.WriteLine("CheatsMod: Unlimited Fuel " + Player.hasUnlimitedFuel);
-                }
-
-                if (inputs[CheatOptions.Toggle_Unlimited_Boost].isPressedThisFrame())
-                {
-                    Player.hasUnlimitedBoost = !Player.hasUnlimitedBoost;
-                    ModHelper.Console.WriteLine("CheatsMod: Unlimited Boost " + Player.hasUnlimitedBoost);
-                }
-
-                if (inputs[CheatOptions.Toggle_Unlimited_Health].isPressedThisFrame())
-                {
-                    Player.hasUnlimitedHealth = !Player.hasUnlimitedHealth;
-                    ModHelper.Console.WriteLine("CheatsMod: Unlimited Health " + Player.hasUnlimitedHealth);
-                }
-
-                if (inputs[CheatOptions.Toggle_Unlimited_Oxygen].isPressedThisFrame())
-                {
-                    Player.hasUnlimitedOxygen = !Player.hasUnlimitedOxygen;
-                    Ship.hasUnlimitedOxygen = Player.hasUnlimitedOxygen;
-                    ModHelper.Console.WriteLine("CheatsMod: Unlimited Oxygen " + Player.hasUnlimitedOxygen);
-                }
-
-                if (inputs[CheatOptions.Toggle_Anglerfish_AI].isPressedThisFrame())
-                {
-                    Anglerfish.enabledAI = !Anglerfish.enabledAI;
-                    ModHelper.Console.WriteLine("CheatsMod: Anglerfish AI " + Anglerfish.enabledAI);
-                }
-
-                if (inputs[CheatOptions.Toggle_Inhabitants_AI].isPressedThisFrame())
-                {
-                    Inhabitants.enabledAI = !Inhabitants.enabledAI;
-                    ModHelper.Console.WriteLine("CheatsMod: Inhabitants AI " + Inhabitants.enabledAI);
-                }
-
-                if (inputs[CheatOptions.Toggle_Inhabitants_Hostility].isPressedThisFrame())
-                {
-                    Inhabitants.enabledHostility = !Inhabitants.enabledHostility;
-                    ModHelper.Console.WriteLine("CheatsMod: Inhabitants Hostility " + Inhabitants.enabledHostility);
-                }
-
-                if (inputs[CheatOptions.Toggle_Supernova_Timer].isPressedThisFrame())
-                {
-                    SuperNova.freeze = !SuperNova.freeze;
-                    ModHelper.Console.WriteLine("CheatsMod: SuperNova Frozen " + SuperNova.freeze);
-                }
-
-                if (inputs[CheatOptions.Decrease_Supernova_Timer].isPressedThisFrame())
-                {
-                    SuperNova.remaining -= -60f;
-                    ModHelper.Console.WriteLine("CheatsMod: Remaining Time " + SuperNova.remaining);
-                }
-
-                if (inputs[CheatOptions.Increase_Supernova_Timer].isPressedThisFrame())
-                {
-                    SuperNova.remaining += -60f;
-                    ModHelper.Console.WriteLine("CheatsMod: Remaining Time " + SuperNova.remaining);
-                }
-
-                if (inputs[CheatOptions.Decrease_Jetpack_Acceleration].isPressedThisFrame())
-                {
-                    Player.thrust = Player.thrust / 2f;
-                    ModHelper.Console.WriteLine("CheatsMod: JetPack Acceleration Multiplier " + (Player.thrust / 6f));
-                }
-
-                if (inputs[CheatOptions.Increase_Jetpack_Acceleration].isPressedThisFrame())
-                {
-                    Player.thrust = Player.thrust * 2f;
-                    ModHelper.Console.WriteLine("CheatsMod: JetPack Acceleration Multiplier " + (Player.thrust / 6f));
-                }
-
-                if (inputs[CheatOptions.Decrease_Ship_Acceleration].isPressedThisFrame())
-                {
-                    Ship.thrust = Ship.thrust / 2f;
-                    ModHelper.Console.WriteLine("CheatsMod: JetPack Acceleration Multiplier " + (Ship.thrust / 50f));
-                }
-
-                if (inputs[CheatOptions.Increase_Ship_Acceleration].isPressedThisFrame())
-                {
-                    Ship.thrust = Ship.thrust * 2f;
-                    ModHelper.Console.WriteLine("CheatsMod: JetPack Acceleration Multiplier " + (Ship.thrust / 50f));
-                }
-
-                if (inputs[CheatOptions.Quantum_Moon_Collapse].isPressedThisFrame())
-                    QuantumMoonHelper.collapse();
-
-                if (inputs[CheatOptions.Give_Warp_Core].isPressedThisFrame())
-                    Possession.pickUpWarpCore(WarpCoreType.Vessel);
-
-                if (inputs[CheatOptions.Toggle_Fog].isPressedThisFrame())
-                {
-                    Fog.enabled = !Fog.enabled;
-                    ModHelper.Console.WriteLine("CheatsMod: Fog " + Fog.enabled);
-                }
-
-                if (inputs[CheatOptions.Toggle_Position_Display].isPressedThisFrame())
-                {
-                    Position.debugMode = !Position.debugMode;
-                }
-
-                if (inputs[CheatOptions.Toggle_Bramble_Portal_Display].isPressedThisFrame())
-                {
-                    BramblePortals.debugMode = !BramblePortals.debugMode;
-                }
-
-                if (inputs[CheatOptions.Toggle_Warp_Pad_Display].isPressedThisFrame())
-                {
-                    WarpPad.debugMode = !WarpPad.debugMode;
-                }
-
-                if (inputs[CheatOptions.Log_Fact_Reveals].isPressedThisFrame())
-                {
-                    Data.debugFacts = !Data.debugFacts;
-                    ModHelper.Console.WriteLine("CheatsMod: Debug Facts " + Data.debugFacts);
-                }
-
-                if (inputs[CheatOptions.Log_Save_Condition_Changes].isPressedThisFrame())
-                {
-                    Data.debugPersistentConditions = !Data.debugPersistentConditions;
-                    ModHelper.Console.WriteLine("CheatsMod: Debug Saved Conditions " + Data.debugPersistentConditions);
-                }
-
-                if (inputs[CheatOptions.Log_Dialogue_Condition_Changes].isPressedThisFrame())
-                {
-                    Data.debugDialogConditions = !Data.debugDialogConditions;
-                    ModHelper.Console.WriteLine("CheatsMod: Debug Dialogue Conditions " + Data.debugDialogConditions);
+                    switch(input.Item1)
+                    {
+                        case CheatOptions.Fill_Fuel_and_Health:
+                            Player.oxygenSeconds = Player.maxOxygenSeconds;
+                            Player.fuelSeconds = Player.maxFuelSeconds;
+                            Player.health = Player.maxHealth;
+                            Player.boostSeconds = Player.maxBoostSeconds;
+                            Ship.repair();
+                            break;
+                        case CheatOptions.Toggle_Launch_Codes:
+                            Data.launchCodes = !Data.launchCodes;
+                            ModHelper.Console.WriteLine("CheatsMod: Launch Codes Known " + Data.launchCodes);
+                            break;
+                        case CheatOptions.Toggle_Eye_Coordinates:
+                            Data.eyeCoordinates = !Data.eyeCoordinates;
+                            ModHelper.Console.WriteLine("CheatsMod: Eye Coordinates Known " + Data.eyeCoordinates);
+                            break;
+                        case CheatOptions.Toggle_All_Frequencies:
+                            toggleFrequencies();
+                            break;
+                        case CheatOptions.Toggle_Rumors:
+                            toggleFacts();
+                            break;
+                        case CheatOptions.Teleport_To_Sun:
+                            Teleportation.teleportPlayerToSun();
+                            break;
+                        case CheatOptions.Teleport_To_SunStation:
+                            Teleportation.teleportPlayerToSunStation();
+                            break;
+                        case CheatOptions.Teleport_To_EmberTwin:
+                            Teleportation.teleportPlayerToEmberTwin();
+                            break;
+                        case CheatOptions.Teleport_To_AshTwin:
+                            Teleportation.teleportPlayerToAshTwin();
+                            break;
+                        case CheatOptions.Teleport_To_AshTwinProject:
+                            Teleportation.teleportPlayerToAshTwinProject();
+                            break;
+                        case CheatOptions.Teleport_To_TimerHearth:
+                            Teleportation.teleportPlayerToTimberHearth();
+                            break;
+                        case CheatOptions.Teleport_To_TimerHearth_Probe:
+                            Teleportation.teleportPlayerToTimberHearthProbe();
+                            break;
+                        case CheatOptions.Teleport_To_Attlerock:
+                            Teleportation.teleportPlayerToAttlerock();
+                            break;
+                        case CheatOptions.Teleport_To_BrittleHollow:
+                            Teleportation.teleportPlayerToBlackHoleForgeTeleporter();
+                            break;
+                        case CheatOptions.Teleport_To_HollowLattern:
+                            Teleportation.teleportPlayerToHollowLattern();
+                            break;
+                        case CheatOptions.Teleport_To_GiantsDeep:
+                            Teleportation.teleportPlayerToGiantsDeep();
+                            break;
+                        case CheatOptions.Teleport_To_ProbeCannon:
+                            Teleportation.teleportPlayerToProbeCannon();
+                            break;
+                        case CheatOptions.Teleport_To_ProbeCannonCommandModule:
+                            Teleportation.teleportPlayerToProbeCannonCommandModule();
+                            break;
+                        case CheatOptions.Teleport_To_DarkBramble:
+                            Teleportation.teleportPlayerToDarkBramble();
+                            break;
+                        case CheatOptions.Teleport_To_Vessel:
+                            Teleportation.teleportPlayerToVessel();
+                            break;
+                        case CheatOptions.Teleport_To_Ship:
+                            Teleportation.teleportPlayerToShip();
+                            break;
+                        case CheatOptions.Teleport_Ship_To_Player:
+                            Teleportation.teleportShipToPlayer();
+                            break;
+                        case CheatOptions.Teleport_To_Probe:
+                            Teleportation.teleportPlayerToProbe();
+                            break;
+                        case CheatOptions.Teleport_To_Nomai_Probe:
+                            Teleportation.teleportPlayerToNomaiProbe();
+                            break;
+                        case CheatOptions.Teleport_To_Interloper:
+                            Teleportation.teleportPlayerToInterloper();
+                            break;
+                        case CheatOptions.Teleport_To_WhiteHole:
+                            Teleportation.teleportPlayerToWhiteHole();
+                            break;
+                        case CheatOptions.Teleport_To_WhiteHoleStation:
+                            Teleportation.teleportPlayerToWhiteHoleStation();
+                            break;
+                        case CheatOptions.Teleport_To_Stranger:
+                            Teleportation.teleportPlayerToStranger();
+                            break;
+                        case CheatOptions.Teleport_To_DreamWorld:
+                            Teleportation.teleportPlayerToDreamWorld();
+                            break;
+                        case CheatOptions.Teleport_To_QuantumMoon:
+                            Teleportation.teleportPlayerToQuantumMoon();
+                            break;
+                        case CheatOptions.Toggle_Helmet:
+                            Player.helmet = !Player.helmet;
+                            ModHelper.Console.WriteLine("CheatsMod: Player Helmet " + Player.helmet);
+                            break;
+                        case CheatOptions.Toggle_Player_Collision:
+                            Player.collision = !Player.collision;
+                            ModHelper.Console.WriteLine("CheatsMod: Player Collision " + Player.collision);
+                            break;
+                        case CheatOptions.Toggle_Ship_Collision:
+                            Ship.collision = !Ship.collision;
+                            ModHelper.Console.WriteLine("CheatsMod: Ship Collision " + Ship.collision);
+                            break;
+                        case CheatOptions.Toggle_Training_Suit:
+                            Player.trainingSuit = !Player.trainingSuit;
+                            ModHelper.Console.WriteLine("CheatsMod: Training Suit " + Player.trainingSuit);
+                            break;
+                        case CheatOptions.Toggle_Spacesuit:
+                            Player.spaceSuit = !Player.spaceSuit;
+                            ModHelper.Console.WriteLine("CheatsMod: Space Suit " + Player.spaceSuit);
+                            break;
+                        case CheatOptions.Toggle_Invinciblity:
+                            Player.isInvincible = !Player.isInvincible;
+                            Ship.isInvincible = Player.isInvincible;
+                            ModHelper.Console.WriteLine("CheatsMod: Invicible " + Player.isInvincible);
+                            break;
+                        case CheatOptions.Toggle_Unlimited_Fuel:
+                            Player.hasUnlimitedFuel = !Player.hasUnlimitedFuel;
+                            Ship.hasUnlimitedFuel = Player.hasUnlimitedFuel;
+                            ModHelper.Console.WriteLine("CheatsMod: Unlimited Fuel " + Player.hasUnlimitedFuel);
+                            break;
+                        case CheatOptions.Toggle_Unlimited_Boost:
+                            Player.hasUnlimitedBoost = !Player.hasUnlimitedBoost;
+                            ModHelper.Console.WriteLine("CheatsMod: Unlimited Boost " + Player.hasUnlimitedBoost);
+                            break;
+                        case CheatOptions.Toggle_Unlimited_Health:
+                            Player.hasUnlimitedHealth = !Player.hasUnlimitedHealth;
+                            ModHelper.Console.WriteLine("CheatsMod: Unlimited Health " + Player.hasUnlimitedHealth);
+                            break;
+                        case CheatOptions.Toggle_Unlimited_Oxygen:
+                            Player.hasUnlimitedOxygen = !Player.hasUnlimitedOxygen;
+                            Ship.hasUnlimitedOxygen = Player.hasUnlimitedOxygen;
+                            ModHelper.Console.WriteLine("CheatsMod: Unlimited Oxygen " + Player.hasUnlimitedOxygen);
+                            break;
+                        case CheatOptions.Toggle_Anglerfish_AI:
+                            Anglerfish.enabledAI = !Anglerfish.enabledAI;
+                            ModHelper.Console.WriteLine("CheatsMod: Anglerfish AI " + Anglerfish.enabledAI);
+                            break;
+                        case CheatOptions.Toggle_Inhabitants_AI:
+                            Inhabitants.enabledAI = !Inhabitants.enabledAI;
+                            ModHelper.Console.WriteLine("CheatsMod: Inhabitants AI " + Inhabitants.enabledAI);
+                            break;
+                        case CheatOptions.Toggle_Inhabitants_Hostility:
+                            Inhabitants.enabledHostility = !Inhabitants.enabledHostility;
+                            ModHelper.Console.WriteLine("CheatsMod: Inhabitants Hostility " + Inhabitants.enabledHostility);
+                            break;
+                        case CheatOptions.Toggle_Supernova_Timer:
+                            SuperNova.freeze = !SuperNova.freeze;
+                            ModHelper.Console.WriteLine("CheatsMod: SuperNova Frozen " + SuperNova.freeze);
+                            break;
+                        case CheatOptions.Decrease_Supernova_Timer:
+                            SuperNova.remaining -= 60f;
+                            ModHelper.Console.WriteLine("CheatsMod: Remaining Time " + SuperNova.remaining);
+                            break;
+                        case CheatOptions.Increase_Supernova_Timer:
+                            SuperNova.remaining += 60f;
+                            ModHelper.Console.WriteLine("CheatsMod: Remaining Time " + SuperNova.remaining);
+                            break;
+                        case CheatOptions.Decrease_Jetpack_Acceleration:
+                            Player.thrust = Player.thrust / 2f;
+                            ModHelper.Console.WriteLine("CheatsMod: JetPack Acceleration Multiplier " + (Player.thrust / 6f));
+                            break;
+                        case CheatOptions.Increase_Jetpack_Acceleration:
+                            Player.thrust = Player.thrust * 2f;
+                            ModHelper.Console.WriteLine("CheatsMod: JetPack Acceleration Multiplier " + (Player.thrust / 6f));
+                            break;
+                        case CheatOptions.Decrease_Ship_Acceleration:
+                            Ship.thrust = Ship.thrust / 2f;
+                            ModHelper.Console.WriteLine("CheatsMod: JetPack Acceleration Multiplier " + (Ship.thrust / 50f));
+                            break;
+                        case CheatOptions.Increase_Ship_Acceleration:
+                            Ship.thrust = Ship.thrust * 2f;
+                            ModHelper.Console.WriteLine("CheatsMod: JetPack Acceleration Multiplier " + (Ship.thrust / 50f));
+                            break;
+                        case CheatOptions.Quantum_Moon_Collapse:
+                            QuantumMoonHelper.collapse();
+                            break;
+                        case CheatOptions.Give_Warp_Core:
+                            Possession.pickUpWarpCore(WarpCoreType.Vessel);
+                            break;
+                        case CheatOptions.Toggle_Fog:
+                            Fog.enabled = !Fog.enabled;
+                            ModHelper.Console.WriteLine("CheatsMod: Fog " + Fog.enabled);
+                            break;
+                        case CheatOptions.Toggle_Position_Display:
+                            Position.debugMode = !Position.debugMode;
+                            break;
+                        case CheatOptions.Toggle_Bramble_Portal_Display:
+                            BramblePortals.debugMode = !BramblePortals.debugMode;
+                            break;
+                        case CheatOptions.Toggle_Warp_Pad_Display:
+                            WarpPad.debugMode = !WarpPad.debugMode;
+                            break;
+                        case CheatOptions.Log_Fact_Reveals:
+                            Data.debugFacts = !Data.debugFacts;
+                            ModHelper.Console.WriteLine("CheatsMod: Debug Facts " + Data.debugFacts);
+                            break;
+                        case CheatOptions.Log_Save_Condition_Changes:
+                            Data.debugPersistentConditions = !Data.debugPersistentConditions;
+                            ModHelper.Console.WriteLine("CheatsMod: Debug Saved Conditions " + Data.debugPersistentConditions);
+                            break;
+                        case CheatOptions.Log_Dialogue_Condition_Changes:
+                            Data.debugDialogConditions = !Data.debugDialogConditions;
+                            ModHelper.Console.WriteLine("CheatsMod: Debug Dialogue Conditions " + Data.debugDialogConditions);
+                            break;
+                        default:
+                            ModHelper.Console.WriteLine("CheatsMod: Input not mapped " + input.Item1, MessageType.Warning);
+                            break;
+                    }
                 }
             }
         }
