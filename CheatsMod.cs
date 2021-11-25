@@ -71,6 +71,7 @@ namespace PacificEngine.OW_CheatsMod
         Give_Warp_Core,
         Toggle_Fog,
         Toggle_Position_Display,
+        Toggle_Planet_Position_Display,
         Toggle_Bramble_Portal_Display,
         Toggle_Warp_Pad_Display,
         Log_Fact_Reveals,
@@ -80,7 +81,7 @@ namespace PacificEngine.OW_CheatsMod
 
     public class MainClass : ModBehaviour
     {
-        private const string verison = "0.5.1";
+        private const string verison = "0.6.0";
         private ScreenPrompt cheatsTagger = new ScreenPrompt("");
 
         bool cheatsEnabled = true;
@@ -179,6 +180,7 @@ namespace PacificEngine.OW_CheatsMod
 
             inputs.addInput(config, CheatOptions.Toggle_Fog, "F,O,G");
             inputs.addInput(config, CheatOptions.Toggle_Position_Display, "D,P");
+            inputs.addInput(config, CheatOptions.Toggle_Planet_Position_Display, "D,Z");
             inputs.addInput(config, CheatOptions.Toggle_Bramble_Portal_Display, "D,B");
             inputs.addInput(config, CheatOptions.Toggle_Warp_Pad_Display, "D,W");
             inputs.addInput(config, CheatOptions.Log_Fact_Reveals, "L,Digit1");
@@ -406,7 +408,10 @@ namespace PacificEngine.OW_CheatsMod
                             ModHelper.Console.WriteLine("CheatsMod: Fog " + Fog.enabled);
                             break;
                         case CheatOptions.Toggle_Position_Display:
-                            Position.debugMode = !Position.debugMode;
+                            Position.debugPlayerPosition = !Position.debugPlayerPosition;
+                            break;
+                        case CheatOptions.Toggle_Planet_Position_Display:
+                            Planet.debugPlanetPosition = !Planet.debugPlanetPosition;
                             break;
                         case CheatOptions.Toggle_Bramble_Portal_Display:
                             BramblePortals.debugMode = !BramblePortals.debugMode;

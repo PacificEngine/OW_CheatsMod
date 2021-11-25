@@ -82,7 +82,8 @@ Default value for commands
 ## Debugging
 | Key | Description |
 | :-: | --- |
-`D` + `P` | Toggle Display of Coordinates
+`D` + `P` | Toggle Display of Player/Ship/Probe Coordinates
+`D` + `Z` | Toggle Display of Planet Coordinates
 `D` + `B` | Toggle Display of Bramble Portal Mapping
 `D` + `W` | Toggle Display of Warp Pad Mapping
 
