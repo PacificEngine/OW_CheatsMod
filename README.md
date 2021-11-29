@@ -1,3 +1,8 @@
+# Installing the Mod
+1) Download and install https://outerwildsmods.com/
+1) From the Application, Install `PacificEngine's Common Resources` by `PacificEngine`
+1) From the Application, Install `Cheats Mod` by `PacificEngine`
+
 # Using Mod
 Default value for commands
 
