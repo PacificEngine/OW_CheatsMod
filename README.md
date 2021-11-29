@@ -1,12 +1,14 @@
-# Installing the Mod
+# Cheats Mod by Pacific Engine
+
+## Installing the Mod
 1) Download and install https://outerwildsmods.com/
 1) From the Application, Install `PacificEngine's Common Resources` by `PacificEngine`
 1) From the Application, Install `Cheats Mod` by `PacificEngine`
 
-# Using Mod
+## Using Mod
 Default value for commands
 
-## Player Data
+### Player Data
 | Key | Description |
 | :-: | --- |
 `C` + `J` | Fill Fuel and Health
@@ -22,7 +24,7 @@ Default value for commands
 `C` + `N` | Toggle Player Collision
 `C` + `M` | Toggle Ship Collision
 
-## Persistent Data
+### Persistent Data
 | Key | Description |
 | :-: | --- |
 `C` + `L` | Toggle Launch Codes
@@ -30,7 +32,7 @@ Default value for commands
 `C` + `F` | Toggle All Frequencies (Toggles between: no signals nor frequencies, all frequencies, and all signals and frequencies)
 `C` + `R` | Toggle Rumors (Toggles between: no rumors nor facts, all rumors, and rumors and facts)
 
-## Game State
+### Game State
 | Key | Description |
 | :-: | --- |
 `V` + `I` | Toggle Anglerfish AI
@@ -42,7 +44,7 @@ Default value for commands
 `F` + `O` + `G` | Toggle Fog
 `Q` + `0` | Change Quantum Moon Position
 
-## Player Acceleration
+### Player Acceleration
 | Key | Description |
 | :-: | --- |
 `P` + `-` | Decrease JetPack Acceleration
@@ -50,7 +52,7 @@ Default value for commands
 `O` + `-` | Decrease Ship Acceleration
 `O` + `+` | Increase Ship Acceleration
 
-## Teleportation
+### Teleportation
 | Key | Description |
 | :-: | --- |
 `T` + `1` | Teleport to 5000m above the sun
@@ -79,12 +81,12 @@ Default value for commands
 `T` + Numpad `/` | Teleport Ship To Player
 `T` + Numpad `*` | Teleport Ship To Probe
 
-## Giving Items
+### Giving Items
 | Key | Description |
 | :-: | --- |
 `G` + `W` | Give Player Warp Core
 
-## Debugging
+### Debugging
 | Key | Description |
 | :-: | --- |
 `D` + `P` | Toggle Display of Player/Ship/Probe Coordinates
@@ -92,14 +94,14 @@ Default value for commands
 `D` + `B` | Toggle Display of Bramble Portal Mapping
 `D` + `W` | Toggle Display of Warp Pad Mapping
 
-## Detailed Logging
+### Detailed Logging
 | Key | Description |
 | :-: | --- |
 `L` + `1` | Log When New Facts Are Revealed
 `L` + `2` | Log When Conditions Changes on the Save File
 `L` + `3` | Log When Conditions Changes due to Dialogue
 
-# Customizing Inputs
+## Customizing Inputs
 Customized inputs can be done under the options menu, but due to a scrolling glitch, it can be more easily done by editing `%AppData%\OuterWildsModManager\OWML\Mods\PacificEngine.CheatsMod\config.json`
 * You can add multiple key input combos using `|`.
 * You can add multiple keys to the combo inputs using `,`.
@@ -224,7 +226,7 @@ The following options are available for customizing inputs
 * `OEM5`
 * `IMESelected111`
 
-# Creating Code
+## Creating Code
 Create a new file called `PacificEngine.OW_CheatsMod.csproj.user`
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
