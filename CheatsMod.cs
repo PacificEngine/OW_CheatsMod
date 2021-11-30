@@ -46,6 +46,7 @@ namespace PacificEngine.OW_CheatsMod
         Teleport_To_Ship,
         Teleport_To_Probe,
         Teleport_To_Nomai_Probe,
+        Teleport_To_BackerSatellite,
         Teleport_Ship_To_Player,
         Toggle_Helmet,
         Toggle_Invinciblity,
@@ -162,6 +163,7 @@ namespace PacificEngine.OW_CheatsMod
             inputs.addInput(config, CheatOptions.Teleport_To_Nomai_Probe, "T,NumpadMinus");
             inputs.addInput(config, CheatOptions.Teleport_To_Vessel, "T,NumpadPlus");
             inputs.addInput(config, CheatOptions.Teleport_To_ProbeCannonCommandModule, "T,NumpadPeriod");
+            inputs.addInput(config, CheatOptions.Teleport_To_BackerSatellite, "T,B");
 
             inputs.addInput(config, CheatOptions.Toggle_Anglerfish_AI, "V,I");
             inputs.addInput(config, CheatOptions.Toggle_Inhabitants_AI, "V,O");
@@ -313,6 +315,9 @@ namespace PacificEngine.OW_CheatsMod
                             break;
                         case CheatOptions.Teleport_To_QuantumMoon:
                             Teleportation.teleportPlayerToQuantumMoon();
+                            break;
+                        case CheatOptions.Teleport_To_BackerSatellite:
+                            Teleportation.teleportPlayerToBackerSatellite();
                             break;
                         case CheatOptions.Toggle_Helmet:
                             Player.helmet = !Player.helmet;

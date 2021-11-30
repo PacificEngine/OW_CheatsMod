@@ -115,6 +115,7 @@
     "Teleport To Probe": "T,NumpadMultiply",
     "Teleport To Nomai Probe": "T,NumpadMinus",
     "Teleport To Vessel": "T,NumpadPlus",
+    "Teleport To Backer Satellite": "T,B",
 
     "Give Warp Core": "G,W",
 
