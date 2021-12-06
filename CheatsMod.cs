@@ -391,11 +391,11 @@ namespace PacificEngine.OW_CheatsMod
                             break;
                         case CheatOptions.Decrease_Ship_Acceleration:
                             Ship.thrust = Ship.thrust / 2f;
-                            ModHelper.Console.WriteLine("CheatsMod: JetPack Acceleration Multiplier " + (Ship.thrust / 50f));
+                            ModHelper.Console.WriteLine("CheatsMod: Ship Acceleration Multiplier " + (Ship.thrust / 50f));
                             break;
                         case CheatOptions.Increase_Ship_Acceleration:
                             Ship.thrust = Ship.thrust * 2f;
-                            ModHelper.Console.WriteLine("CheatsMod: JetPack Acceleration Multiplier " + (Ship.thrust / 50f));
+                            ModHelper.Console.WriteLine("CheatsMod: Ship Acceleration Multiplier " + (Ship.thrust / 50f));
                             break;
                         case CheatOptions.Quantum_Moon_Collapse:
                             QuantumMoonHelper.collapse();
