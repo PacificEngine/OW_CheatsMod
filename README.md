@@ -1,3 +1,8 @@
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/PacificEngine/OW_CheatsMod?style=flat-square)
+![GitHub Release Date](https://img.shields.io/github/release-date/PacificEngine/OW_CheatsMod?label=last%20release&style=flat-square)
+![GitHub all releases](https://img.shields.io/github/downloads/PacificEngine/OW_CheatsMod/total?style=flat-square)
+![GitHub release (latest by date)](https://img.shields.io/github/downloads/PacificEngine/OW_CheatsMod/latest/total?style=flat-square)
+
 # Cheats Mod by Pacific Engine
 
 ## Installing the Mod
