@@ -122,7 +122,7 @@
     "Toggle Position Display": "D,P",
     "Toggle Planet Position Display": "D,Z",
     "Toggle Bramble Portal Display": "D,B",
-    "Toggle Warp Pad Display": "D,W",
+    "Toggle Warp Pad Display": "D,I",
 
     "Log Fact Reveals": "L,Digit1",
     "Log Save Condition Changes": "L,Digit2",

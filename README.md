@@ -85,6 +85,7 @@ Default value for commands
 `T` + Numpad `9` | Teleport to Ship
 `T` + Numpad `/` | Teleport Ship To Player
 `T` + Numpad `*` | Teleport Ship To Probe
+`T` + `B` | Teleport Ship To Backer Satellite
 
 ### Giving Items
 | Key | Description |
@@ -97,7 +98,7 @@ Default value for commands
 `D` + `P` | Toggle Display of Player/Ship/Probe Coordinates
 `D` + `Z` | Toggle Display of Planet Coordinates
 `D` + `B` | Toggle Display of Bramble Portal Mapping
-`D` + `W` | Toggle Display of Warp Pad Mapping
+`D` + `I` | Toggle Display of Warp Pad Mapping
 
 ### Detailed Logging
 | Key | Description |
