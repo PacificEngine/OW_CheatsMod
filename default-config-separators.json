@@ -138,6 +138,7 @@
     "Teleport To Probe": "T,NumpadMultiply",
     "Teleport To Nomai Probe": "T,NumpadMinus",
     "Teleport To Vessel": "T,NumpadPlus",
+    "Teleport To Backer Satellite": "T,B",
     "PacificEngine.CheatsMod.GivingItems": {
       "type": "separator",
       "title": "Giving Items"
