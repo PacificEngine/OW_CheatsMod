@@ -111,11 +111,11 @@ Default value for commands
 `G` + `R` + `S` + `7` | Give Experiement Slide Reel
 `G` + `R` + `S` + `8` | Give Damage Report Slide Reel
 `G` + `R` + `S` + Numpad `0` | Give Prisoner Vision Slide Reel
-`G` + `R` + `S` + Numpad `1` | Give Prisoner Farewell Slide Reel
+`G` + `R` + `S` + Numpad `1` | Give Prisoner Farewell Vision Slide Reel
 `G` + `R` + `S` + Numpad `2` | Give Tower Vision Slide Reel
-`G` + `R` + `S` + Numpad `3` | Give Signal Jammer Vision Slide Reel
+`G` + `R` + `S` + Numpad `3` | Give Signal Jammer Slide Reel
 `G` + `R` + `S` + Numpad `4` | Give Homeworld Slide Reel
-`G` + `R` + `S` + Numpad `5` | Give Stranger Escape Slide Reel
+`G` + `R` + `S` + Numpad `5` | Give Stranger Escape Slide Reel (5 Combined into 1)
 `G` + `R` + `P` + `1` | Give Library Path 1 Slide Reel
 `G` + `R` + `P` + `2` | Give Library Path 2 Slide Reel
 `G` + `R` + `P` + `3` | Give Library Path 3 Slide Reel
