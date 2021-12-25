@@ -46,6 +46,7 @@ namespace PacificEngine.OW_CheatsMod
         Teleport_To_Ship,
         Teleport_To_Probe,
         Teleport_To_Nomai_Probe,
+        Teleport_To_Mapping_Satellite,
         Teleport_To_Backer_Satellite,
         Teleport_Ship_To_Player,
         Toggle_Helmet,
@@ -70,6 +71,41 @@ namespace PacificEngine.OW_CheatsMod
         Decrease_Ship_Acceleration,
         Increase_Ship_Acceleration,
         Give_Warp_Core,
+        Give_Warp_Core_Vessel,
+        Give_Warp_Core_Broken,
+        Give_Warp_Core_Black,
+        Give_Warp_Core_White,
+        Give_Warp_Core_None,
+        Give_Lantern_Basic,
+        Give_Lantern_Broken,
+        Give_Lantern_Gen1,
+        Give_Lantern_Gen2,
+        Give_Lantern_Gen3,
+        Give_Slide_Story_1,
+        Give_Slide_Story_2,
+        Give_Slide_Story_3,
+        Give_Slide_Story_4,
+        Give_Slide_Story_5,
+        Give_Slide_Path_1,
+        Give_Slide_Path_2,
+        Give_Slide_Path_3,
+        Give_Slide_Seal_1,
+        Give_Slide_Seal_2,
+        Give_Slide_Seal_3,
+        Give_Slide_Rule_1,
+        Give_Slide_Rule_2,
+        Give_Slide_Rule_3,
+        Give_Slide_Rule_4,
+        Give_Slide_Burning,
+        Give_Slide_Experiment,
+        Give_Slide_DamageReport,
+        Give_Slide_LanternSecret,
+        Give_Slide_Prisoner,
+        Give_Slide_PrisonerFarewell,
+        Give_Slide_Tower,
+        Give_Slide_SignalJammer,
+        Give_Slide_Homeworld,
+        Give_Slide_SupernovaEscape,
         Toggle_Fog,
         Toggle_Position_Display,
         Toggle_Planet_Position_Display,
@@ -82,7 +118,7 @@ namespace PacificEngine.OW_CheatsMod
 
     public class MainClass : ModBehaviour
     {
-        private const string verison = "0.6.0";
+        private const string verison = "0.6.1";
         private ScreenPrompt cheatsTagger = new ScreenPrompt("");
 
         bool cheatsEnabled = true;
@@ -163,6 +199,7 @@ namespace PacificEngine.OW_CheatsMod
             inputs.addInput(config, CheatOptions.Teleport_To_Nomai_Probe, "T,NumpadMinus");
             inputs.addInput(config, CheatOptions.Teleport_To_Vessel, "T,NumpadPlus");
             inputs.addInput(config, CheatOptions.Teleport_To_ProbeCannonCommandModule, "T,NumpadPeriod");
+            inputs.addInput(config, CheatOptions.Teleport_To_Mapping_Satellite, "T,M");
             inputs.addInput(config, CheatOptions.Teleport_To_Backer_Satellite, "T,B");
 
             inputs.addInput(config, CheatOptions.Toggle_Anglerfish_AI, "V,I");
@@ -179,6 +216,40 @@ namespace PacificEngine.OW_CheatsMod
             inputs.addInput(config, CheatOptions.Increase_Ship_Acceleration, "O,Equals");
 
             inputs.addInput(config, CheatOptions.Give_Warp_Core, "G,W");
+            inputs.addInput(config, CheatOptions.Give_Warp_Core_Vessel, "G,T,Digit1");
+            inputs.addInput(config, CheatOptions.Give_Warp_Core_Broken, "G,T,Digit2");
+            inputs.addInput(config, CheatOptions.Give_Warp_Core_Black, "G,T,Digit3");
+            inputs.addInput(config, CheatOptions.Give_Warp_Core_White, "G,T,Digit4");
+            inputs.addInput(config, CheatOptions.Give_Warp_Core_None, "G,T,Digit5");
+            inputs.addInput(config, CheatOptions.Give_Lantern_Basic, "G,L,Digit1");
+            inputs.addInput(config, CheatOptions.Give_Lantern_Broken, "G,L,Digit2");
+            inputs.addInput(config, CheatOptions.Give_Lantern_Gen1, "G,L,Digit3");
+            inputs.addInput(config, CheatOptions.Give_Lantern_Gen2, "G,L,Digit4");
+            inputs.addInput(config, CheatOptions.Give_Lantern_Gen3, "G,L,Digit5");
+            inputs.addInput(config, CheatOptions.Give_Slide_Story_1, "G,R,S,Digit1");
+            inputs.addInput(config, CheatOptions.Give_Slide_Story_2, "G,R,S,Digit2");
+            inputs.addInput(config, CheatOptions.Give_Slide_Story_3, "G,R,S,Digit3");
+            inputs.addInput(config, CheatOptions.Give_Slide_Story_4, "G,R,S,Digit4");
+            inputs.addInput(config, CheatOptions.Give_Slide_Story_5, "G,R,S,Digit5");
+            inputs.addInput(config, CheatOptions.Give_Slide_Burning, "G,R,S,Digit6");
+            inputs.addInput(config, CheatOptions.Give_Slide_Experiment, "G,R,S,Digit7");
+            inputs.addInput(config, CheatOptions.Give_Slide_DamageReport, "G,R,S,Digit8");
+            inputs.addInput(config, CheatOptions.Give_Slide_Prisoner, "G,R,S,Numpad0");
+            inputs.addInput(config, CheatOptions.Give_Slide_PrisonerFarewell, "G,R,S,Numpad1");
+            inputs.addInput(config, CheatOptions.Give_Slide_Tower, "G,R,S,Numpad2");
+            inputs.addInput(config, CheatOptions.Give_Slide_SignalJammer, "G,R,S,Numpad3");
+            inputs.addInput(config, CheatOptions.Give_Slide_Homeworld, "G,R,S,Numpad4");
+            inputs.addInput(config, CheatOptions.Give_Slide_SupernovaEscape, "G,R,S,Numpad5");
+            inputs.addInput(config, CheatOptions.Give_Slide_Path_1, "G,R,P,Digit1");
+            inputs.addInput(config, CheatOptions.Give_Slide_Path_2, "G,R,P,Digit2");
+            inputs.addInput(config, CheatOptions.Give_Slide_Path_3, "G,R,P,Digit3");
+            inputs.addInput(config, CheatOptions.Give_Slide_Seal_1, "G,R,P,Digit4");
+            inputs.addInput(config, CheatOptions.Give_Slide_Seal_2, "G,R,P,Digit5");
+            inputs.addInput(config, CheatOptions.Give_Slide_Seal_3, "G,R,P,Digit6");
+            inputs.addInput(config, CheatOptions.Give_Slide_Rule_1, "G,R,P,Digit7");
+            inputs.addInput(config, CheatOptions.Give_Slide_Rule_2, "G,R,P,Digit8");
+            inputs.addInput(config, CheatOptions.Give_Slide_Rule_3, "G,R,P,Digit9");
+            inputs.addInput(config, CheatOptions.Give_Slide_Rule_4, "G,R,P,Digit0");
 
             inputs.addInput(config, CheatOptions.Toggle_Fog, "F,O,G");
             inputs.addInput(config, CheatOptions.Toggle_Position_Display, "D,P");
@@ -316,6 +387,9 @@ namespace PacificEngine.OW_CheatsMod
                         case CheatOptions.Teleport_To_QuantumMoon:
                             Teleportation.teleportPlayerToQuantumMoon();
                             break;
+                        case CheatOptions.Teleport_To_Mapping_Satellite:
+                            Teleportation.teleportPlayerToMappingSatellite();
+                            break;
                         case CheatOptions.Teleport_To_Backer_Satellite:
                             Teleportation.teleportPlayerToBackerSatellite();
                             break;
@@ -407,6 +481,111 @@ namespace PacificEngine.OW_CheatsMod
                             break;
                         case CheatOptions.Give_Warp_Core:
                             Possession.pickUpWarpCore(WarpCoreType.Vessel);
+                            break;
+                        case CheatOptions.Give_Warp_Core_Vessel:
+                            Possession.pickUpWarpCore(WarpCoreType.Vessel);
+                            break;
+                        case CheatOptions.Give_Warp_Core_Broken:
+                            Possession.pickUpWarpCore(WarpCoreType.VesselBroken);
+                            break;
+                        case CheatOptions.Give_Warp_Core_Black:
+                            Possession.pickUpWarpCore(WarpCoreType.Black);
+                            break;
+                        case CheatOptions.Give_Warp_Core_White:
+                            Possession.pickUpWarpCore(WarpCoreType.White);
+                            break;
+                        case CheatOptions.Give_Warp_Core_None:
+                            Possession.pickUpWarpCore(WarpCoreType.SimpleBroken);
+                            break;
+                        case CheatOptions.Give_Lantern_Basic:
+                            Possession.pickUpLantern(false, true);
+                            break;
+                        case CheatOptions.Give_Lantern_Broken:
+                            Possession.pickUpLantern(true, false);
+                            break;
+                        case CheatOptions.Give_Lantern_Gen1:
+                            Possession.pickUpDreamLantern(DreamLanternType.Nonfunctioning, false);
+                            break;
+                        case CheatOptions.Give_Lantern_Gen2:
+                            Possession.pickUpDreamLantern(DreamLanternType.Malfunctioning, true);
+                            break;
+                        case CheatOptions.Give_Lantern_Gen3:
+                            Possession.pickUpDreamLantern(DreamLanternType.Functioning, false);
+                            break;
+                        case CheatOptions.Give_Slide_Story_1:
+                            Possession.pickUpSlideReel(Items.SlideReelStory.Story_1, false);
+                            break;
+                        case CheatOptions.Give_Slide_Story_2:
+                            Possession.pickUpSlideReel(Items.SlideReelStory.Story_2, false);
+                            break;
+                        case CheatOptions.Give_Slide_Story_3:
+                            Possession.pickUpSlideReel(Items.SlideReelStory.Story_3, false);
+                            break;
+                        case CheatOptions.Give_Slide_Story_4:
+                            Possession.pickUpSlideReel(Items.SlideReelStory.Story_4, false);
+                            break;
+                        case CheatOptions.Give_Slide_Story_5:
+                            Possession.pickUpSlideReel(Items.SlideReelStory.Story_5_Complete, false);
+                            break;
+                        case CheatOptions.Give_Slide_Path_1:
+                            Possession.pickUpSlideReel(Items.SlideReelStory.LibraryPath_1, false);
+                            break;
+                        case CheatOptions.Give_Slide_Path_2:
+                            Possession.pickUpSlideReel(Items.SlideReelStory.LibraryPath_2, false);
+                            break;
+                        case CheatOptions.Give_Slide_Path_3:
+                            Possession.pickUpSlideReel(Items.SlideReelStory.LibraryPath_3, false);
+                            break;
+                        case CheatOptions.Give_Slide_Seal_1:
+                            Possession.pickUpSlideReel(Items.SlideReelStory.Seal_1, false);
+                            break;
+                        case CheatOptions.Give_Slide_Seal_2:
+                            Possession.pickUpSlideReel(Items.SlideReelStory.Seal_2, false);
+                            break;
+                        case CheatOptions.Give_Slide_Seal_3:
+                            Possession.pickUpSlideReel(Items.SlideReelStory.Seal_3, false);
+                            break;
+                        case CheatOptions.Give_Slide_Rule_1:
+                            Possession.pickUpSlideReel(Items.SlideReelStory.DreamRule_1, false);
+                            break;
+                        case CheatOptions.Give_Slide_Rule_2:
+                            Possession.pickUpSlideReel(Items.SlideReelStory.DreamRule_2_v1, false);
+                            break;
+                        case CheatOptions.Give_Slide_Rule_3:
+                            Possession.pickUpSlideReel(Items.SlideReelStory.DreamRule_2_v2, false);
+                            break;
+                        case CheatOptions.Give_Slide_Rule_4:
+                            Possession.pickUpSlideReel(Items.SlideReelStory.DreamRule_3, false);
+                            break;
+                        case CheatOptions.Give_Slide_Burning:
+                            Possession.pickUpSlideReel(Items.SlideReelStory.Burning, false);
+                            break;
+                        case CheatOptions.Give_Slide_Experiment:
+                            Possession.pickUpSlideReel(Items.SlideReelStory.Experiment, false);
+                            break;
+                        case CheatOptions.Give_Slide_DamageReport:
+                            Possession.pickUpSlideReel(Items.SlideReelStory.DamageReport, false);
+                            break;
+                        case CheatOptions.Give_Slide_LanternSecret:
+                            Possession.pickUpSlideReel(Items.SlideReelStory.LanternSecret, false);
+                            break;
+                        case CheatOptions.Give_Slide_Prisoner:
+                            Possession.pickUpSlideReel(Items.SlideReelStory.PrisonPeephole_Vision, false);
+                            break;
+                        case CheatOptions.Give_Slide_PrisonerFarewell:
+                            Possession.pickUpSlideReel(Items.SlideReelStory.PrisonerFarewellVision, false);
+                            break;
+                        case CheatOptions.Give_Slide_Tower:
+                            Possession.pickUpSlideReel(Items.SlideReelStory.TowerVision, false);
+                            break;
+                        case CheatOptions.Give_Slide_SignalJammer:
+                            Possession.pickUpSlideReel(Items.SlideReelStory.SignalJammer, false);
+                            break;
+                        case CheatOptions.Give_Slide_Homeworld:
+                            Possession.pickUpSlideReel(Items.SlideReelStory.Homeworld, false);
+                            break;
+                        case CheatOptions.Give_Slide_SupernovaEscape:
+                            Possession.pickUpSlideReel(Items.SlideReelStory.SupernovaEscape, false);
                             break;
                         case CheatOptions.Toggle_Fog:
                             Fog.enabled = !Fog.enabled;

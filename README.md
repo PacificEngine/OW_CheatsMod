@@ -85,12 +85,47 @@ Default value for commands
 `T` + Numpad `9` | Teleport to Ship
 `T` + Numpad `/` | Teleport Ship To Player
 `T` + Numpad `*` | Teleport Ship To Probe
-`T` + `B` | Teleport Ship To Backer Satellite
+`T` + `M` | Teleport To Mapping Satellite
+`T` + `B` | Teleport To Backer Satellite
 
 ### Giving Items
 | Key | Description |
 | :-: | --- |
-`G` + `W` | Give Player Warp Core
+`G` + `W` | Give Player Warp Core (Vessel)
+`G` + `T` + `1` | Give Player Warp Core (Vessel)
+`G` + `T` + `2` | Give Player Warp Core (Broken)
+`G` + `T` + `3` | Give Player Warp Core (Simple Black)
+`G` + `T` + `4` | Give Player Warp Core (Simple White)
+`G` + `T` + `5` | Give Player Warp Core (Simple Broken)
+`G` + `L` + `1` | Give Player Simple Lantern (Lit)
+`G` + `L` + `2` | Give Player Broken Lantern (Unlit)
+`G` + `L` + `3` | Give Player Generation 1 Lantern (Unlit)
+`G` + `L` + `4` | Give Player Generation 2 Lantern (Lit)
+`G` + `L` + `5` | Give Player Generation 3 Lantern (Lit)
+`G` + `R` + `S` + `1` | Give Story 1 Slide Reel
+`G` + `R` + `S` + `2` | Give Story 2 Slide Reel
+`G` + `R` + `S` + `3` | Give Story 3 Slide Reel
+`G` + `R` + `S` + `4` | Give Story 4 Slide Reel
+`G` + `R` + `S` + `5` | Give Story 5 (Complete) Slide Reel
+`G` + `R` + `S` + `6` | Give Burning Slide Reel
+`G` + `R` + `S` + `7` | Give Experiement Slide Reel
+`G` + `R` + `S` + `8` | Give Damage Report Slide Reel
+`G` + `R` + `S` + Numpad `0` | Give Prisoner Vision Slide Reel
+`G` + `R` + `S` + Numpad `1` | Give Prisoner Farewell Slide Reel
+`G` + `R` + `S` + Numpad `2` | Give Tower Vision Slide Reel
+`G` + `R` + `S` + Numpad `3` | Give Signal Jammer Vision Slide Reel
+`G` + `R` + `S` + Numpad `4` | Give Homeworld Slide Reel
+`G` + `R` + `S` + Numpad `5` | Give Stranger Escape Slide Reel
+`G` + `R` + `P` + `1` | Give Library Path 1 Slide Reel
+`G` + `R` + `P` + `2` | Give Library Path 2 Slide Reel
+`G` + `R` + `P` + `3` | Give Library Path 3 Slide Reel
+`G` + `R` + `P` + `4` | Give Seal 1 Slide Reel
+`G` + `R` + `P` + `5` | Give Seal 2 Slide Reel
+`G` + `R` + `P` + `6` | Give Seal 3 Slide Reel
+`G` + `R` + `P` + `7` | Give Dream Rule 1 Slide Reel
+`G` + `R` + `P` + `8` | Give Dream Rule 2 v1 Slide Reel
+`G` + `R` + `P` + `9` | Give Dream Rule 2 v2 Slide Reel
+`G` + `R` + `P` + `0` | Give Dream Rule 3 Slide Reel
 
 ### Debugging
 | Key | Description |
