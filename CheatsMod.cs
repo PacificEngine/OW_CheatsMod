@@ -118,7 +118,7 @@ namespace PacificEngine.OW_CheatsMod
 
     public class MainClass : ModBehaviour
     {
-        private const string verison = "0.6.1";
+        private const string verison = "0.7.0";
         private ScreenPrompt cheatsTagger = new ScreenPrompt("");
 
         bool cheatsEnabled = true;
