@@ -3,7 +3,7 @@
 	"author": "PacificEngine",
 	"name": "Cheats Mod",
 	"uniqueName": "PacificEngine.CheatsMod",
-	"version": "0.7.1",
+	"version": "0.7.2",
 	"owmlVersion": "2.2.0",
 	"dependencies": [ "PacificEngine.OW_CommonResources" ],
 	"enabled": true
