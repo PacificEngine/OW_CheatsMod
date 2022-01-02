@@ -596,6 +596,7 @@ namespace PacificEngine.OW_CheatsMod
                             break;
                         case CheatOptions.Toggle_Planet_Position_Display:
                             Planet.debugPlanetPosition = !Planet.debugPlanetPosition;
+                            Planet.logPlanetPositionFrequency = Planet.debugPlanetPosition ? 1000 : 0;
                             break;
                         case CheatOptions.Toggle_Bramble_Portal_Display:
                             BramblePortals.debugMode = !BramblePortals.debugMode;
