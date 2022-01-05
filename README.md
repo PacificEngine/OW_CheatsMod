@@ -25,9 +25,13 @@ Default value for commands
 `C` + `Y` | Toggle Unlimited Fuel
 `C` + `O` | Toggle Unlimited Oxygen
 `C` + `U` | Toggle Unlimited Health
-`C` + `T` | Toggle Unlimited Boost
+`C` + `T` | Toggle Unlimited 
+`C` + `N` | Toggle Player Gravity
+`C` + `N` | Toggle Ship Gravity
 `C` + `N` | Toggle Player Collision
-`C` + `M` | Toggle Ship Collision
+`C` + `N` | Toggle Ship Collision
+`C` + `N` | Toggle Player Fluid Collision
+`C` + `N` | Toggle Ship Fluid Collision
 
 ### Persistent Data
 | Key | Description |

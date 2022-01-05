@@ -53,8 +53,12 @@ namespace PacificEngine.OW_CheatsMod
         Toggle_Invinciblity,
         Toggle_Spacesuit,
         Toggle_Training_Suit,
+        Toggle_Player_Gravity,
+        Toggle_Ship_Gravity,
         Toggle_Player_Collision,
         Toggle_Ship_Collision,
+        Toggle_Player_Fluid_Collision,
+        Toggle_Ship_Fluid_Collision,
         Toggle_Unlimited_Boost,
         Toggle_Unlimited_Fuel,
         Toggle_Unlimited_Oxygen,
@@ -166,8 +170,12 @@ namespace PacificEngine.OW_CheatsMod
             inputs.addInput(config, CheatOptions.Toggle_Invinciblity, "C,I");
             inputs.addInput(config, CheatOptions.Toggle_Spacesuit, "C,G");
             inputs.addInput(config, CheatOptions.Toggle_Training_Suit, "C,Digit1");
+            inputs.addInput(config, CheatOptions.Toggle_Player_Gravity, "C,N");
+            inputs.addInput(config, CheatOptions.Toggle_Ship_Gravity, "C,N");
             inputs.addInput(config, CheatOptions.Toggle_Player_Collision, "C,N");
-            inputs.addInput(config, CheatOptions.Toggle_Ship_Collision, "C,M");
+            inputs.addInput(config, CheatOptions.Toggle_Ship_Collision, "C,N");
+            inputs.addInput(config, CheatOptions.Toggle_Player_Fluid_Collision, "C,N");
+            inputs.addInput(config, CheatOptions.Toggle_Ship_Fluid_Collision, "C,N");
             inputs.addInput(config, CheatOptions.Toggle_Unlimited_Boost, "C,T");
             inputs.addInput(config, CheatOptions.Toggle_Unlimited_Fuel, "C,Y");
             inputs.addInput(config, CheatOptions.Toggle_Unlimited_Oxygen, "C,O");
@@ -397,6 +405,14 @@ namespace PacificEngine.OW_CheatsMod
                             Player.helmet = !Player.helmet;
                             ModHelper.Console.WriteLine("CheatsMod: Player Helmet " + Player.helmet);
                             break;
+                        case CheatOptions.Toggle_Player_Gravity:
+                            Player.gravity = !Player.gravity;
+                            ModHelper.Console.WriteLine("CheatsMod: Player Gravity " + Player.gravity);
+                            break;
+                        case CheatOptions.Toggle_Ship_Gravity:
+                            Ship.gravity = !Ship.gravity;
+                            ModHelper.Console.WriteLine("CheatsMod: Ship Gravity " + Ship.gravity);
+                            break;
                         case CheatOptions.Toggle_Player_Collision:
                             Player.collision = !Player.collision;
                             ModHelper.Console.WriteLine("CheatsMod: Player Collision " + Player.collision);
@@ -404,6 +420,14 @@ namespace PacificEngine.OW_CheatsMod
                         case CheatOptions.Toggle_Ship_Collision:
                             Ship.collision = !Ship.collision;
                             ModHelper.Console.WriteLine("CheatsMod: Ship Collision " + Ship.collision);
+                            break;
+                        case CheatOptions.Toggle_Player_Fluid_Collision:
+                            Player.fluidCollision = !Player.fluidCollision;
+                            ModHelper.Console.WriteLine("CheatsMod: Player Fluid Collision " + Player.fluidCollision);
+                            break;
+                        case CheatOptions.Toggle_Ship_Fluid_Collision:
+                            Ship.fluidCollision = !Ship.fluidCollision;
+                            ModHelper.Console.WriteLine("CheatsMod: Ship Fluid Collision " + Ship.fluidCollision);
                             break;
                         case CheatOptions.Toggle_Training_Suit:
                             Player.trainingSuit = !Player.trainingSuit;
