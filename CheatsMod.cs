@@ -49,6 +49,7 @@ namespace PacificEngine.OW_CheatsMod
         Teleport_To_Mapping_Satellite,
         Teleport_To_Backer_Satellite,
         Teleport_Ship_To_Player,
+        Teleport_Menu,
         Toggle_Helmet,
         Toggle_Invinciblity,
         Toggle_Spacesuit,
@@ -127,12 +128,15 @@ namespace PacificEngine.OW_CheatsMod
 
         bool cheatsEnabled = true;
         InputMapping<CheatOptions> inputs = new InputMapping<CheatOptions>();
+        WarpMenu menu;
 
         void Start()
         {
             ModHelper.Events.Player.OnPlayerAwake += (player) => onAwake();
 
             ModHelper.Console.WriteLine("CheatMods ready!");
+
+            menu = new WarpMenu();
         }
 
         void Destory()
@@ -207,8 +211,7 @@ namespace PacificEngine.OW_CheatsMod
             inputs.addInput(config, CheatOptions.Teleport_To_Nomai_Probe, "T,NumpadMinus");
             inputs.addInput(config, CheatOptions.Teleport_To_Vessel, "T,NumpadPlus");
             inputs.addInput(config, CheatOptions.Teleport_To_ProbeCannonCommandModule, "T,NumpadPeriod");
-            inputs.addInput(config, CheatOptions.Teleport_To_Mapping_Satellite, "T,M");
-            inputs.addInput(config, CheatOptions.Teleport_To_Backer_Satellite, "T,B");
+            inputs.addInput(config, CheatOptions.Teleport_Menu, "T,M");
 
             inputs.addInput(config, CheatOptions.Toggle_Anglerfish_AI, "V,I");
             inputs.addInput(config, CheatOptions.Toggle_Inhabitants_AI, "V,O");
@@ -395,11 +398,8 @@ namespace PacificEngine.OW_CheatsMod
                         case CheatOptions.Teleport_To_QuantumMoon:
                             Teleportation.teleportPlayerToQuantumMoon();
                             break;
-                        case CheatOptions.Teleport_To_Mapping_Satellite:
-                            Teleportation.teleportPlayerToMappingSatellite();
-                            break;
-                        case CheatOptions.Teleport_To_Backer_Satellite:
-                            Teleportation.teleportPlayerToBackerSatellite();
+                        case CheatOptions.Teleport_Menu:
+                            menu.Toggle();
                             break;
                         case CheatOptions.Toggle_Helmet:
                             Player.helmet = !Player.helmet;
