@@ -9,6 +9,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
     <OuterWildsModsDirectory>$(AppData)\OuterWildsModManager\OWML\Mods</OuterWildsModsDirectory>
+    <CommonResourcesProject>$(ProjectDir)..\PacificEngine.OW_CommonResources\PacificEngine.OW_CommonResources.csproj</CommonResourcesProject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>full</DebugType>
