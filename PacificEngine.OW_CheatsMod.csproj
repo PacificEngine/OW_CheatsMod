@@ -30,9 +30,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="default-config-separators.json" />
     <None Include="default-config.json" />
     <None Include="manifest.json" />
