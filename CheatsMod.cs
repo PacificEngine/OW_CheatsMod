@@ -123,7 +123,7 @@ namespace PacificEngine.OW_CheatsMod
 
     public class MainClass : ModBehaviour
     {
-        private const string verison = "0.7.4";
+        private const string verison = "0.7.5";
         private ScreenPrompt cheatsTagger = new ScreenPrompt("");
 
         bool cheatsEnabled = true;
