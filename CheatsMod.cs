@@ -610,6 +610,7 @@ namespace PacificEngine.OW_CheatsMod
                             break;
                         case CheatOptions.Toggle_Position_Display:
                             Position.debugPlayerPosition = !Position.debugPlayerPosition;
+                            Position.logFrequency = Position.debugPlayerPosition ? 1000 : 0;
                             break;
                         case CheatOptions.Toggle_Planet_Position_Display:
                             Planet.debugPlanetPosition = !Planet.debugPlanetPosition;
@@ -617,9 +618,11 @@ namespace PacificEngine.OW_CheatsMod
                             break;
                         case CheatOptions.Toggle_Bramble_Portal_Display:
                             BramblePortals.debugMode = !BramblePortals.debugMode;
+                            BramblePortals.logFrequency = BramblePortals.debugMode ? 1000 : 0;
                             break;
                         case CheatOptions.Toggle_Warp_Pad_Display:
                             WarpPad.debugMode = !WarpPad.debugMode;
+                            WarpPad.logFrequency = WarpPad.debugMode ? 1000 : 0;
                             break;
                         case CheatOptions.Log_Fact_Reveals:
                             Data.debugFacts = !Data.debugFacts;
