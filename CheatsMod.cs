@@ -34,7 +34,7 @@ namespace PacificEngine.OW_CheatsMod
         Teleport_To_HollowLattern, // BrittleHollow.Moon
         Teleport_To_GiantsDeep,
         Teleport_To_ProbeCannon,
-        Teleport_To_ProbeCannonCommandModule,
+        Teleport_To_ProbeCannonTrackingModule,
         Teleport_To_DarkBramble,
         Teleport_To_Vessel,
         Teleport_To_Interloper, // Comet
@@ -207,7 +207,7 @@ namespace PacificEngine.OW_CheatsMod
             inputs.addInput(config, CheatOptions.Teleport_To_Probe, "T,NumpadMultiply");
             inputs.addInput(config, CheatOptions.Teleport_To_Nomai_Probe, "T,NumpadMinus");
             inputs.addInput(config, CheatOptions.Teleport_To_Vessel, "T,NumpadPlus");
-            inputs.addInput(config, CheatOptions.Teleport_To_ProbeCannonCommandModule, "T,NumpadPeriod");
+            inputs.addInput(config, CheatOptions.Teleport_To_ProbeCannonTrackingModule, "T,NumpadPeriod");
 
             inputs.addInput(config, CheatOptions.Toggle_Anglerfish_AI, "V,I");
             inputs.addInput(config, CheatOptions.Toggle_Inhabitants_AI, "V,O");
@@ -355,7 +355,7 @@ namespace PacificEngine.OW_CheatsMod
                         case CheatOptions.Teleport_To_ProbeCannon:
                             Teleportation.teleportPlayerToProbeCannon();
                             break;
-                        case CheatOptions.Teleport_To_ProbeCannonCommandModule:
+                        case CheatOptions.Teleport_To_ProbeCannonTrackingModule:
                             Teleportation.teleportPlayerToProbeCannonCommandModule();
                             break;
                         case CheatOptions.Teleport_To_DarkBramble:
