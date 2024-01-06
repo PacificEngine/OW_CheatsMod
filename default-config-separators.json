@@ -125,7 +125,7 @@
     "Teleport To HollowLattern": "T,Digit8",
     "Teleport To GiantsDeep": "T,Digit9",
     "Teleport To ProbeCannon": "T,Numpad2",
-    "Teleport To ProbeCannonCommandModule": "T,NumpadPeriod",
+    "Teleport To ProbeCannonTrackingModule": "T,NumpadPeriod",
     "Teleport To DarkBramble": "T,Digit0",
     "Teleport To Interloper": "T,Numpad0",
     "Teleport To WhiteHole": "T,Numpad3",
