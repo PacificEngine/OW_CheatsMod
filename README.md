@@ -76,7 +76,7 @@ Default value for commands
 `T` + `8` | Teleport to Holow Lantern's Project Platform
 `T` + `9` | Teleport to Giant's Deep Quantum Tower
 `T` + Numpad `2` | Teleport to Giant's Deep Probe Cannon
-`T` + Numpad `.` | Teleport to Giant's Deep Probe Cannon's Command Module
+`T` + Numpad `.` | Teleport to Giant's Deep Probe Cannon's Tracking Module
 `T` + Numpad `-` | Teleport to Nomai Probe
 `T` + `0` | Teleport to Dark Bramble's Most Northern Point
 `T` + Numpad `+` | Teleport to Vessel
